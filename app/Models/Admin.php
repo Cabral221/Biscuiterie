@@ -3,9 +3,10 @@
 namespace App\Models;
 
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Model;
+use App\Notifications\AdminResetPasswordNotifiation;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable
 {
@@ -41,4 +42,15 @@ class Admin extends Authenticatable
         'is_active' => 'bool',
         'is_admin' => 'bool',
     ];
+
+    /**
+     * Send a password reset notification to the user.
+     *
+     * @param string $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new AdminResetPasswordNotifiation($token));
+    }
 }
