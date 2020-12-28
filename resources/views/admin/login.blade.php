@@ -38,10 +38,12 @@
 
     {{-- @include('includes.message') --}}
 
-    <form action="" method="post">
-        {{ csrf_field() }}
+    <form action="{{ route('admin.login') }}" method="post">
+      @csrf
       <div class="form-group has-feedback">
-        <input type="email" id="email" class="form-control @error('email') is-invalid @enderror" name="email" placeholder="Adresse E-mail">
+        <input type="email" id="email" 
+        class="form-control @error('email') is-invalid @enderror" name="email"
+        value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Adresse E-mail">
         <span class="glyphicon glyphicon-envelope form-control-feedback">
           @error('email')
               <div class="alert alert-danger">{{ $message }}</div>
@@ -49,7 +51,8 @@
         </span>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Mot de passe">
+        <input type="password" id="password" class="form-control @error('password') is-invalid @enderror" name="password"
+        required autocomplete="current-password" placeholder="Mot de passe">
         <span class="glyphicon glyphicon-lock form-control-feedback">
           @error('password')
               <div class="alert alert-danger">{{ $message }}</div>
@@ -60,7 +63,8 @@
         <div class="col-xs-12">
           <div class="checkbox icheck">
             <label style="margin-bottom: 10px;margin-top:10px;">
-              <input type="checkbox" > Se Souvenire de moi
+              <input type="checkbox" name="remember"
+              id="remember" {{ old('remember') ? 'checked' : '' }}> Se Souvenire de moi
             </label>
           </div>
         </div>
@@ -75,9 +79,9 @@
     </form>
 
     <!-- /.social-auth-links -->
-
-    <a href="#" class="btn btn-danger btn-block mt-4" style="margin-top:20px;">J'ai oublie mon mot de passe</a><br>
-
+    @if (Route::has('admin.password.request'))
+    <a href="{{ route('admin.password.request') }}" class="btn btn-danger btn-block mt-4" style="margin-top:20px;">J'ai oublie mon mot de passe</a><br>
+    @endif
   </div>
   <!-- /.login-box-body -->
 </div>
