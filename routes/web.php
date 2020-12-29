@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Auth\ConfirmPasswordController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\ResetPasswordController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ConfirmPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Auth::routes();
+Auth::routes();
 
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
@@ -28,7 +29,9 @@ Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkE
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
 Route::post('/password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
 Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
-
+Route::middleware('auth')->group(function () {
+    Route::get('/enseignant', [App\Http\Controllers\Auth\HomeController::class ,'home'])->name('enseignant');
+});
 
 Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')->group(function () {
     Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
@@ -49,4 +52,4 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
 
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('welcome');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('user.home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'home'])->name('user.home');
