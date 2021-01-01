@@ -8,8 +8,10 @@
             <img src="dist/img/default.gif" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info text-capitalize">
+
             <p>{{ Auth::guard('admin')->user()->full_name }}</p> 
             <a href="#"><i class="fa fa-circle text-success"></i> Administrateur</a>
+
           </div>
         </div>
       @elseif(Auth::guard('web')->user() != Null)
@@ -37,15 +39,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <li class="active treeview">
-      
-            <li class=""><a href=""><i class="fa fa-circle-o"></i> Page 1</a></li>
-            <li class=""><a href=""><i class="fa fa-circle-o"></i> Page 2</a></li>
-            <li class=""><a href=""><i class="fa fa-circle-o"></i> Page 3</a></li>
-
-        </li>
-   
-    
+        
         <li class="treeview">
           <a href="#">
             <i class="fa fa-users"></i>
@@ -55,90 +49,96 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview">
+            <li class="treeview"> 
               <a href="#">
                 <i class="fa fa-users"></i>
-                <span>C-I</span>
+                <span>CI</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> C-I A</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> C-I B</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> CI A</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> CI B</a></li>
               </ul>
             </li>
 
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i>
-                <span>C-P</span>
+                <span>CP</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> C-P A</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> C-P B</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> CP A</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> CP B</a></li>
               </ul>
             </li>
 
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i>
-                <span>C-1</span>
+                <span>CE1</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> C-1 A</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> C-1 B</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> CE1 A</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> CE1 B</a></li>
               </ul>
             </li>
 
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i>
-                <span>C-2</span>
+                <span>CE2</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> C-2 A</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> C-2 B</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> CE2 A</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> CE2 B</a></li>
               </ul>
             </li>
 
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i>
-                <span>CM 1</span>
+                <span>CM1</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> CM 1 A</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> CM 1 B</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> CM1 A</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> CM1 B</a></li>
               </ul>
             </li>
 
             <li class="treeview">
               <a href="#">
                 <i class="fa fa-users"></i>
-                <span>CM 2</span>
+                <span>CM2</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> CM 2 A</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> CM 2 B</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> CM2 A</a></li>
+                <li><a href=""><i class="fa fa-circle-o"></i> CM2 B</a></li>
               </ul>
             </li>
           </ul>
+        </li>
+
+        <li class="active">
+          <a href="{{ route('admin.users.index') }}">
+            <i class="fa fa-th"></i> <span>Utilisateurs</span>
+          </a>
         </li>
       
       </ul>
