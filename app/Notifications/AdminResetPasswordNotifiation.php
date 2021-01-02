@@ -25,5 +25,4 @@ class AdminResetPasswordNotifiation extends ResetPassword
         return $this->buildMailMessage($url);
     }
 
-
 }

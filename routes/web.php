@@ -50,6 +50,10 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
     Route::middleware('auth:admin')->group(function () {
         Route::get('/', 'HomeController@home')->name('index');
         Route::get('/users', 'UserController@index')->name('users.index');
+
+        Route::get('/profile', 'ProfileController@profile')->name('profile');
+        Route::put('/profile/update', 'ProfileController@update')->name('profile.update');
+        Route::put('/profile/password', 'ProfileController@password')->name('profile.password');
     });
 
 });

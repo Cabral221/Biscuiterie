@@ -21,14 +21,35 @@
 
     @yield('css')
 </head>
-<body class="hold-transition skin-purple sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
         @include('layouts.header')
 
         @include('layouts.sidebare')
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            @yield('content')
+            {{-- <section class="content"> --}}
+                @if (session('success'))
+                    <section>
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                            {{ session('success') }}
+                        </div>
+                    </section>
+                @endif
+                @if (session('danger'))
+                    <section>
+                        <div class="alert alert-success alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            <h4><i class="icon fa fa-check"></i> Alert!</h4>
+                            {{ session('danger') }}
+                        </div>
+                    </section>
+                @endif
+
+                @yield('content')
+            {{-- </section> --}}
         </div>
         <!-- /.content-wrapper -->
          @include('layouts.footer')

@@ -38,7 +38,7 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">Tableau de bord</li>
         
         <li class="treeview">
           <a href="#">
@@ -135,9 +135,9 @@
           </ul>
         </li>
 
-        <li class="active">
+        <li class="">
           <a href="{{ route('admin.users.index') }}">
-            <i class="fa fa-th"></i> <span>Utilisateurs</span>
+            <i class="fa fa-th"></i> <span>Personnel</span>
           </a>
         </li>
       
