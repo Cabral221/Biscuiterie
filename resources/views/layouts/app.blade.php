@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="{{asset('bower_components/font-awesome/css/font-awesome.min.css')}}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{asset('bower_components/Ionicons/css/ionicons.min.css')}}">
+
+    @yield('plugin-css')
+
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
     {{-- AdminLTE Skins. Choose a skin from the css/skins
@@ -28,8 +31,7 @@
         @include('layouts.sidebare')
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            {{-- <section class="content"> --}}
-                @if (session('success'))
+            @if (session('success'))
                     <section>
                         <div class="alert alert-success alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -37,22 +39,20 @@
                             {{ session('success') }}
                         </div>
                     </section>
-                @endif
-                @if (session('danger'))
+            @endif
+            @if (session('danger'))
                     <section>
-                        <div class="alert alert-success alert-dismissible">
+                        <div class="alert alert-danger alert-dismissible">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
                             <h4><i class="icon fa fa-check"></i> Alert!</h4>
                             {{ session('danger') }}
                         </div>
                     </section>
-                @endif
+            @endif
 
-                @yield('content')
-            {{-- </section> --}}
+            @yield('content')
         </div>
-        <!-- /.content-wrapper -->
-         @include('layouts.footer')
+        @include('layouts.footer')
     </div>
 
     <!-- jQuery 3 -->
@@ -65,12 +65,17 @@
     </script>
     <!-- Bootstrap 3.3.7 -->
     <script src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    
+    @yield('plugin-js')
+
     <!-- Slimscroll -->
     <script src="{{asset('bower_components/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
     <!-- FastClick -->
     <script src="{{asset('bower_components/fastclick/lib/fastclick.js')}}"></script>
     <!-- AdminLTE App -->
-    <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
+    <script src="{{asset('dist/js/adminlte.js')}}"></script>
+
+    <script src="{{ asset('dist/js/demo.js') }}"></script>
 
     @yield('js')
 </body>

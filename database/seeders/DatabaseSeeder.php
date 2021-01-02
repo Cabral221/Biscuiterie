@@ -25,5 +25,6 @@ class DatabaseSeeder extends Seeder
         Admin::factory(1)->create([
             'email' => 'admin1@admin.com',
         ]);
+        Admin::factory(20)->create();
     }
 }

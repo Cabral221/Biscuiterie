@@ -50,6 +50,10 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
     Route::middleware('auth:admin')->group(function () {
         Route::get('/', 'HomeController@home')->name('index');
         Route::get('/users', 'UserController@index')->name('users.index');
+        Route::get('/users/create', 'UserController@create')->name('users.create');
+        Route::post('/users/store', 'UserController@store')->name('users.store');
+        Route::delete('/users/{admin}/destroy', 'UserController@destroy')->name('users.destroy');
+        Route::get('/users/{admin}/toggle', 'UserController@toggleActive')->name('users.toggleActive');
 
         Route::get('/profile', 'ProfileController@profile')->name('profile');
         Route::put('/profile/update', 'ProfileController@update')->name('profile.update');

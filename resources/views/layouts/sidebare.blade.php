@@ -5,11 +5,11 @@
       @if(Auth::guard('admin')->user() != Null)
         <div class="user-panel">
           <div class="pull-left image">
-            <img src="dist/img/default.gif" class="img-circle" alt="User Image">
+            <img src="{{ asset('dist/img/default.gif') }}" class="img-circle" alt="User Image">
           </div>
           <div class="pull-left info text-capitalize">
 
-            <p>{{ Auth::guard('admin')->user()->full_name }}</p> 
+            <p>{{ auth()->user()->full_name }}</p> 
             <a href="#"><i class="fa fa-circle text-success"></i> Administrateur</a>
 
           </div>
@@ -17,10 +17,10 @@
       @elseif(Auth::guard('web')->user() != Null)
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="dist/img/default.gif" class="img-circle" alt="User Image">
+          <img src="{{ asset('dist/img/default.gif') }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info text-capitalize">
-          <p>{{ Auth::guard('web')->user()->full_name }}</p> 
+          <p>{{ auth()->user()->full_name }}</p> 
           <a href="#"><i class="fa fa-circle text-success"></i> Enseignant</a>
         </div>
       </div>
@@ -137,7 +137,7 @@
 
         <li class="">
           <a href="{{ route('admin.users.index') }}">
-            <i class="fa fa-th"></i> <span>Personnel</span>
+            <i class="fa fa-users"></i> <span>Personnel</span>
           </a>
         </li>
       
