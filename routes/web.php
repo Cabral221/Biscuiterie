@@ -49,12 +49,18 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
 
     Route::middleware('auth:admin')->group(function () {
         Route::get('/', 'HomeController@home')->name('index');
+
+        // Gestion des classes
+        Route::get('/classes/{classe}', 'ClasseController@show')->name('classes.show');
+        
+        // Gestion des utilisateurs administrateurs
         Route::get('/users', 'UserController@index')->name('users.index');
         Route::get('/users/create', 'UserController@create')->name('users.create');
         Route::post('/users/store', 'UserController@store')->name('users.store');
         Route::delete('/users/{admin}/destroy', 'UserController@destroy')->name('users.destroy');
         Route::get('/users/{admin}/toggle', 'UserController@toggleActive')->name('users.toggleActive');
 
+        // Gestion du compte profile
         Route::get('/profile', 'ProfileController@profile')->name('profile');
         Route::put('/profile/update', 'ProfileController@update')->name('profile.update');
         Route::put('/profile/password', 'ProfileController@password')->name('profile.password');

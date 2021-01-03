@@ -42,96 +42,29 @@
         
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-users"></i>
+            <i class="fa fa-th"></i>
             <span>gestion Des Classes</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="treeview"> 
-              <a href="#">
-                <i class="fa fa-users"></i>
-                <span>CI</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> CI A</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> CI B</a></li>
-              </ul>
-            </li>
-
+            @foreach (all_niveaux() as $niveau)
             <li class="treeview">
               <a href="#">
-                <i class="fa fa-users"></i>
-                <span>CP</span>
+                <i class="fa fa-th"></i>
+                <span>{{ $niveau->libele }}</span>
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> CP A</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> CP B</a></li>
+                @foreach ($niveau->classes as $classe)
+                  <li><a href="{{ route('admin.classes.show', $classe) }}"><i class="fa fa-circle-o"></i> {{ $classe->libele }}</a></li>
+                @endforeach
               </ul>
             </li>
-
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-users"></i>
-                <span>CE1</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> CE1 A</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> CE1 B</a></li>
-              </ul>
-            </li>
-
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-users"></i>
-                <span>CE2</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> CE2 A</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> CE2 B</a></li>
-              </ul>
-            </li>
-
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-users"></i>
-                <span>CM1</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> CM1 A</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> CM1 B</a></li>
-              </ul>
-            </li>
-
-            <li class="treeview">
-              <a href="#">
-                <i class="fa fa-users"></i>
-                <span>CM2</span>
-                <span class="pull-right-container">
-                  <i class="fa fa-angle-left pull-right"></i>
-                </span>
-              </a>
-              <ul class="treeview-menu">
-                <li><a href=""><i class="fa fa-circle-o"></i> CM2 A</a></li>
-                <li><a href=""><i class="fa fa-circle-o"></i> CM2 B</a></li>
-              </ul>
-            </li>
+            @endforeach
           </ul>
         </li>
 

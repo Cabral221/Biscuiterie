@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
 use App\Models\User;
+use App\Models\Admin;
+use App\Models\Niveau;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,5 +27,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin1@admin.com',
         ]);
         Admin::factory(20)->create();
+
+        $niveaux = ['CI','CP','CE1','CE2','CM1','CM2'];
+        foreach($niveaux as $k => $niveau){
+            $n = Niveau::create(['libele' => $niveau]);
+            $n->classes()->createMany([
+                ['libele' => $n->libele . ' A'],
+                ['libele' => $n->libele . ' B'],
+            ]);
+        }
     }
 }
