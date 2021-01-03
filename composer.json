@@ -1,10 +1,10 @@
 {
-    "name": "laravel/laravel",
+    "name": "Biscuiterie",
     "type": "project",
-    "description": "The Laravel Framework.",
+    "description": "Une application de gestion de l'ecole Biscuiterie.",
     "keywords": [
-        "framework",
-        "laravel"
+        "ecole",
+        "biscuiterie"
     ],
     "license": "MIT",
     "require": {
@@ -39,7 +39,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files":[
+            "App/Helpers/helpers.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
