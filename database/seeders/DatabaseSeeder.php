@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Niveau;
+use App\Models\Student;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,10 +32,16 @@ class DatabaseSeeder extends Seeder
         $niveaux = ['CI','CP','CE1','CE2','CM1','CM2'];
         foreach($niveaux as $k => $niveau){
             $n = Niveau::create(['libele' => $niveau]);
-            $n->classes()->createMany([
+            $cls = $n->classes()->createMany([
                 ['libele' => $n->libele . ' A'],
                 ['libele' => $n->libele . ' B'],
             ]);
+            foreach ($cls as  $cl) {
+                $students = Student::factory(20)->make();
+                foreach ($students as $student) {
+                    $cl->students()->save($student);
+                }
+            }
         }
     }
 }
