@@ -22,6 +22,10 @@ class ProfileController extends Controller
             'email' => ['required', 'string', 'email', 'max:255'],
             'phone' => ['required', 'numeric']
         ]);
+        // Validate unique email whitout self
+        // TODO
+        // Validate unique phone whitout self
+        // TODO
         
         auth()->user()->update([
             'full_name' => $request->full_name,
@@ -29,7 +33,7 @@ class ProfileController extends Controller
             'phone' => $request->phone,
         ]);
 
-        \session()->flash('success', 'Modifications enregistrées avec succés');
+        session()->flash('success', 'Modifications enregistrées avec succés.');
         return redirect()->route('admin.profile');
     }
 
