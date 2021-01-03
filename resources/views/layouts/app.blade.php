@@ -41,13 +41,22 @@
                     </section>
             @endif
             @if (session('danger'))
-                    <section>
-                        <div class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                            <h4><i class="icon fa fa-check"></i> Alert!</h4>
-                            {{ session('danger') }}
-                        </div>
-                    </section>
+                <section>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-hand-stop-o"></i> Alert!</h4>
+                        {{ session('danger') }}
+                    </div>
+                </section>
+            @endif
+            @if (session('errors'))
+                <section>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-hand-stop-o"></i> Alert!</h4>
+                        Vueillez rentrer les données correctement !
+                    </div>
+                </section>
             @endif
 
             @yield('content')

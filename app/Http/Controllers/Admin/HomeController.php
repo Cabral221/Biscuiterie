@@ -4,6 +4,8 @@
 namespace App\Http\Controllers\Admin;
 
 
+use App\Models\Classe;
+use App\Models\Student;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Support\Renderable;
 
@@ -26,6 +28,7 @@ class HomeController extends Controller
      */
     public function home()
     {
-        return view('admin.home');
+        $classes = Classe::all();
+        return view('admin.home', compact('classes'));
     }
 }

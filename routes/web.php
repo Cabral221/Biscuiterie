@@ -50,6 +50,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
     Route::middleware('auth:admin')->group(function () {
         Route::get('/', 'HomeController@home')->name('index');
 
+        // Gestion des eleves
+        Route::resource('/students', 'StudentController')->only(['destroy','edit','update','store']);
+
         // Gestion des classes
         Route::get('/classes/{classe}', 'ClasseController@show')->name('classes.show');
         
