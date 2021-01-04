@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Enseignant\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class ResetPasswordController extends Controller
 {
@@ -33,13 +36,13 @@ class ResetPasswordController extends Controller
      *
      * If no token is present, display the link request form.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @param Request $request
+     * @return Factory|View
      */
     public function showResetForm(Request $request)
     {
         $token = $request->route()->parameter('token');
-        
+
         return view('enseignant.auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]
         );

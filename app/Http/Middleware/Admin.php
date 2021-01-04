@@ -16,10 +16,13 @@ class Admin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(auth()->user()->is_admin){
+        /** @var \App\Models\Admin $authAdmin */
+        $authAdmin = auth()->user();
+
+        if ($authAdmin->is_admin) {
             return $next($request);
         }
 
-        return redirect(‘home’)->with(‘error’,"You don't have admin access.");
+        return redirect("home")->with("error", "You don't have admin access.");
     }
 }

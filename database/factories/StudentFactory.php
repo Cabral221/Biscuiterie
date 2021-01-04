@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use Carbon\Carbon;
 use App\Models\Student;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class StudentFactory extends Factory
@@ -25,7 +25,7 @@ class StudentFactory extends Factory
         return [
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'birthday' => Carbon::now()->subYear(10),
+            'birthday' => Carbon::now()->subYears(10),
             'where_birthday' => $this->faker->city,
             'address' => $this->faker->address,
             'father_name' => $this->faker->firstName,

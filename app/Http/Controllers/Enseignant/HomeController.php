@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Enseignant;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
 {
@@ -11,16 +13,15 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
 
     /**
      * Show the application dashboard.
      *
-     * @return Renderable
+     * @return Application|Factory|View
      */
     public function home()
     {
-        // dd('jdjdjd');
         return view('enseignant.home');
     }
 }

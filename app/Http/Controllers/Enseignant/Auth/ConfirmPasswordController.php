@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Enseignant\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\ConfirmsPasswords;
 
 class ConfirmPasswordController extends Controller
@@ -38,13 +41,12 @@ class ConfirmPasswordController extends Controller
         $this->middleware('auth:web');
     }
 
+
     /**
-     * Display the password confirmation view.
-     *
-     * @return \Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function showConfirmForm()
     {
-        return view('enseigant.auth.passwords.confirm');
+        return view("enseignant.auth.passwords.confirm");
     }
 }

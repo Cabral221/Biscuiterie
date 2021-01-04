@@ -1,18 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3ce6cb84-a453-4c60-a20f-ffc3c1288a1f" name="Default Changelist" comment="feat: (multi auth) for admin and user model, &#10;Feat: (admin middleware) for future roles">
+    <list default="true" id="3ce6cb84-a453-4c60-a20f-ffc3c1288a1f" name="Default Changelist" comment="Feat: (Install phpStan from package larastan) buil first refactoring for level 5">
+      <change afterPath="$PROJECT_DIR$/phpstan.neon" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Biscuiterie.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Biscuiterie.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/enseignant/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/enseignant/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/ClasseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/ClasseController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/StudentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/StudentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Enseignant/Auth/ConfirmPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Enseignant/Auth/ConfirmPasswordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Enseignant/Auth/ResetPasswordController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Enseignant/Auth/ResetPasswordController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Enseignant/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Enseignant/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Admin.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/Admin.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/Authenticate.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Student.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Student.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/factories/StudentFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/factories/StudentFactory.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
-    <execution />
+    <execution>
+      <executable path="composer" />
+    </execution>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -133,6 +151,13 @@
       <path value="$PROJECT_DIR$/vendor/myclabs/deep-copy" />
       <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
+      <path value="$PROJECT_DIR$/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/vendor/justinrainbow/json-schema" />
+      <path value="$PROJECT_DIR$/vendor/phpstan/phpstan" />
+      <path value="$PROJECT_DIR$/vendor/seld/jsonlint" />
+      <path value="$PROJECT_DIR$/vendor/seld/phar-utils" />
+      <path value="$PROJECT_DIR$/vendor/symfony/filesystem" />
+      <path value="$PROJECT_DIR$/vendor/nunomaduro/larastan" />
     </include_path>
   </component>
   <component name="ProjectId" id="1mI9qauP4CPxBIqQFLIZhDUg5gg" />
@@ -147,7 +172,7 @@
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.env" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -157,7 +182,13 @@
       <recent name="D:\DEV\EMPRO CABS\Lab\Biscuiterie\Biscuiterie" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.dev">
+  <component name="RunManager" selected="Makefile.seed">
+    <configuration name="seed" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="seed" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
     <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner scope="XML" />
       <method v="2" />
@@ -174,6 +205,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Makefile.seed" />
         <item itemvalue="npm.dev" />
       </list>
     </recent_temporary>
@@ -187,6 +219,7 @@
       <option name="presentableId" value="Default" />
       <updated>1609170456152</updated>
       <workItem from="1609170463226" duration="14473000" />
+      <workItem from="1609781306104" duration="7955000" />
     </task>
     <servers />
   </component>
@@ -202,12 +235,17 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
     <MESSAGE value="feat: (multi auth) for admin and user model, &#10;Feat: (admin middleware) for future roles" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: (multi auth) for admin and user model, &#10;Feat: (admin middleware) for future roles" />
+    <MESSAGE value="Feat: (Install phpStan from package larastan) buil first refactoring for level 5" />
+    <option name="LAST_COMMIT_MESSAGE" value="Feat: (Install phpStan from package larastan) buil first refactoring for level 5" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="298" y="282" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1609786381485">
+      <screen x="0" y="0" width="1280" height="984" />
+    </state>
+    <state x="298" y="282" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.984@0.0.1280.984" timestamp="1609786381485" />
     <state x="352" y="1" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1609180528975">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
@@ -216,10 +254,18 @@
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="370" y="247" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1280.984@0.0.1280.984" timestamp="1609184866991" />
-    <state x="176" y="0" key="CommitChangelistDialog2" timestamp="1609185248158">
+    <state x="176" y="0" key="CommitChangelistDialog2" timestamp="1609790322743">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="176" y="0" key="CommitChangelistDialog2/0.0.1280.984@0.0.1280.984" timestamp="1609185248158" />
+    <state x="176" y="0" key="CommitChangelistDialog2/0.0.1280.984@0.0.1280.984" timestamp="1609790322743" />
+    <state x="370" y="402" key="ComposerInitDialogKey" timestamp="1609784729942">
+      <screen x="0" y="0" width="1280" height="984" />
+    </state>
+    <state x="370" y="402" key="ComposerInitDialogKey/0.0.1280.984@0.0.1280.984" timestamp="1609784729942" />
+    <state x="120" y="80" key="DiffContextDialog" timestamp="1609789959714">
+      <screen x="0" y="0" width="1280" height="984" />
+    </state>
+    <state x="120" y="80" key="DiffContextDialog/0.0.1280.984@0.0.1280.984" timestamp="1609789959714" />
     <state width="1239" height="259" key="GridCell.Tab.0.bottom" timestamp="1609171971736">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
@@ -240,17 +286,21 @@
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="378" y="254" key="NewPhpClassDialog/0.0.1280.984@0.0.1280.984" timestamp="1609180164575" />
-    <state x="278" y="236" key="SettingsEditor" timestamp="1609171506372">
+    <state x="377" y="111" key="RollbackChangesDialog" timestamp="1609277873936">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="278" y="236" key="SettingsEditor/0.0.1280.984@0.0.1280.984" timestamp="1609171506372" />
+    <state x="377" y="111" key="RollbackChangesDialog/0.0.1280.984@0.0.1280.984" timestamp="1609277873936" />
+    <state x="181" y="140" key="SettingsEditor" timestamp="1609785287888">
+      <screen x="0" y="0" width="1280" height="984" />
+    </state>
+    <state x="181" y="140" key="SettingsEditor/0.0.1280.984@0.0.1280.984" timestamp="1609785287888" />
     <state x="296" y="226" key="run.anything.popup" timestamp="1609173822249">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
     <state x="296" y="226" key="run.anything.popup/0.0.1280.984@0.0.1280.984" timestamp="1609173822249" />
-    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup" timestamp="1609184839968">
+    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup" timestamp="1609789037340">
       <screen x="0" y="0" width="1280" height="984" />
     </state>
-    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup/0.0.1280.984@0.0.1280.984" timestamp="1609184839968" />
+    <state x="303" y="211" width="672" height="678" key="search.everywhere.popup/0.0.1280.984@0.0.1280.984" timestamp="1609789037340" />
   </component>
 </project>

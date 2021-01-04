@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Classe;
-use App\Models\Student;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
+use App\Models\Classe;
+use App\Models\Student;
 
 class StudentController extends Controller
 {
 
     public function store(StudentRequest $request)
     {
+
+        /** @var Student $student */
         $student = Student::create([
             'classe_id' => $request->classe_id,
             'first_name' => $request->first_name,
@@ -56,7 +57,7 @@ class StudentController extends Controller
         session()->flash('success', 'Les modifications ont été modifié avec succés');
         return redirect()->route('admin.classes.show', $student->classe);
     }
-    
+
     public function destroy(Student $student)
     {
         $student->delete();

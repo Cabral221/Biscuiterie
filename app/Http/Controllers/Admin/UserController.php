@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller 
+class UserController extends Controller
 {
 
     public function index()
     {
-        $admins =  Admin::all();
+        $admins = Admin::all();
         return view('admin.user.index', compact('admins'));
     }
 
@@ -45,11 +45,14 @@ class UserController extends Controller
 
     public function destroy(Admin $admin)
     {
-        if (!auth()->user()->is_admin) {
+        /** @var Admin $authAdmin */
+        $authAdmin = auth()->user();
+
+        if (!$authAdmin->is_admin) {
             session()->flash('danger', 'Attention ! vous n\'avez pas les droits pour effectuer cette action !');
             return redirect()->back();
         }
- 
+
         $admin->delete();
         session()->flash('success', 'L\'administrateur a bien été supprimer !');
         return redirect()->back();
@@ -57,7 +60,10 @@ class UserController extends Controller
 
     public function toggleActive(Admin $admin)
     {
-        if(!auth()->user()->is_admin){
+        /** @var Admin $authAdmin */
+        $authAdmin = auth()->user();
+
+        if (!$authAdmin->is_admin) {
             session()->flash('danger', 'Attention ! vous n\'avez pas les droits pour effectuer cette action !');
             return redirect()->back();
         }
@@ -66,9 +72,9 @@ class UserController extends Controller
         $admin->is_active = !$admin->is_active;
         $admin->save();
 
-        $message = $oldToggle 
-                    ? 'Le compte a bien été désactivé' 
-                    : 'Le compte a bien été activé';
+        $message = $oldToggle
+            ? 'Le compte a bien été désactivé'
+            : 'Le compte a bien été activé';
         session()->flash('success', $message);
         return redirect()->back();
     }
