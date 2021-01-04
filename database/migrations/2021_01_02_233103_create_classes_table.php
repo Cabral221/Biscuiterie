@@ -17,9 +17,11 @@ class CreateClassesTable extends Migration
             $table->id();
             $table->string('libele');
             $table->unsignedBigInteger('niveau_id')->index();
+            $table->unsignedBigInteger('user_id')->index();
             $table->timestamps();
 
             $table->foreign('niveau_id')->references('id')->on('niveaux')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

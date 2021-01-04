@@ -73,6 +73,12 @@
             <i class="fa fa-users"></i> <span>Personnel</span>
           </a>
         </li>
+
+        <li class="">
+          <a href="{{ route('admin.enseignants.index') }}">
+            <i class="fa fa-users"></i> <span>Enseignants</span>
+          </a>
+        </li>
       
       </ul>
     </section>

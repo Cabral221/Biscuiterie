@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Models\Classe;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -43,4 +44,9 @@ class User extends Authenticatable
         'is_active' => 'bool',
         'is_admin' => 'bool',
     ];
+
+    public function classe()
+    {
+        return $this->hasOne(Classe::class);
+    }
 }

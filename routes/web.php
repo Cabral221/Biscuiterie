@@ -56,6 +56,9 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
         // Gestion des classes
         Route::get('/classes/{classe}', 'ClasseController@show')->name('classes.show');
         
+        // Gestion des enseignants
+        Route::get('/enseignants', 'EnseignantController@index')->name('enseignants.index');
+        
         // Gestion des utilisateurs administrateurs
         Route::get('/users', 'UserController@index')->name('users.index');
         Route::get('/users/create', 'UserController@create')->name('users.create');

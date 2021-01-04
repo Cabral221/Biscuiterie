@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Niveau;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
@@ -21,5 +22,10 @@ class Classe extends Model
     public function students()
     {
         return $this->hasMany(Student::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }
