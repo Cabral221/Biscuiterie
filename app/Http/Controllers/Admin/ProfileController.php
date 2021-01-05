@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -22,10 +23,26 @@ class ProfileController extends Controller
             'email' => ['required', 'string', 'email', 'max:255'],
             'phone' => ['required', 'numeric']
         ]);
+
+        $errorsMessages = [];
         // Validate unique email whitout self
-        // TODO
+        $uniqueEmail = Admin::where('email', $request->email)
+                            ->Where('id', '!=',auth()->user()->id)
+                            ->first();
+        if($uniqueEmail !== null){
+            $errorsMessages = array_merge($errorsMessages, ['email' => 'Cette adresse email est déja utilisée']); 
+        }
         // Validate unique phone whitout self
-        // TODO
+        $uniquePhone = Admin::where('phone', $request->phone)
+                            ->Where('id', '!=',auth()->user()->id)
+                            ->first();
+        if($uniquePhone !== null){
+            $errorsMessages = array_merge($errorsMessages, ['phone' => 'Ce numéro de téléphone est déja utilisé']); 
+        }
+
+        if(!empty($errorsMessages)){
+            return redirect()->back()->withErrors($errorsMessages);
+        }
         
         auth()->user()->update([
             'full_name' => $request->full_name,
@@ -44,17 +61,16 @@ class ProfileController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
         if(Hash::check($request->old_password, auth()->user()->password)){
-            // Change password
             auth()->user()->update([
                 'password' => Hash::make($request->password)
             ]);
-
-            \session()->flash('success', 'Votre mot de passe a été changé avec succés');
-            return \redirect()->route('admin.profile');
+            
+            session()->flash('success', 'Votre mot de passe a été changé avec succés');
+            return redirect()->route('admin.profile');
         }
 
         // return back with error session
-        \session()->flash('danger', 'Le mot de passe ne correspond pas');
+        session()->flash('danger', 'Le mot de passe ne correspond pas');
         return redirect()->back()->withErrors([
             'old_password' => 'Le mot de passe ne correspond pas',
         ]);
