@@ -58,6 +58,8 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
         
         // Gestion des enseignants
         Route::get('/enseignants', 'EnseignantController@index')->name('enseignants.index');
+        Route::get('/enseignant/{user}/edit', 'EnseignantController@edit')->name('enseignants.edit');
+        Route::put('/enseignant/{user}/update', 'EnseignantController@update')->name('enseignants.update');
         
         // Gestion des utilisateurs administrateurs
         Route::get('/users', 'UserController@index')->name('users.index');
