@@ -69,7 +69,7 @@
                                     </a>
                                 @endif
                                 {{-- Editing data for account --}}
-                                <a href="#" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i></a>
+                                <a href="{{ route('admin.users.edit', $admin) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i></a>
                                 {{-- Delete Admin --}}
                                 <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Êtes vous sûr de vouloir supprimer cette administrateur ?')){document.getElementById('form-delete-admin-{{$admin->id}}').submit();}">
                                     <i class="fa fa-trash"></i>

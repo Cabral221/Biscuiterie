@@ -65,6 +65,8 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
         Route::get('/users', 'UserController@index')->name('users.index');
         Route::get('/users/create', 'UserController@create')->name('users.create');
         Route::post('/users/store', 'UserController@store')->name('users.store');
+        Route::get('/users/{admin}/edit', 'UserController@edit')->name('users.edit');
+        Route::put('/users/{admin}/update', 'UserController@update')->name('users.update');
         Route::delete('/users/{admin}/destroy', 'UserController@destroy')->name('users.destroy');
         Route::get('/users/{admin}/toggle', 'UserController@toggleActive')->name('users.toggleActive');
 

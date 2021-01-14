@@ -43,6 +43,37 @@ class UserController extends Controller
         return redirect()->route('admin.users.index');
     }
 
+    public function edit(int $id)
+    {
+        $admin = Admin::find($id);
+        return view('admin.user.edit', compact('admin'));
+    }
+
+    public function update(Request $request, int $id)
+    {
+        $this->validate($request, [
+            'full_name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'phone' => ['required', 'numeric'],
+        ]);
+        
+        $errors = $this->validateAllUniques($request, $id);
+        if(!empty($errors)){
+            return redirect()->back()->withErrors($errors);
+        }
+
+        $admin = Admin::find($id);
+        $admin->update([
+            'full_name' => $request->full_name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'is_admin' => $request->is_admin !== null ? true : false,
+        ]);
+
+        session()->flash('success', 'Les modifications ont bien été prises en compte.');
+        return redirect()->route('admin.users.index');
+    }
+
     public function destroy(Admin $admin)
     {
         /** @var Admin $authAdmin */
@@ -78,4 +109,25 @@ class UserController extends Controller
         session()->flash('success', $message);
         return redirect()->back();
     }
+
+    private function validateAllUniques(Request $request, int $id)
+    {
+        $errorsMessages = [];
+        // Validate unique email whitout self
+        $uniqueEmail = Admin::where('email', $request->email)
+                            ->Where('id', '!=',$id)
+                            ->first();
+        if($uniqueEmail !== null){
+            $errorsMessages = array_merge($errorsMessages, ['email' => 'Cette adresse email est déja utilisée']); 
+        }
+        // Validate unique phone whitout self
+        $uniquePhone = Admin::where('phone', $request->phone)
+                            ->Where('id', '!=',$id)
+                            ->first();
+        if($uniquePhone !== null){
+            $errorsMessages = array_merge($errorsMessages, ['phone' => 'Ce numéro de téléphone est déja utilisé']); 
+        }
+
+        return $errorsMessages;
+    } 
 }

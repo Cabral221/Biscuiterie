@@ -45,7 +45,7 @@ class EnseignantController extends Controller
         return redirect()->route('admin.enseignants.index');
     }
 
-    private function validateAllUniques($request, $id)
+    private function validateAllUniques(Request $request, int $id)
     {
         $errorsMessages = [];
         // Validate unique email whitout self
