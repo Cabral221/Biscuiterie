@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class Admin
+class IsAdmin
 {
     /**
      * Handle an incoming request.
@@ -19,10 +19,12 @@ class Admin
         /** @var \App\Models\Admin $authAdmin */
         $authAdmin = auth()->user();
 
-        if ($authAdmin->is_admin) {
-            return $next($request);
+        if (!$authAdmin->is_admin) {
+            return redirect()
+                    ->route('welcome')
+                    ->with("error", "You don't have super admin access.");
         }
-
-        return redirect("home")->with("error", "You don't have admin access.");
+        
+        return $next($request);
     }
 }

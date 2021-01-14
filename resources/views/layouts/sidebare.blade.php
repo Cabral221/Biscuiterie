@@ -69,16 +69,18 @@
         </li>
 
         <li class="">
-          <a href="{{ route('admin.users.index') }}">
-            <i class="fa fa-users"></i> <span>Personnel</span>
-          </a>
-        </li>
-
-        <li class="">
           <a href="{{ route('admin.enseignants.index') }}">
             <i class="fa fa-users"></i> <span>Enseignants</span>
           </a>
         </li>
+
+        @if (Auth::guard('admin')->user() && Auth::guard('admin')->user()->isAdmin)
+        <li class="">
+          <a href="{{ route('admin.users.index') }}">
+            <i class="fa fa-users"></i> <span>Personnel</span>
+          </a>
+        </li>
+        @endif
       
       </ul>
     </section>
