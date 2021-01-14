@@ -1,0 +1,112 @@
+/* variables */
+:root {
+    --main-white-color: white;
+    --main-dark-color: black;
+    --main-primary-color: #eca200;
+    --main-secondary-color: #ffffff;
+}
+
+/* Reset */
+* {
+    box-sizing: border-box;
+}
+body {
+    color: var(--main-white-color);
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+/* Generic */
+.btn{
+    color: var(--main-white-color);
+    padding: 0.8rem 1.5rem;
+    text-decoration: none;
+    border: 1px solid transparent;
+}
+
+.btn-primary{
+    border-color: var(--main-primary-color) !important;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--main-primary-color) !important;
+}
+
+.btn-primary:hover,
+.btn-primary:active {
+    border-color: var(--main-dark-color) !important;
+    background-color: rgb(236, 162, 0, 1);
+    /* background-color: rgba(255, 255, 255, 1); */
+    color: var(--main-dark-color) !important;
+}
+
+.btn-secondary {
+    border-color: var(--main-secondary-color) !important;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--main-secondary-color) !important;
+}
+
+.btn-secondary:hover,
+.btn-secondary:active {
+    border-color: var(--main-secondary-color) !important;
+    background-color: rgba(255, 255, 255, 1);
+    /* background-color: rgb(236, 162, 0, 1); */
+    color: var(--main-dark-color) !important;
+}
+
+/* Welcome page */
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+    background: var(--main-primary-color) url(https://picsum.photos/1280/1080) no-repeat center / cover;
+}
+
+.wrapper>* {
+    padding: 20px;
+}
+
+.page-main {
+    /* flex-grow: 1; */
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    min-height: 350px;
+    background-blend-mode: luminosity;
+    color: var(--main-white-color);
+    text-align: center;
+}
+
+.page-main div {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 600px;
+    background-color: rgba(0, 0, 0, 0.42);
+}
+
+.page-footer{
+    text-align: center;
+    font-size: 0.8;
+}
+
+.page-footer span{
+    font-weight: bold;
+    color: var(--main-primary-color);
+}
+
+@media screen and (max-width: 578px) {
+    .page-main  div {
+        padding: 1rem;
+    }
+    .page-main div .call-to-action{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .page-main div .call-to-action .btn {
+        margin-bottom: 1rem;
+    }
+}
