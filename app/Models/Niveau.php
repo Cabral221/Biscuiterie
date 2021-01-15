@@ -16,4 +16,14 @@ class Niveau extends Model
     {
         return $this->hasMany(Classe::class);
     }
+
+    public function studentsCount() : int
+    {
+        $tot = 0;
+        $classes = $this->classes;
+        foreach ($this->classes as $classe) {
+            $tot += $classe->students->count();
+        }
+        return $tot;
+    }
 }

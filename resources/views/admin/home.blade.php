@@ -13,28 +13,26 @@
 </section>
 
 <section class="content">
-    <div class="box">
-        <div class="box-header with-border">
-          <h3 class="box-title">Title</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip"
-                    title="Collapse">
-              <i class="fa fa-minus"></i></button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-              <i class="fa fa-times"></i></button>
-          </div>
-        </div>
-        <div class="box-body">
-          Start creating your amazing application!
-        </div>
-        <!-- /.box-body -->
-        <div class="box-footer">
-          Footer
-        </div>
-        <!-- /.box-footer-->
+    <div class="row">
+        @foreach ($niveaux as $k => $niveau)
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <!-- small box -->
+                <div class="small-box bg-{{$bgColors[$k]}}">
+                    <div class="inner">
+                        <h3>{{$niveau->libele}} : {{ $niveau->studentsCount() }}</h3>
+                        @foreach ($niveau->classes as $c)
+                            <p>{{$c->libele}} : {{$c->students->count()}}</p>
+                        @endforeach
+                    </div>
+                    <div class="icon">
+                        <i class="ion ion-pie-graph"></i>
+                    </div>
+                </div>
+            </div>
+            
+        @endforeach
     </div>
-
+    
     <h2>Ajouter un(e) éléve</h2>
     <form action="{{ route('admin.students.store') }}" method="post">
         @csrf
