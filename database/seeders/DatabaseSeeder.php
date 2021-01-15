@@ -24,7 +24,6 @@ class DatabaseSeeder extends Seeder
         Admin::factory(1)->create([
             'email' => 'admin1@admin.com',
         ]);
-        Admin::factory(20)->create();
             
         $niveaux = ['CI','CP','CE1','CE2','CM1','CM2'];
         
