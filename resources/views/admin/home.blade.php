@@ -3,12 +3,10 @@
 @section('content')
 <section class="content-header">
     <h1>
-        Blank page <small>it all starts here</small>
+        Tableau de bord <small>statistiques</small>
     </h1>
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Examples</a></li>
-        <li class="active">Blank page</li>
+        <li class="active"><i class="fa fa-dashboard"></i> Tableaude bord</li>
     </ol>
 </section>
 
