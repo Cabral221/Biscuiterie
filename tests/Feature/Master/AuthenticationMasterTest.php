@@ -11,9 +11,7 @@ class AuthenticationMasterTest extends TestCase
     /** @test */
     public function the_login_route_exist() : void
     {
-        $response = $this->get('/master/login');
-
-        $response->assertStatus(200);
+        $this->get('/master/login')->assertStatus(200);
     }
 
     /** @test */
@@ -29,15 +27,29 @@ class AuthenticationMasterTest extends TestCase
     {
         $user = User::factory()->create([
             'email' => 'john@example.com',
-            'password' => 'secret',
         ]);
 
         $response = $this->post('master/login', [
             'email' => 'john@example.com',
-            'password' => 'secret',
+            'password' => 'password',
         ]);
         $response->assertRedirect("/master");
         $this->assertAuthenticatedAs($user);
+    }
+
+    /** @test */
+    public function a_user_cannot_login_with_bad_email_and_password(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'john@example.com',
+        ]);
+
+        $response = $this->post('master/login', [
+            'email' => 'john@example.com',
+            'password' => 'badpassword',
+        ]);
+        $response->assertRedirect("/");
+        $response->assertSessionHas('errors');
     }
 
 

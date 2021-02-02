@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Enseignant\HomeController;
+use App\Http\Controllers\Enseignant\ProfileController;
 use App\Http\Controllers\Enseignant\Auth\LoginController;
 use App\Http\Controllers\Enseignant\Auth\ResetPasswordController;
 use App\Http\Controllers\Enseignant\Auth\ForgotPasswordController;
@@ -31,8 +33,13 @@ Route::prefix('/master')->name('master.')->group(function () {
     Route::get('/password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
     
     Route::middleware('auth:web')->group(function () {
+        // Home for master
         Route::get('/', [HomeController::class ,'home'])->name('index');
-        // Route::get('/profile', [ProfileController::class ,'index'])->name('profile');
+
+        // Routes for profile manager
+        Route::get('/profile', [ProfileController::class ,'index'])->name('profile');
+        Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+        Route::put('/profile/password', [ProfileController::class, 'password'])->name('profile.password');
     });
 });
 

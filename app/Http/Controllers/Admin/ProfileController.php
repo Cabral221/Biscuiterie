@@ -97,7 +97,6 @@ class ProfileController extends Controller
         }
 
         // return back with error session
-        session()->flash('danger', 'Le mot de passe ne correspond pas');
         return redirect()->back()->withErrors([
             'old_password' => 'Le mot de passe ne correspond pas',
         ]);
