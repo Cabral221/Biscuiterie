@@ -18,7 +18,14 @@
 <section class="content">
     <div class="box box-primary">
         <div class="box-header">
-            <h3 class="box-title">Liste des éléves</h3>
+            <div class="d-flex justify-content-between">
+                <span>
+                    <h3 class="box-title">Liste des éléves - <span class="text-primary">{{ $classe->libele }}</span></h3>
+                </span>
+                <span>
+                    <h3 class="box-title">Enseignant(e) : <span class="text-primary">{{ $classe->user->full_name }}</span></h3>
+                </span>
+            </div>
         </div>
         <!-- /.box-header -->
         <div class="box-body">

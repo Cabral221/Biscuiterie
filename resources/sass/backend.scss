@@ -1,0 +1,9 @@
+// My own Display flex integrated System
+.d-flex {
+    display: flex;
+    flex-wrap: wrap;
+
+    &.justify-content-between {
+        justify-content: space-between;
+    }
+}
