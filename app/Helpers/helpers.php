@@ -3,10 +3,6 @@
 use App\Models\Niveau;
 use Illuminate\Database\Eloquent\Collection;
 
-// Helpers
-/**
- * get all niveaux and classes for sidebar
- */
 if (!function_exists('all_niveaux')) {
 
     /**
@@ -16,10 +12,8 @@ if (!function_exists('all_niveaux')) {
      */
     function all_niveaux() : Collection
     { 
-        return Niveau::all();
+        return Niveau::with('classes')->get();
     }
 }
-
-
 
 ?>

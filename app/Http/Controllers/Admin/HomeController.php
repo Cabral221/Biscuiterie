@@ -30,8 +30,7 @@ class HomeController extends Controller
     public function home()
     {
         $bgColors = ['aqua', 'green', 'yellow', 'red', 'purple', 'teal'];
-        $niveaux = Niveau::all();
-        $classes = Classe::all();
-        return view('admin.home', compact('classes', 'niveaux', 'bgColors'));
+        $niveaux = Niveau::with('classes.students')->get();
+        return view('admin.home', compact('niveaux', 'bgColors'));
     }
 }

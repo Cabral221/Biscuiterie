@@ -45,11 +45,12 @@
                         <div class="form-group @error('classe_id') has-error @enderror">
                             <label>Classe</label>
                             <select class="form-control" name="classe_id">
-                                <option value="">Selectonner une classe</option>
-                                @foreach ($classes as $classe)
-                                <option value="{{ $classe->id }}">
-                                    {{ $classe->libele }}
-                                </option>
+                                <option selected disabled value="">Selectonner une classe</option>
+                                @foreach ($niveaux as $n)
+                                    <option disabled>{{ $n->libele }}</option>
+                                    @foreach ($n->classes as $classe)
+                                        <option value="{{ $classe->id }}">{{ $classe->libele }}</option>
+                                    @endforeach
                                 @endforeach
                             </select>
                             @error('classe_id')
