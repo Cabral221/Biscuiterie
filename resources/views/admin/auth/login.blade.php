@@ -11,17 +11,19 @@
         
         <form action="{{ route('admin.login') }}" method="post">
             @csrf
-            <div class="form-group @error('email') has-error @enderror">
+            <div class="form-group has-feedback @error('email') has-error @enderror">
                 <input type="email" id="email" 
                 class="form-control" name="email"
                 value="{{ old('email') }}" placeholder="Adresse E-mail"  autocomplete="email" autofocus required >
+                <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 @error('email')
                     <div class="help-block">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="form-group @error('password') has-error @enderror">
+            <div class="form-group has-feedback @error('password') has-error @enderror">
                 <input type="password" required id="password" class="form-control" name="password"
                 autocomplete="current-password" placeholder="Mot de passe">
+                <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 @error('password')
                     <div class="help-block">{{ $message }}</div>
                 @enderror
@@ -47,7 +49,9 @@
         
         <!-- /.social-auth-links -->
         @if (Route::has('admin.password.request'))
-        <a href="{{ route('admin.password.request') }}" class="btn btn-link text-center" style="margin-top:20px;">J'ai oublie mon mot de passe</a><br>
+        <p class="text-center">
+            <a href="{{ route('admin.password.request') }}" class="btn btn-link" style="margin-top:20px;">J'ai oublie mon mot de passe</a><br>
+        </p>
         @endif
     </div>
     <!-- /.login-box-body -->

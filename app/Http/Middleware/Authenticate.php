@@ -29,7 +29,7 @@ class Authenticate extends Middleware
         if ($guards[0] == 'admin') {
             $route = route('admin.login');
         } else {
-            $route = route('login');
+            $route = route('master.login');
         }
 
         throw new AuthenticationException(

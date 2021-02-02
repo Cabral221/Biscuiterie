@@ -2,26 +2,44 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Http\RedirectResponse;
 
 class UserController extends Controller
 {
 
-    public function index()
+    /**
+     * render index page for listing all admins
+     *
+     * @return View
+     */
+    public function index() : View
     {
         $admins = Admin::all();
         return view('admin.user.index', compact('admins'));
     }
 
-    public function create()
+    /**
+     * render page for create admin
+     *
+     * @return View
+     */
+    public function create() : View
     {
         return view('admin.user.create');
     }
 
-    public function store(Request $request)
+    /**
+     * flush data in data base when creating admin
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request) : RedirectResponse
     {
         $this->validate($request, [
             'full_name' => ['required', 'string', 'max:255'],
@@ -43,13 +61,26 @@ class UserController extends Controller
         return redirect()->route('admin.users.index');
     }
 
-    public function edit(int $id)
+    /**
+     * render page for edit admin information
+     *
+     * @param integer $id
+     * @return View
+     */
+    public function edit(int $id) : View
     {
         $admin = Admin::find($id);
         return view('admin.user.edit', compact('admin'));
     }
 
-    public function update(Request $request, int $id)
+    /**
+     * Update data to database 
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return RedirectResponse
+     */
+    public function update(Request $request, int $id) : RedirectResponse
     {
         $this->validate($request, [
             'full_name' => ['required', 'string', 'max:255'],
@@ -62,6 +93,7 @@ class UserController extends Controller
             return redirect()->back()->withErrors($errors);
         }
 
+        /** @var Admin */
         $admin = Admin::find($id);
         $admin->update([
             'full_name' => $request->full_name,
@@ -74,7 +106,13 @@ class UserController extends Controller
         return redirect()->route('admin.users.index');
     }
 
-    public function destroy(Admin $admin)
+    /**
+     * Delete one admin in database
+     *
+     * @param Admin $admin
+     * @return RedirectResponse
+     */
+    public function destroy(Admin $admin) : RedirectResponse
     {
         /** @var Admin $authAdmin */
         $authAdmin = auth()->user();
@@ -89,7 +127,13 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    public function toggleActive(Admin $admin)
+    /**
+     * Toggle active and dactive account for admin
+     *
+     * @param Admin $admin
+     * @return RedirectResponse
+     */
+    public function toggleActive(Admin $admin) : RedirectResponse
     {
         /** @var Admin $authAdmin */
         $authAdmin = auth()->user();
@@ -110,7 +154,14 @@ class UserController extends Controller
         return redirect()->back();
     }
 
-    private function validateAllUniques(Request $request, int $id)
+    /**
+     * Validate a unique email on update admin
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return Array
+     */
+    private function validateAllUniques(Request $request, int $id) : Array
     {
         $errorsMessages = [];
         // Validate unique email whitout self

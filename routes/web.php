@@ -19,7 +19,7 @@ use App\Http\Controllers\Enseignant\Auth\ConfirmPasswordController;
 */
 
 // Enseignant Routes
-Route::prefix('/enseignant')->name('enseignant.')->group(function () {
+Route::prefix('/master')->name('master.')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -32,6 +32,7 @@ Route::prefix('/enseignant')->name('enseignant.')->group(function () {
     
     Route::middleware('auth:web')->group(function () {
         Route::get('/', [HomeController::class ,'home'])->name('index');
+        // Route::get('/profile', [ProfileController::class ,'index'])->name('profile');
     });
 });
 

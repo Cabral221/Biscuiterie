@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Enseignant\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
+use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {
@@ -41,7 +42,9 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm(Request $request)
     {
-        $token = $request->route()->parameter('token');
+        /** @var Route */
+        $route = $request->route();
+        $token = $route->parameter('token');
 
         return view('enseignant.auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]

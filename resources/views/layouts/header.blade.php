@@ -109,7 +109,6 @@
                         <!-- User image -->
                         <li class="user-header">
                             <img src="{{ asset('dist/img/default.gif') }}" class="img-circle" alt="User Image">
-                            
                             <p>
                                 {{ auth()->user()->full_name }}
                                 <small>Membre depuis {{ auth()->user()->created_at->locale('fr')->format('d M Y') }}</small>
@@ -118,17 +117,31 @@
                         <!-- Menu Body -->
                         
                         <!-- Menu Footer-->
-                        <li class="user-footer">
-                            <div class="pull-left">
-                                <a href="{{ route('admin.profile') }}" class="btn btn-default btn-flat">Compte</a>
-                            </div>
-                            <div class="pull-right">
-                                <a href="#" class="btn btn-default btn-flat" onclick="event.preventDefault();document.getElementById('form-logout').submit();">Deconnexion</a>
-                                <form action="{{ route('admin.logout') }}" method="post" class="d-none" id="form-logout">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
+                        @if (auth('admin')->user())
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="{{ route('admin.profile') }}" class="btn btn-default btn-flat">Compte</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat" onclick="event.preventDefault();document.getElementById('form-logout').submit();">Deconnexion</a>
+                                    <form action="{{ route('admin.logout') }}" method="post" class="d-none" id="form-logout">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @else
+                            <li class="user-footer">
+                                <div class="pull-left">
+                                    <a href="{{ route('master.profile') }}" class="btn btn-default btn-flat">Compte</a>
+                                </div>
+                                <div class="pull-right">
+                                    <a href="#" class="btn btn-default btn-flat" onclick="event.preventDefault();document.getElementById('form-logout').submit();">Deconnexion</a>
+                                    <form action="{{ route('master.logout') }}" method="post" class="d-none" id="form-logout">
+                                        @csrf
+                                    </form>
+                                </div>
+                            </li>
+                        @endif
                     </ul>
                 </li>
             </ul>

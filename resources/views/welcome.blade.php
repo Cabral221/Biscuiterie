@@ -27,7 +27,7 @@
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim quia officiis repellat aperiam nobis quis reprehenderit aliquid nemo, autem id suscipit vel quos. Illum accusantium asperiores unde. Harum, ex minus!</p>
                 <p class="call-to-action">
                     <a href="{{ route('admin.index') }}" class="btn btn-primary">Espace Administration</a>
-                    {{-- <a href="{{ route('enseignant.index') }}" class="btn btn-secondary">Espace Enseignant</a> --}}
+                    <a href="{{ route('master.index') }}" class="btn btn-secondary">Espace Enseignant</a>
                 </p>
             </div>
         </main>

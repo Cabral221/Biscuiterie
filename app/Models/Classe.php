@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Models\Niveau;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Classe extends Model
@@ -14,17 +16,17 @@ class Classe extends Model
 
     public $fillable = ['libele'];
 
-    public function niveau()
+    public function niveau() : BelongsTo
     {
         return $this->belongsTo(Niveau::class);
     }
 
-    public function students()
+    public function students() : HasMany
     {
         return $this->hasMany(Student::class);
     }
 
-    public function user()
+    public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
     }

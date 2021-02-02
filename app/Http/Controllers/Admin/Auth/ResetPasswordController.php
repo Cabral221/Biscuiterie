@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Admin\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Contracts\Auth\PasswordBroker;
-use Illuminate\Contracts\Auth\StatefulGuard;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Foundation\Auth\ResetsPasswords;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\View\Factory;
+use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\Auth\PasswordBroker;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 
 class ResetPasswordController extends Controller
 {
@@ -45,7 +46,9 @@ class ResetPasswordController extends Controller
      */
     public function showResetForm(Request $request)
     {
-        $token = $request->route()->parameter('token');
+        /** @var Route */
+        $route = $request->route();
+        $token = $route->parameter('token');
 
         return view('admin.auth.passwords.reset')->with(
             ['token' => $token, 'email' => $request->email]

@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use App\Notifications\MasterResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -43,8 +45,19 @@ class User extends Authenticatable
         'is_active' => 'bool',
     ];
 
-    public function classe()
+    public function classe() : HasOne
     {
         return $this->hasOne(Classe::class);
+    }
+
+    /**
+     * Send a password reset notification to the user.
+     *
+     * @param string $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token) : void
+    {
+        $this->notify(new MasterResetPasswordNotification($token));
     }
 }

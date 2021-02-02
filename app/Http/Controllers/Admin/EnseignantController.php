@@ -4,24 +4,37 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\RedirectResponse;
 
 class EnseignantController extends Controller
 {
-    
-    public function index()
+    /**
+     * render page for listing all master
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
+    public function index() : View
     {
         $enseignants = User::all();
         return view('admin.enseignant.index', compact('enseignants'));
     }
 
-    public function edit(int $id)
+    public function edit(int $id) : View
     {
         $enseignant = User::find($id);
         return view('admin.enseignant.edit', compact('enseignant'));
     }
     
-    public function update(Request $request, int $id)
+    /**
+     * update master info function
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return RedirectResponse
+     */
+    public function update(Request $request, int $id) : RedirectResponse
     {
         $this->validate($request, [
             'full_name' => ['required', 'string', 'max:255'],
@@ -34,6 +47,7 @@ class EnseignantController extends Controller
             return redirect()->back()->withErrors($errors);
         }
 
+        /** @var User */
         $enseignant = User::find($id);
         $enseignant->update([
             'full_name' => $request->full_name,
@@ -45,7 +59,14 @@ class EnseignantController extends Controller
         return redirect()->route('admin.enseignants.index');
     }
 
-    private function validateAllUniques(Request $request, int $id)
+    /**
+     * Validate Unique Function
+     *
+     * @param Request $request
+     * @param integer $id
+     * @return Array[string]
+     */
+    private function validateAllUniques(Request $request, int $id) : Array
     {
         $errorsMessages = [];
         // Validate unique email whitout self
