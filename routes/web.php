@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Enseignant\HomeController;
+use App\Http\Controllers\Enseignant\NoteController;
 use App\Http\Controllers\Enseignant\ProfileController;
 use App\Http\Controllers\Enseignant\Auth\LoginController;
 use App\Http\Controllers\Enseignant\Auth\ResetPasswordController;
@@ -35,6 +36,10 @@ Route::prefix('/master')->name('master.')->group(function () {
     Route::middleware('auth:web')->group(function () {
         // Home for master
         Route::get('/', [HomeController::class ,'home'])->name('index');
+
+        // Gestion des notes
+        Route::get('/notes', [NoteController::class, 'index'])->name('notes.index');
+        Route::get('/notes/{student}', [NoteController::class, 'show'])->name('notes.show');
 
         // Routes for profile manager
         Route::get('/profile', [ProfileController::class ,'index'])->name('profile');
