@@ -120,6 +120,7 @@
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Date et lieu de naissance</th>
+                        <th>Adresse</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>
