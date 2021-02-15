@@ -1,9 +1,71 @@
 // My own Display flex integrated System
+// #3c8db blue
+// // Variables
+// @import 'variables';
+
+// IMPORT bootstrap 4 badge system
+@import "~bootstrap/scss/functions";
+
+@import "~bootstrap/scss/variables";
+@import 'variables';
+
+@import "~bootstrap/scss/mixins";
+@import '~bootstrap/scss/badge';
+@import "~bootstrap/scss/utilities/spacing";
+
+
+.d-none {
+    display: none;
+}
+
 .d-flex {
     display: flex;
     flex-wrap: wrap;
 
+    &.align-items-center {
+        align-items: center;
+    }
+
     &.justify-content-between {
         justify-content: space-between;
     }
+    &.justify-content-center {
+        justify-content: center;
+    }
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+// Rounded
+.rounded {
+    border-radius: 5px;
+}
+// Border
+.border {
+    border: 1px solid #000;
+}
+.border-primary {
+    @extend .border;
+    border: 1px solid $blue;
+}
+
+// Card template
+.card {
+    padding: 1rem;
+}
+.card-title {
+    margin: 1rem 0.5rem;
+}
+
+// page Domain
+.domain-item {
+    // font-size: 1rem;
+    margin: 0.5rem 0;
+    padding: 1rem 0;
+    border-top: 2px solid rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.03    );
 }

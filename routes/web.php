@@ -63,6 +63,30 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
 
         // Gestion des classes
         Route::get('/classes/{classe}', 'ClasseController@show')->name('classes.show');
+
+        // Gestion des domaines
+        Route::prefix('/domains')->name('domains.')->group(function () {
+            Route::get('/', 'DomainController@index')->name('index');
+            Route::post('/', 'DomainController@store')->name('store');
+            Route::patch('/{domain}/update', 'DomainController@update')->name('update');
+            Route::delete('/{domain}/destroy', 'DomainController@destroy')->name('destroy');
+        });
+
+        // Gestion des sous domaines
+        Route::prefix('/subdomains')->name('subdomains.')->group(function () {
+            Route::post('/', 'SubDomainController@store')->name('store');
+            Route::delete('/{subdomain}/destroy', 'SubDomainController@destroy')->name('destroy');
+        });
+        // Route::post('/domains/subdomain', 'DomainController@storesubdomain')->name('domains.subdomains.store');
+
+        // Gestion des programmes
+        Route::prefix('/programs')->name('programs.')->group(function() {
+            Route::get('/', 'ProgramController@index')->name('index');
+            Route::post('/', 'ProgramController@store')->name('store');
+            Route::get('/{program}', 'ProgramController@show')->name('show');
+            Route::patch('/{program}/update', 'ProgramController@update')->name('update');
+            Route::delete('/{program}/destroy', 'ProgramController@destroy')->name('destroy');
+        });
         
         // Gestion des enseignants
         Route::get('/enseignants', 'EnseignantController@index')->name('enseignants.index');

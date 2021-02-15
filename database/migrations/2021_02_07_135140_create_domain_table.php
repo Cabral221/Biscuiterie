@@ -1,10 +1,11 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
+use App\Models\Niveau;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 
-class CreateNiveauxTable extends Migration
+class CreateDomainTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +14,10 @@ class CreateNiveauxTable extends Migration
      */
     public function up()
     {
-        Schema::create('niveaux', function (Blueprint $table) {
+        Schema::create('domains', function (Blueprint $table) {
             $table->id();
-            $table->string('libele');
             $table->unsignedBigInteger('program_id');
+            $table->string('libele');
             $table->timestamps();
 
             $table->foreign('program_id')->references('id')->on('programs')->onDelete('cascade');
@@ -30,6 +31,6 @@ class CreateNiveauxTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('niveaux');
+        Schema::dropIfExists('domains');
     }
 }

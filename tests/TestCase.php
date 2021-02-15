@@ -41,7 +41,7 @@ abstract class TestCase extends BaseTestCase
             $admin = $this->getMasterAdmin();
         }
 
-        $this->actingAs($admin);
+        $this->actingAs($admin, 'admin');
 
         return $admin;
     }

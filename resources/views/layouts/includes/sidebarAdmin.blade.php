@@ -18,6 +18,18 @@
 </li>
 @endforeach
 
+<li class="header">Systéme</li>
+<li class="">
+    <a href="{{ route('admin.programs.index') }}">
+        <i class="fa fa-users"></i> <span>Programmes</span>
+    </a>
+</li>
+<li class="">
+    <a href="{{ route('admin.domains.index') }}">
+        <i class="fa fa-users"></i> <span>Domaines</span>
+    </a>
+</li>
+
 <li class="header">Utilisateurs</li>
 <li class="">
     <a href="{{ route('admin.enseignants.index') }}">
@@ -26,6 +38,6 @@
 </li>
 <li class="">
     <a href="{{ route('admin.users.index') }}">
-        <i class="fa fa-users"></i> <span>Administrateur</span>
+        <i class="fa fa-users"></i> <span>Administrateurs</span>
     </a>
 </li>
