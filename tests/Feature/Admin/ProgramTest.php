@@ -36,10 +36,9 @@ class ProgramTest extends TestCase
 
         $response = $this->from('/')->post('/admin/programs', [
             'libele' => '',
-            'niveaux' => '',
         ])->assertRedirect('/');
 
-        $response->assertSessionHasErrors(['libele', 'niveaux']);
+        $response->assertSessionHasErrors(['libele']);
 
         $this->assertDatabaseMissing('programs', [
             'libele' => ''
