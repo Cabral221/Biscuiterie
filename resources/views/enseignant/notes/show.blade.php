@@ -46,12 +46,14 @@
                 </thead>
                 <tbody>
                     <tr>
+                        <td>libel domaine</td>
+                        <td>$matieres</td>
+
                         <td>1</td>
                         <td>1</td>
                         <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
+
+                        <td>recap</td>
                     </tr>
                 </tbody>
             </table>

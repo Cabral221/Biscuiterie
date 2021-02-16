@@ -132,7 +132,7 @@
                             @endforeach
                         </div>
                     </div>
-                    <a href="{{ route('admin.programs.show', $program->id) }}" class="btn btn-block btn-primary btn-sm">+ Détails</a>
+                    {{-- <a href="{{ route('admin.programs.show', $program->id) }}" class="btn btn-block btn-primary btn-sm">+ Détails</a> --}}
                 </div>
                 <!-- /.box-body -->
             </div>

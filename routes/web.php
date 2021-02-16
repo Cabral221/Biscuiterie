@@ -88,7 +88,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
         Route::prefix('/programs')->name('programs.')->group(function() {
             Route::get('/', 'ProgramController@index')->name('index');
             Route::post('/', 'ProgramController@store')->name('store');
-            Route::get('/{program}', 'ProgramController@show')->name('show');
+            // Route::get('/{program}', 'ProgramController@show')->name('show');
             Route::patch('/{program}/update', 'ProgramController@update')->name('update');
             Route::delete('/{program}/destroy', 'ProgramController@destroy')->name('destroy');
         });

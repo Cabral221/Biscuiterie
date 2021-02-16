@@ -32,6 +32,25 @@ class DatabaseSeeder extends Seeder
             'CM1-CM2'   => ['CM1', 'CM2']
             // 'program'     => ['niveaux', 'niveaux'],
         ];
+
+        $matieres = [
+            'CI-CP' => [
+                'default' => 'matiere1',
+                'domain2' => 'matiere2',
+                'domain4' => [
+                    'subdomain1' => ['matiere4', 'matiere5'],
+                    'subdomain2' => ['matiere6', 'matiere8'],
+                ],
+                'domain5' => 'matiere6',
+                'domain6' => 'matiere7',
+            ],
+            'CE1-CE2' => [
+                'CE1', 'CE2',
+            ],
+            'CM1-CM2' => [
+                'CM1', 'CM2',
+            ]
+        ];
         
         $profs = [];
         $profs = User::factory(11)->create();
