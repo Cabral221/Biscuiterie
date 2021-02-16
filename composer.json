@@ -26,7 +26,6 @@
         "nunomaduro/larastan": "^0.6.12",
         "phpunit/phpunit": "^9.3.3",
         "barryvdh/laravel-ide-helper": "^2.6",
-        "codedungeon/phpunit-result-printer": "^0.29",
         "friendsofphp/php-cs-fixer": "^2.16"
     },
     "config": {
