@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Domain extends Model
 {
@@ -25,7 +26,7 @@ class Domain extends Model
         return $this->hasMany(SubDomain::class, 'domain_id');
     }
 
-    public function activities()
+    public function activities() : MorphMany
     {
         return $this->morphMany(Activity::class, 'activitable');
     }

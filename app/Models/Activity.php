@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class Activity extends Model
 {
@@ -11,8 +12,9 @@ class Activity extends Model
 
     /**
      * Get the parent activitable model (domain or sub_domain).
+     * @return MorphTo
      */
-    public function activitable()
+    public function activitable() : MorphTo
     {
         return $this->morphTo();
     }

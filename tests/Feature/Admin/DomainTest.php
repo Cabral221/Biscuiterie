@@ -5,7 +5,6 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Domain;
-use App\Models\Niveau;
 use App\Models\Program;
 
 class DomainTest extends TestCase
