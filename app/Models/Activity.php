@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Activity extends Model
 {
     use HasFactory;
+
+    /**
+     * Get the parent activitable model (domain or sub_domain).
+     */
+    public function activitable()
+    {
+        return $this->morphTo();
+    }
 }
