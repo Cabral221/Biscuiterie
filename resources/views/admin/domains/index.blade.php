@@ -185,11 +185,76 @@
                                 @if ($domain->haveSubDomain())
                                     @foreach ($domain->sub_domains as $subdomain)
                                     <div class="ml-5 my-2 d-flex justify-content-between">
-                                        <span class="mr-5">{{ $subdomain->libele }}</span>
+                                        <div class="ml-3 p-2">
+                                            <div>{{ $subdomain->libele }}</div>
+                                            @if ($subdomain->activities->count() > 0)
+                                                @foreach ($subdomain->activities as $activity)
+                                                    <div class="ml-3 bg-white p-2">
+                                                    {{ $activity->libele }} - <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Étes vous sùr de vouloir supprimer cette matière ?')){document.getElementById('form-delete-activity-{{$activity->id}}').submit();}"><i class="fa fa-trash"></i></a>
+                                                    <form action="{{ route('admin.activities.destroy', $activity->id) }}" method="post" id="form-delete-activity-{{$activity->id}}" class="d-none">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </div>
+                                                @endforeach
+                                            @endif
+                                        </div>
                                         
                                         <div>
-                                            {{-- <button type="button" class="btn btn-xs btn-primary"><i class="fa fa-plus"></i></button> --}}
-    
+                                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-subdomain-add-activity-{{$subdomain->id}}"><i class="fa fa-plus"></i></button>
+                                            <div class="modal modal-xl fade" id="modal-subdomain-add-activity-{{$subdomain->id}}">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <form action="{{ route('admin.activities.store') }}" method="POST">
+
+                                                            <div class="modal-header">
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span></button>
+                                                                <h3 class="modal-title">Ajouter une matiére</h3>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <h3>Programme : 
+                                                                    <span class="badge badge-primary">{{ $subdomain->domain->program->libele }}</span>
+                                                                </h3>
+                                                                <h5>Niveau : 
+                                                                    @foreach ($subdomain->domain->program->niveaux as $niveau)
+                                                                        <span class="bagde badge-pill badge-primary">{{ $niveau->libele }}</span>    
+                                                                    @endforeach
+                                                                </h5>
+                                                                
+                                                                @csrf
+                                                                @method('POST')
+                                                                <input type="text" name="activitable_type" value="{{ get_class($subdomain) }}" class="d-none">
+                                                                <input type="text" name="activitable_id" value="{{ $subdomain->id }}" class="d-none">
+                                                                <div class="form-group">
+                                                                    <label>Domaine</label>
+                                                                    <select class="form-control" disabled="disabled">
+                                                                        <option selected>{{ $subdomain->domain->libele }}</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label>Sous Domaine</label>
+                                                                    <select class="form-control" disabled="disabled">
+                                                                        <option selected>{{ $subdomain->libele }}</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group @error('libele') has-error @enderror">
+                                                                    <label>Libelé de la matière</label>
+                                                                    <input type="text" name="libele" class="form-control">
+                                                                    @error('libele')
+                                                                        <span class="help-block">{{$message}}</span>
+                                                                    @enderror
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                                            </div>
+
+                                                        </form>  
+                                                    </div>
+                                                </div>
+                                            </div>
     
                                             <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Étes vous sur de vouloir supprimer ce sous domaine ?')){document.getElementById('delete-subdomain-{{$subdomain->id}}').submit();}"><i class="fa fa-trash"></i></a>
                                             <form action="{{ route('admin.subdomains.destroy', $subdomain->id) }}" method="POST" id="delete-subdomain-{{$subdomain->id}}" class="d-none">
