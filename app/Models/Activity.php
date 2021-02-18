@@ -10,6 +10,8 @@ class Activity extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['libele'];
+
     /**
      * Get the parent activitable model (domain or sub_domain).
      * @return MorphTo

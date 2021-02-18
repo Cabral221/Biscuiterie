@@ -69,6 +69,12 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
         // Gestion des classes
         Route::get('/classes/{classe}', 'ClasseController@show')->name('classes.show');
 
+        // Gestion des matieres
+        Route::prefix('/activities')->name('activities.')->group(function(){
+            Route::post('/store', 'ActivityController@store')->name('store');
+            Route::delete('/{activity}/destroy', 'ActivityController@destroy')->name('destroy');
+        });
+
         // Gestion des domaines
         Route::prefix('/domains')->name('domains.')->group(function () {
             Route::get('/', 'DomainController@index')->name('index');
@@ -82,7 +88,6 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
             Route::post('/', 'SubDomainController@store')->name('store');
             Route::delete('/{subdomain}/destroy', 'SubDomainController@destroy')->name('destroy');
         });
-        // Route::post('/domains/subdomain', 'DomainController@storesubdomain')->name('domains.subdomains.store');
 
         // Gestion des programmes
         Route::prefix('/programs')->name('programs.')->group(function() {
