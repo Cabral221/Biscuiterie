@@ -1,7 +1,5 @@
 // My own Display flex integrated System
 // #3c8db blue
-// // Variables
-// @import 'variables';
 
 // IMPORT bootstrap 4 badge system
 @import "~bootstrap/scss/functions";
@@ -12,6 +10,11 @@
 @import "~bootstrap/scss/mixins";
 @import '~bootstrap/scss/badge';
 @import "~bootstrap/scss/utilities/spacing";
+
+// Color
+.bg-white {
+    background-color: #ffffff;
+}
 
 
 .d-none {
@@ -63,9 +66,8 @@
 
 // page Domain
 .domain-item {
-    // font-size: 1rem;
     margin: 0.5rem 0;
     padding: 1rem 0;
-    border-top: 2px solid rgba(0, 0, 0, 0.4);
-    background-color: rgba(0, 0, 0, 0.03    );
+    border-top: 2px solid rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 0, 0, 0.04);
 }
