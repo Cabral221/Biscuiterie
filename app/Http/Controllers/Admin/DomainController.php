@@ -20,9 +20,9 @@ class DomainController extends Controller
      */
     public function index () : View
     {
-        // $niveaux = Niveau::all();
-        // $domains = Domain::all();
-        $programs = Program::with('domains')->with('domains.sub_domains')->get();
+        $programs = Program::with('niveaux.classes')
+                    ->with('domains.activities')
+                    ->with('domains.sub_domains.activities')->get();
         return view('admin.domains.index', compact('programs'));
     }
 
