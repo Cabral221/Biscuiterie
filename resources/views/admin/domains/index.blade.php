@@ -90,12 +90,12 @@
         @foreach ($programs as $program)
         <div class="col-md-4">
             <div class="box box-primary">
-                <div class="box-header">
+                <div class="box-header text-center">
                     <h3 class="box-title">Programme : <span class="text-primary">{{ $program->libele }}</span></h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <div>
+                    <div class="text-center">
                         <h4>niveaux concernés</h4>
                         @foreach ($program->niveaux as $niveau)
                             <span class="badge badge-dark">{{ $niveau->libele }}</span>
@@ -112,7 +112,7 @@
                                         @if (!$domain->haveSubDomain() && $domain->activities->count() > 0)
                                             @foreach ($domain->activities as $activity)
                                                 <div class="ml-3 bg-white p-2">
-                                                    {{ $activity->libele }} - <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Étes vous sùr de vouloir supprimer cette matière ?')){document.getElementById('form-delete-activity-{{$activity->id}}').submit();}"><i class="fa fa-trash"></i></a>
+                                                    <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Étes vous sùr de vouloir supprimer cette matière ?')){document.getElementById('form-delete-activity-{{$activity->id}}').submit();}"><i class="fa fa-trash"></i></a> - ( / {{ $activity->dividente }} ) {{ $activity->libele }}
                                                     <form action="{{ route('admin.activities.destroy', $activity->id) }}" method="post" id="form-delete-activity-{{$activity->id}}" class="d-none">
                                                         @csrf
                                                         @method('DELETE')
@@ -190,7 +190,7 @@
                                             @if ($subdomain->activities->count() > 0)
                                                 @foreach ($subdomain->activities as $activity)
                                                     <div class="ml-3 bg-white p-2">
-                                                    {{ $activity->libele }} - <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Étes vous sùr de vouloir supprimer cette matière ?')){document.getElementById('form-delete-activity-{{$activity->id}}').submit();}"><i class="fa fa-trash"></i></a>
+                                                    <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Étes vous sùr de vouloir supprimer cette matière ?')){document.getElementById('form-delete-activity-{{$activity->id}}').submit();}"><i class="fa fa-trash"></i></a> - ( / {{ $activity->dividente }} ) {{ $activity->libele }}
                                                     <form action="{{ route('admin.activities.destroy', $activity->id) }}" method="post" id="form-delete-activity-{{$activity->id}}" class="d-none">
                                                         @csrf
                                                         @method('DELETE')

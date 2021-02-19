@@ -14,20 +14,6 @@ class Program extends Model
 
     protected $fillable = ['libele'];
 
-    /**
-     * The "booted" method of the model.
-     *
-     * @return void
-     */
-    protected static function booted()
-    {
-        static::created(function ($program) {
-            $program->domains()->create([
-                'libele' => 'default',
-            ]);
-        });
-    }
-
     public function niveaux() : HasMany
     {
         return $this->hasMany(Niveau::class);

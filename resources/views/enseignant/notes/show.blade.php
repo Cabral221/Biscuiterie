@@ -37,7 +37,7 @@
             <p>Hello world !</p>
             <table class="table table-bordered">
                 <thead>
-                    <th colspan="2">Domaines</th>
+                    <th>Domaines</th>
                     <th>Activités</th>
                     <th class="text-center">1ére <br> Composition</th>
                     <th class="text-center">2ème <br> Composition</th>
