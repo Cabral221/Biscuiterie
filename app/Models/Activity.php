@@ -10,7 +10,7 @@ class Activity extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['libele'];
+    protected $fillable = ['libele', 'dividente'];
 
     /**
      * Get the parent activitable model (domain or sub_domain).

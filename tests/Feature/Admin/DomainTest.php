@@ -75,7 +75,7 @@ class DomainTest extends TestCase
             'libele' => 'Domain',
         ])->assertRedirect('/admin/domains')
           ->assertSessionHas('success');
-        $domain = $program->domains[1];
+        $domain = Domain::factory()->create(['program_id' => $program->id]);
 
         $response = $this->patch("/admin/domains/$domain->id/update", [
             'libele' => 'Domain-updated',
@@ -97,14 +97,14 @@ class DomainTest extends TestCase
         $program = Program::factory()->create();
         $domain = Domain::factory()->create(['program_id' => $program->id]);
 
-        $this->assertCount(2, $program->domains);
+        $this->assertCount(1, $program->domains);
 
         $response = $this->delete("/admin/domains/$domain->id/destroy");
 
         $response->assertStatus(302);
         $response->assertRedirect('/admin/domains');
         $response->assertSessionHas('success');
-        $this->assertCount(1, $program->fresh()->domains);
+        $this->assertCount(0, $program->fresh()->domains);
         $this->assertDatabaseMissing('domains', [
             'id' => $domain->id,
         ]);

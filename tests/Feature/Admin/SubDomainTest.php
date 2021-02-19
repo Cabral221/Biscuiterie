@@ -47,16 +47,16 @@ class SubDomainTest extends TestCase
     {
         $this->loginAsAdmin(Admin::factory()->create());
         $program = Program::factory()->create();
-
+        $domain =  Domain::factory()->create(['program_id' => $program->id]);
         $response = $this->post('/admin/subdomains', [
-            'sub_domain_domain' => $program->domains()->first()->id,
+            'sub_domain_domain' => $domain->id,
             'sub_domain_libele' => 'sub-domain-test'
         ]);
 
         $response->assertRedirect('/admin/domains');
         $response->assertSessionHas('success');
         $this->assertDatabaseHas('sub_domains', [
-            'domain_id' => $program->domains()->first()->id,
+            'domain_id' => $domain->id,
             'libele' => 'sub-domain-test',
         ]);
     }
@@ -69,7 +69,7 @@ class SubDomainTest extends TestCase
         $domain = Domain::factory()->create(['program_id' => $program->id]);
         $subdomain = $domain->sub_domains()->create(['libele' => 'Sub-Domain-Test']);
 
-        $this->assertCount(2, $program->domains);
+        $this->assertCount(1, $program->domains);
         $this->assertCount(1, $domain->sub_domains);
 
         $response = $this->delete("/admin/subdomains/$subdomain->id/destroy");

@@ -59,10 +59,6 @@ class ProgramTest extends TestCase
         $this->assertDatabaseHas('programs', [
             'libele' => 'Test-Program',
         ]);
-        
-        $this->assertDatabaseHas('domains', [
-            'libele' => 'default',
-        ]);
     }
 
     /** @test */

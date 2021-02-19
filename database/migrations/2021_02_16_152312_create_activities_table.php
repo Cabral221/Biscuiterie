@@ -16,6 +16,7 @@ class CreateActivitiesTable extends Migration
         Schema::create('activities', function (Blueprint $table) {
             $table->id();
             $table->string('libele');
+            $table->integer('dividente')->default(10);
             $table->integer('activitable_id');
             $table->string('activitable_type');
             $table->timestamps();
