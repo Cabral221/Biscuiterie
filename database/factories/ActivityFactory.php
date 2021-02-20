@@ -23,6 +23,7 @@ class ActivityFactory extends Factory
     {
         return [
             'libele' => $this->faker->word(),
+            'dividente' =>  rand(5, 20),
             'activitable_id' => $this->faker->randomNumber(),
             'activitable_type' => '\App\Classe',
         ];

@@ -162,6 +162,13 @@
                                                                         <span class="help-block">{{$message}}</span>
                                                                     @enderror
                                                                 </div>
+                                                                <div class="form-group @error('dividente') has-error @enderror">
+                                                                    <label>Dividente</label>
+                                                                    <input type="number" name="dividente" class="form-control">
+                                                                    @error('libele')
+                                                                        <span class="help-block">{{$message}}</span>
+                                                                    @enderror
+                                                                </div>
                                                             </div>
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
@@ -241,6 +248,13 @@
                                                                 <div class="form-group @error('libele') has-error @enderror">
                                                                     <label>Libelé de la matière</label>
                                                                     <input type="text" name="libele" class="form-control">
+                                                                    @error('libele')
+                                                                        <span class="help-block">{{$message}}</span>
+                                                                    @enderror
+                                                                </div>
+                                                                <div class="form-group @error('dividente') has-error @enderror">
+                                                                    <label>Dividente</label>
+                                                                    <input type="number" name="dividente" class="form-control">
                                                                     @error('libele')
                                                                         <span class="help-block">{{$message}}</span>
                                                                     @enderror

@@ -23,6 +23,7 @@ class ActivityController extends Controller
     {
         $this->validate($request, [
             'libele' => ['required', 'string', 'min:2'],
+            'dividente' => ['required', 'numeric', 'min:5'],
             'activitable_type' => ['required', 'string', Rule::in([Domain::class, SubDomain::class])],
             'activitable_id' => ['required', 'numeric'],
         ]);

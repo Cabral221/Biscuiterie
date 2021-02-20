@@ -45,6 +45,7 @@ class ActivityTest extends TestCase
         $domain = Domain::factory()->create();
         $response = $this->post('/admin/activities/store', [
             'libele' => 'MatiereTest',
+            'dividente' => 5,
             'activitable_id' => $domain->id,
             'activitable_type' => get_class($domain),
         ])->assertStatus(302);
@@ -69,6 +70,7 @@ class ActivityTest extends TestCase
         ]);
         $response = $this->post('/admin/activities/store', [
             'libele' => 'MatiereTest',
+            'dividente' => 5,
             'activitable_id' => $subdomain->id,
             'activitable_type' => get_class($subdomain),
         ])->assertStatus(302);
@@ -89,10 +91,11 @@ class ActivityTest extends TestCase
 
         $response = $this->from('/admin/domains')->post('/admin/activities/store', [
             'libele' => '',
+            'dividente' => '',
             'activitable_id' => '',
             'activitable_type' => 'azeaze',
         ])->assertStatus(302);
-        $response->assertSessionHasErrors(['libele', 'activitable_id', 'activitable_type']);
+        $response->assertSessionHasErrors(['libele', 'dividente', 'activitable_id', 'activitable_type']);
         $response->assertRedirect('/admin/domains');
     }
 
