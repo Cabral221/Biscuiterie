@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Note;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Activity extends Model
 {
@@ -19,5 +21,10 @@ class Activity extends Model
     public function activitable() : MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function notes() : HasMany
+    {
+        return $this->hasMany(Note::class);
     }
 }

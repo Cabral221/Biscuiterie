@@ -26,7 +26,7 @@ class NoteController extends Controller
      */
     public function show(int $id) : View
     {
-        $student = Student::findOrFail($id);
+        $student = Student::with('notes')->findOrFail($id);
         
         return view('enseignant.notes.show', compact('student'));
     }

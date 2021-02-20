@@ -45,16 +45,16 @@
                     <th>Récaputulations</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>libel domaine</td>
-                        <td>$matieres</td>
-
-                        <td>1</td>
-                        <td>1</td>
-                        <td>1</td>
-
-                        <td>recap</td>
-                    </tr>
+                    @foreach ($student->notes as $note)
+                        <tr>
+                            <td>Domaines</td>
+                            <td>{{ $note->activity->libele }}</td>
+                            <td class="text-bold text-center">{{ $note->note1. ' /' . $note->activity->dividente }}</td>
+                            <td class="text-bold text-center">{{ $note->note2. ' /' . $note->activity->dividente }}</td>
+                            <td class="text-bold text-center">{{ $note->note3. ' /' . $note->activity->dividente }}</td>
+                            <td>Recapitulation</td>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

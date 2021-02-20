@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Note;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Student extends Model
 {
@@ -19,9 +21,27 @@ class Student extends Model
     ];
 
     /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        static::created(function ($student) {
+            // recuperer liste des matieres et on creer des notes par defaut
+            $activities = $student->classe->niveau->program->getActivities();
+            foreach ($activities as $activity) {
+                $student->notes()->create([
+                    'activity_id' => $activity['id'],
+                ]);
+            }
+        });
+    }
+
+    /**
      * @return string
      */
-    public function getFullNameAttribute()
+    public function getFullNameAttribute() : string
     {
         return $this->first_name . ' ' . $this->last_name;
     }
@@ -29,8 +49,16 @@ class Student extends Model
     /**
      * @return BelongsTo
      */
-    public function classe()
+    public function classe() : BelongsTo
     {
         return $this->belongsTo(Classe::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function Notes() : HasMany
+    {
+        return $this->hasMany(Note::class);
     }
 }

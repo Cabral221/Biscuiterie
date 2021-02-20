@@ -23,4 +23,33 @@ class Program extends Model
     {
         return $this->hasMany(Domain::class);
     }
+
+    public function getActivities() : array
+    {
+        $activities = [];
+        foreach($this->domains as $domain){
+            if ($domain->haveSubDomain()) {
+                foreach ($domain->sub_domains as $subdomain) {
+                    foreach ($subdomain->activities as $activity) {
+                        $activities[] = [
+                            'id' => $activity->id,
+                            'libele' => $activity->libele,
+                            'dividente' => $activity->dividente,
+                        ];
+                    }
+                }
+            }else {
+                foreach ($domain->activities as  $activity) {
+                    $activities[] = [
+                        'id' => $activity->id,
+                        'libele' => $activity->libele,
+                        'dividente' => $activity->dividente,
+                    ];
+                }
+            }
+
+        }
+
+        return $activities;
+    }
 }
