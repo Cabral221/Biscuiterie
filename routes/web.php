@@ -40,6 +40,7 @@ Route::prefix('/master')->name('master.')->group(function () {
         // Gestion des notes
         Route::get('/notes', [NoteController::class, 'index'])->name('notes.index');
         Route::get('/notes/{student}', [NoteController::class, 'show'])->name('notes.show');
+        Route::patch('/notes/{note}/store', [NoteController::class, 'store'])->name('notes.store');
 
         // Routes for profile manager
         Route::get('/profile', [ProfileController::class ,'index'])->name('profile');

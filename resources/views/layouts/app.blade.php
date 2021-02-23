@@ -87,6 +87,9 @@
 
     <script src="{{ asset('dist/js/demo.js') }}"></script>
 
+     {{-- Include my on own JS (react, axios) --}}
+     <script src="{{ asset('js/backend.js') }}"></script>
+
     @yield('js')
 </body>
 </html>

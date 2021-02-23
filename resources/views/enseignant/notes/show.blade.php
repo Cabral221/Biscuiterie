@@ -34,7 +34,9 @@
             </div>
         </div>
         <div class="box-body">
-            <p>Hello world !</p>
+            {{-- <div class="overlay">
+              <i class="fa fa-refresh fa-spin"></i>
+            </div> --}}
             <table class="table table-bordered">
                 <thead>
                     <th>Domaines</th>
@@ -49,9 +51,24 @@
                         <tr>
                             <td>Domaines</td>
                             <td>{{ $note->activity->libele }}</td>
-                            <td class="text-bold text-center">{{ $note->note1. ' /' . $note->activity->dividente }}</td>
-                            <td class="text-bold text-center">{{ $note->note2. ' /' . $note->activity->dividente }}</td>
-                            <td class="text-bold text-center">{{ $note->note3. ' /' . $note->activity->dividente }}</td>
+                            <td class="text-bold text-center note-td" 
+                                data-note_id="{{$note->id}}" 
+                                data-note_position="1"
+                                data-note="{{ $note->note1 }}"
+                                data-note_dividente="{{ $note->activity->dividente }}">
+                            </td>
+                            <td class="text-bold text-center note-td"
+                                data-note_id="{{$note->id}}" 
+                                data-note_position="2"
+                                data-note="{{ $note->note2 }}"
+                                data-note_dividente="{{ $note->activity->dividente }}">
+                            </td>
+                            <td class="text-bold text-center note-td"
+                                data-note_id="{{$note->id}}" 
+                                data-note_position="3"
+                                data-note="{{ $note->note3 }}"
+                                data-note_dividente="{{ $note->activity->dividente }}">
+                            </td>
                             <td>Recapitulation</td>
                         </tr>
                     @endforeach

@@ -57,8 +57,14 @@ class Student extends Model
     /**
      * @return HasMany
      */
-    public function Notes() : HasMany
+    public function notes() : HasMany
     {
         return $this->hasMany(Note::class);
+    }
+
+    public function moyennes() 
+    {
+        $notes = $this->notes;
+        
     }
 }
