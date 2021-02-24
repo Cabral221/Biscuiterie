@@ -62,9 +62,8 @@ class Student extends Model
         return $this->hasMany(Note::class);
     }
 
-    public function moyennes() 
+    public function moyennes() : array
     {
-        $notes = $this->notes;
-        
+        return [];
     }
 }

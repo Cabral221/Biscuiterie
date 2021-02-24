@@ -12,21 +12,23 @@ class NoteTest extends TestCase
     public function test_post_note() : void
     {
         // Etant donne que l'utilisateur est connecte
+        /** @var User */
         $user = User::first();
+        /** @var Note */
         $note = Note::first();
         $this->loginAsMaster($user);
 
         // si on soumet le formulaire
         $response = $this->patch("/master/notes/{$note->id}/store", [
             'position' => 1,
-            'note' => 19.5,
+            'note' => 3,
         ]);
 
         // alors il doit etre enregistrer en base de donnée
         $response->assertStatus(200);
         $this->assertDatabaseHas('notes', [
             'id' => $note->id,
-            'note1' => 19.5,
+            'note1' => 3,
         ]);
     }
 }

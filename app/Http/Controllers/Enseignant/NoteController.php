@@ -2,14 +2,17 @@
 namespace App\Http\Controllers\Enseignant;
 
 use App\Models\Note;
+use App\Models\User;
+use App\Models\Classe;
 use App\Models\Student;
+use App\Models\Activity;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
 
 class NoteController extends Controller
 {
@@ -41,8 +44,12 @@ class NoteController extends Controller
     public function store(Request $request, int $id) : JsonResponse
     {
         $note = Note::with(['student.classe.user'])->findOrFail($id);
+
+        /** @var Activity */
+        $activity = $note->activity;
+
         $validator = Validator::make($request->all(), [
-            'note' => ['required', 'numeric', 'min:0', 'max:' . $note->activity->dividente],
+            'note' => ['required', 'numeric', 'min:0', 'max:' . $activity->dividente],
             'position' => ['required', 'integer', Rule::in([1,2,3])],
         ]);
 
@@ -50,7 +57,16 @@ class NoteController extends Controller
             return Response::json($validator->messages(), 400);
         }
 
-        if(auth()->user()->id !== $note->student->classe->user->id){
+        /** @var Student */
+        $student = $note->student;
+        /** @var Classe */
+        $classe = $student->classe;
+        /** @var Student */
+        $user = $classe->user;
+        /** @var User */
+        $auth = auth()->user();
+        
+        if($auth->id !== $user->id){
             return Response::json('Vous n\'avez pas les droits', 401);
         }
 
