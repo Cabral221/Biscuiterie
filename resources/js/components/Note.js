@@ -1,6 +1,5 @@
 import React from 'react';
 import FormNote from './FormNote';
-import './NoteStyle.css'
 
 
 class Note extends React.Component {

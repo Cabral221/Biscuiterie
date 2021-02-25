@@ -41,7 +41,7 @@ class FormNote extends React.Component {
         }
 
         return (<form ection="#" method="post" onSubmit={this.handleKeyPress}>
-            <input type="number" name="note" step="0.05" min="0" max={this.state.dividente} required 
+            <input type="number" name="note" step="0.05" min="0" max={this.state.dividente} required autoFocus={true} 
                 value={this.state.note} 
                 onChange={this.handleChange}
                 // onBlur={this.handleBlur}
