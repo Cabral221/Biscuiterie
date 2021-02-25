@@ -19,7 +19,7 @@
 <section class="content">
     
     <!-- Default box -->
-    <div class="small-box bg-aqua">
+    <div class="small-box bg-blue">
         <div class="inner">
             <h3>{{$user->classe->libele}} : {{ $user->classe->students->count() }} éléve(s)</h3>
             <p>10 garçon(s)</p>
@@ -59,18 +59,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($user->classe->students as $student)
+                    @foreach ($classe->students as $student)
                         <tr>
                             <td>{{ $student->last_name }}</td>
                             <td>{{ $student->first_name }}</td>
                             <td><span class="badge badge-primary">Garçon</span></td>
-                            <td>00</td>
-                            <td>00</td>
-                            <td>00</td>
+                            @foreach ($student->moy() as $moy)
+                                <td class="text-center text-bold">{{ $moy }}</td>
+                            @endforeach
                             <td>
-                                {{-- Modifier --}}
+                                {{-- Gérer --}}
                                 <a href="{{ route('master.notes.show', $student) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i> Gérer</a>
-
                             </td>
                         </tr>
                     @endforeach
@@ -80,9 +79,9 @@
                         <th>Nom</th>
                         <th>Prénom</th>
                         <th>Genre</th>
-                        <th>1er Composition</th>
-                        <th>2éme Composition</th>
-                        <th>3éme Composition</th>
+                        <th class="text-center">Moy <br> 1ére Composition</th>
+                        <th class="text-center">Moy <br> 2ème Composition</th>
+                        <th class="text-center">Moy <br> 3ème Composition</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>

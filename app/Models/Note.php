@@ -14,6 +14,8 @@ class Note extends Model
 
     protected $fillable = ['student_id', 'activity_id', 'note1', 'note2', 'note3'];
 
+    protected $with = ['activity'];
+
     public function student() : BelongsTo
     {
         return $this->belongsTo(Student::class);

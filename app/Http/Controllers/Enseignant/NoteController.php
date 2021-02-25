@@ -23,8 +23,13 @@ class NoteController extends Controller
      */   
     public function index() : View
     {
+        /** @var User */
         $user = auth()->user();
-        return view('enseignant.notes.index', compact('user'));
+
+        /** @var Classe */
+        $classe = $user->classe;
+        // dd($user->classe->students[8]->moy1());
+        return view('enseignant.notes.index', compact('user', 'classe'));
     }
 
     /**

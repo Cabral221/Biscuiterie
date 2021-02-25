@@ -72,6 +72,13 @@
                             <td>Recapitulation</td>
                         </tr>
                     @endforeach
+                    <tr class="h4">
+                        <td colspan="2">Domaines</td>
+                        @foreach ($student->moy() as $moy)
+                            <td class="text-center text-bold">{{ $moy }}</td>
+                        @endforeach
+                        <td>Recapitulation</td>
+                    </tr>
                 </tbody>
             </table>
         </div>

@@ -3,10 +3,11 @@
 namespace App\Models;
 
 use App\Models\Note;
+use App\Models\Activity;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Student extends Model
 {
@@ -19,6 +20,8 @@ class Student extends Model
     public $casts = [
         'birthday' => 'date',
     ];
+
+    protected $with = ['notes'];
 
     /**
      * The "booted" method of the model.
@@ -62,8 +65,35 @@ class Student extends Model
         return $this->hasMany(Note::class);
     }
 
-    public function moyennes() : array
+    public function totalGen() : array
     {
-        return [];
+        $sommeNotes1 = null;
+        $sommeNotes2 = null;
+        $sommeNotes3 = null;
+        foreach ($this->notes as $note) {
+            $sommeNotes1 += $note->note1;
+            $sommeNotes2 += $note->note2;
+            $sommeNotes3 += $note->note3;
+        }
+        return [$sommeNotes1, $sommeNotes2, $sommeNotes3];
+    }
+
+    public function moy() : array
+    {
+        $tot = $this->totalGen();
+
+        $sommeDividentes = null;
+        foreach ($this->notes as $note) {
+            /** @var Activity */
+            $activity = $note->activity;
+
+            $sommeDividentes += $activity->dividente;
+        }
+        
+        return [
+            round($tot[0] * 10 / $sommeDividentes, 2),
+            round($tot[1] * 10 / $sommeDividentes, 2),
+            round($tot[2] * 10 / $sommeDividentes, 2),
+        ];
     }
 }
