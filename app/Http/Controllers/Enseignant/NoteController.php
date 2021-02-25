@@ -28,7 +28,8 @@ class NoteController extends Controller
 
         /** @var Classe */
         $classe = $user->classe;
-        // dd($user->classe->students[8]->moy1());
+        // dd($user->classe->students[8]->notes);
+        // dd($user->classe->students[8]->rang(0));
         return view('enseignant.notes.index', compact('user', 'classe'));
     }
 

@@ -30,4 +30,17 @@ class Classe extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function getAllMoy() : array 
+    {
+        $students = $this->students;
+        $moys = [];
+        foreach ($students as $student) {
+            $moy = $student->moy();
+            $moys[] = array_merge(['id' => $student->id ],$moy);
+        }
+        // tableaux de moy et eleve id
+        // ['id' => 24, 0 => 9,7, 1 => 9,7, 2 => 9,7, ]
+        return $moys;
+    }
 }

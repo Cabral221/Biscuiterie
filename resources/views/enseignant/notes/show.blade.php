@@ -72,11 +72,27 @@
                             <td>Recapitulation</td>
                         </tr>
                     @endforeach
-                    <tr class="h4">
-                        <td colspan="2">Domaines</td>
-                        @foreach ($student->moy() as $moy)
-                            <td class="text-center text-bold">{{ $moy }}</td>
+                    <tr class="h4  text-bold">
+                        <td class="text-center" colspan="2">TOTAL GENERAL</td>
+                        @foreach ($student->totalGen() as $tot)
+                            <td class="text-center">{{ $tot }} / {{ $student->totSommeDividente() }}</td>
                         @endforeach
+                        <td>Recapitulation</td>
+                    </tr>
+                    <tr class="h4 text-bold">
+                        <td class="text-center" colspan="2">MOYENNE</td>
+                        @foreach ($student->moy() as $moy)
+                            <td class="text-center">{{ $moy }} / {{ $student::DIVIDEUR }}</td>
+                        @endforeach
+                        <td>Recapitulation</td>
+                    </tr>
+                    <tr class="h4 text-bold">
+                        <td class="text-center" colspan="2">RANG</td>
+                        
+                        <td class="text-center">{{ $student->rang(1) }}</td>
+                        <td class="text-center">{{ $student->rang(2) }}</td>
+                        <td class="text-center">{{ $student->rang(3) }}</td>
+                        
                         <td>Recapitulation</td>
                     </tr>
                 </tbody>
