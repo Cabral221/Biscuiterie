@@ -34,37 +34,53 @@
                     <tr>
                         <th>Nom</th>
                         <th>Prénom</th>
+                        <th>Genre</th>
                         <th>Date et lieu de naissance</th>
-                        <th>Adresse</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($classe->students as $student)
-                        <tr>
-                            <td>{{ $student->last_name }}</td>
-                            <td>{{ $student->first_name }}</td>
-                            <td>{{ $student->birthday->locale('fr')->format('d M Y')  . ' à ' . $student->where_birthday }}</td>
-                            <td>{{ $student->address}}</td>
-                            <td>
-                                {{-- show details in modal for student --}}
-                                <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-student-show-{{$student->id}}"><i class="fa fa-eye"></i></button>
-
-                                <div class="modal modal-xl fade" id="modal-student-show-{{$student->id}}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <tr>
+                        <td>{{ $student->last_name }}</td>
+                        <td>{{ $student->first_name }}</td>
+                        <td>
+                            @if ($student->kind)
+                            <span class="badge badge-primary">Masculin</span>
+                            @else
+                            <span class="badge badge-pink">Féminin</span>
+                            @endif
+                        </td>
+                        <td>{{ $student->birthday->locale('fr')->format('d M Y')  . ' à ' . $student->where_birthday }}</td>
+                        <td>
+                            {{-- show details in modal for student --}}
+                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-student-show-{{$student->id}}"><i class="fa fa-eye"></i></button>
+                            
+                            <div class="modal modal-xl fade" id="modal-student-show-{{$student->id}}">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span></button>
                                                 <h4 class="modal-title">Détails de l'éléve</h4>
                                             </div>
                                             <div class="modal-body">
-
+                                                
                                                 <div class="text-primary">
-                                                    <h1>{{ $student->first_name . ' ' . $student->last_name }}</h1>
+                                                    <h1>{{ $student->fullName }}</h1>
                                                 </div>
                                                 <table class="table">
                                                     <tbody>
+                                                        <tr>
+                                                            <th>Genre</th>
+                                                            <td>
+                                                                @if ($student->kind)
+                                                                    <span class="badge badge-primary">Masculin</span>
+                                                                @else
+                                                                    <span class="badge badge-pink">Féminin</span>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
                                                         <tr>
                                                             <th>Date de naissance</th>
                                                             <td><span class="text-bold text-primary">{{ $student->birthday->locale('fr')->format('d M Y') }}</span></td>
@@ -100,7 +116,7 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                
                                 {{-- Editing data for student --}}
                                 <a href="{{ route('admin.students.edit', $student) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i></a>
                                 {{-- Delete student --}}
@@ -113,33 +129,33 @@
                                 </a>
                             </td>
                         </tr>
-                    @endforeach
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Prénom</th>
-                        <th>Date et lieu de naissance</th>
-                        <th>Adresse</th>
-                        <th>Actions</th>
-                    </tr>
-                </tfoot>
-            </table>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Genre</th>
+                            <th>Date et lieu de naissance</th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!-- /.box-body -->
         </div>
-        <!-- /.box-body -->
-    </div>
-</section>
-@endsection
-
-@section('plugin-js')
-<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-@endsection
-
-@section('js')
-<script>
-    $(function () {
-        $('#example1').DataTable()
-    })
-</script>
-@endsection
+    </section>
+    @endsection
+    
+    @section('plugin-js')
+    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    @endsection
+    
+    @section('js')
+    <script>
+        $(function () {
+            $('#example1').DataTable()
+        })
+    </script>
+    @endsection

@@ -19,22 +19,28 @@
 <section class="content">
     
     <!-- Default box -->
-    <div class="small-box bg-blue">
+    <div class="small-box bg-aqua">
         <div class="inner">
             <h3>{{$user->classe->libele}} : {{ $user->classe->students->count() }} éléve(s)</h3>
-            <p>10 garçon(s)</p>
-            <p>10 fille(s)</p>
+            <p>
+                <span class="badge badge-primary">
+                    {{ $user->classe->students()->whereKind(true)->count() }} Garçon(s)
+                </span>
+                <span class="badge badge-pink">
+                    {{ $user->classe->students()->whereKind(false)->count() }} Fille(s)
+                </span>
+            </p>
         </div>
         <div class="icon">
             <i class="ion ion-pie-graph"></i>
         </div>
     </div>
     <!-- /.box -->
-
-     <!-- Default box -->
+    
+    <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">liste de la classe</h3>
+            <h3 class="box-title">Liste des moyennes de chaque éléve</h3>
             
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -60,18 +66,24 @@
                 </thead>
                 <tbody>
                     @foreach ($classe->students as $student)
-                        <tr>
-                            <td>{{ $student->last_name }}</td>
-                            <td>{{ $student->first_name }}</td>
-                            <td><span class="badge badge-primary">Garçon</span></td>
-                            @foreach ($student->moy() as $moy)
-                                <td class="text-center text-bold">{{ $moy }}</td>
-                            @endforeach
-                            <td>
-                                {{-- Gérer --}}
-                                <a href="{{ route('master.notes.show', $student) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i> Gérer</a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>{{ $student->last_name }}</td>
+                        <td>{{ $student->first_name }}</td>
+                        <td>
+                            @if ($student->kind)
+                            <span class="badge badge-primary">Masculin</span>
+                            @else
+                            <span class="badge badge-pink">Féminin</span>
+                            @endif
+                        </td>
+                        @foreach ($student->moy() as $moy)
+                        <td class="text-center text-bold">{{ $moy }}</td>
+                        @endforeach
+                        <td>
+                            {{-- Gérer --}}
+                            <a href="{{ route('master.notes.show', $student) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i> Gérer</a>
+                        </td>
+                    </tr>
                     @endforeach
                 </tbody>
                 <tfoot>
@@ -91,7 +103,7 @@
     </div>
     <!-- /.box -->
 </section>
-    
+
 @endsection
 
 @section('plugin-js')

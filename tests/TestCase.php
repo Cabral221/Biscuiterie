@@ -16,8 +16,7 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, RefreshDatabase;
 
-    public function setUp(): void
-    {
+    public function setUp(): void {
         parent::setUp();
 
         Artisan::call('db:seed');

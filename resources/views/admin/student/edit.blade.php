@@ -12,16 +12,15 @@
     </ol>
 </section>
 <section class="content">
-    <form action="{{ route('admin.students.update', $student) }}" method="post">
-        @csrf
-        @method('PUT')
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="box box-primary">
-                    <div class="box-header">
-                        <h3 class="box-title">informations de l'éléve</h3>
-                    </div>
-                    <div class="box-body">
+    <div class="box box-primary">
+        <div class="box-body">
+            <form action="{{ route('admin.students.update', $student) }}" method="post">
+                @csrf
+                @method('PUT')
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4 class="box-title">informations de l'éléve</h3>
+                        
                         <div class="form-group @error('classe_id') has-error @enderror">
                             <label>Classe</label>
                             <select class="form-control" name="classe_id">
@@ -32,6 +31,18 @@
                                 @endforeach
                             </select>
                             @error('classe_id')
+                            <span class="help-block">{{ $message }}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group @error('kind') has-error @enderror">
+                            <label for="kind" class="mr-5">Genre</label>
+                            <label class="radio-inline">
+                                <input type="radio" name="kind" value="1" @if($student->kind) checked @endif>Masculin
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="kind" value="0" @if(!$student->kind) checked @endif>Féminin
+                            </label>
+                            @error('kind')
                             <span class="help-block">{{ $message }}</span>
                             @enderror
                         </div>
@@ -71,14 +82,9 @@
                             @enderror
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="box box-primary">
-                    <div class="box-header">
-                        <h3 class="box-title">Filiation des parents</h3>
-                    </div>
-                    <div class="box-body">
+                    <div class="col-sm-6">
+                        <h4 class="box-title">Filiation des parents</h3>
+                        
                         <div class="form-group @error('father_name') has-error @enderror">
                             <label for="father_name">Prénom du père</label>
                             <input type="text" name="father_name" id="father_name" class="form-control" value="{{ old('father_name') ?? $student->father_name }}">
@@ -117,11 +123,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block btn-primary">Enregistrer</button>
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-block btn-primary">Enregistrer</button>
-        </div>
-    </form>
+    </div>
 </section>
 @endsection

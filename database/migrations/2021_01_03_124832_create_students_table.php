@@ -20,6 +20,7 @@ class CreateStudentsTable extends Migration
 
             $table->date('birthday');
             $table->string('where_birthday');
+            $table->boolean('kind');
 
             $table->string('address');
 

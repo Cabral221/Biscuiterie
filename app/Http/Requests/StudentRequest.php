@@ -29,6 +29,7 @@ class StudentRequest extends FormRequest
             'last_name' => ['required','string','min:2'],
             'birthday' => ['required','date'],
             'where_birthday' => ['required','string', 'min:2'],
+            'kind' => ['required', 'boolean'],
             'address' => ['required','string','min:2'],
             'father_name' => ['string','min:2'],
             'father_phone' => ['numeric'],

@@ -8,7 +8,12 @@
 @section('content')
 <section class="content-header">
     <h1>
-        {{ $student->fullName }}
+        {{ $student->fullName }} 
+        @if ($student->kind)
+        <span class="badge badge-primary">Masculin</span>
+        @else
+        <span class="badge badge-pink">Féminin</span>
+        @endif
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('master.index') }}"><i class="fa fa-dashboard"></i> Tableu de bord</a></li>
@@ -22,7 +27,7 @@
      <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Fiche de notes : <span class="text-primary">{{ $student->fullName }}</span></h3>
+            <h3 class="box-title">Fiche de notes</h3>
             
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
