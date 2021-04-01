@@ -1,4 +1,8 @@
 .btn {
+  font-size: 14px !important;
+}
+
+.btn {
   display: inline-block;
   font-weight: 400;
   color: #212529;

@@ -6,7 +6,7 @@
         <i class="fa fa-plus"></i> <span>Ajouter un éléve</span>
     </a>
 </li>
-<li class="header">niveau</li>
+<li class="header">Niveau</li>
 @foreach (all_niveaux() as $niveau)
 <li class="treeview">
     <a href="#">
