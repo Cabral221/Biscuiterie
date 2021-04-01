@@ -14,11 +14,11 @@ class NoteTest extends TestCase
         // Etant donne que l'utilisateur est connecte
         /** @var User */
         $user = User::first();
-        /** @var Note */
-        $note = Note::first();
         $this->loginAsMaster($user);
 
         // si on soumet le formulaire
+        /** @var Note */
+        $note = Note::first();
         $response = $this->patch("/master/notes/{$note->id}/store", [
             'position' => 1,
             'note' => 3,

@@ -30957,7 +30957,7 @@ var Note = /*#__PURE__*/function (_React$Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /var/www/html/resources/js/backend.js */"./resources/js/backend.js");
+module.exports = __webpack_require__(/*! /Users/cabral/Lab/Biscuiterie/resources/js/backend.js */"./resources/js/backend.js");
 
 
 /***/ })

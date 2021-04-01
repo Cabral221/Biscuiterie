@@ -8,32 +8,19 @@
 @import 'variables';
 
 @import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/button-group";
 @import '~bootstrap/scss/badge';
-@import "~bootstrap/scss/utilities/spacing";
+@import '~bootstrap/scss/card';
+@import '~bootstrap/scss/utilities';
+// @import "~bootstrap/scss/utilities/spacing";
+// @import "~bootstrap/scss/utilities/flex";
+// @import "~bootstrap/scss/utilities/shadows";
+// @import "~bootstrap/scss/utilities/display";
 
 // Color
 .bg-white {
     background-color: #ffffff;
-}
-
-.d-none {
-    display: none;
-}
-
-.d-flex {
-    display: flex;
-    flex-wrap: wrap;
-
-    &.align-items-center {
-        align-items: center;
-    }
-
-    &.justify-content-between {
-        justify-content: space-between;
-    }
-    &.justify-content-center {
-        justify-content: center;
-    }
 }
 
 .vcenter {

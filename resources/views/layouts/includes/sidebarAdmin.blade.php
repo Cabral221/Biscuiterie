@@ -1,5 +1,11 @@
 
 <!-- sidebar menu: : style can be found in sidebar.less -->
+<li class="header">Tableau de bord</li>
+<li>
+    <a href="{{ route('admin.students.index') }}" class="text-sucess">
+        <i class="fa fa-plus"></i> <span>Ajouter un éléve</span>
+    </a>
+</li>
 <li class="header">niveau</li>
 @foreach (all_niveaux() as $niveau)
 <li class="treeview">

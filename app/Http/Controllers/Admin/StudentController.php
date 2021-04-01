@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Classe;
+use App\Models\Niveau;
 use App\Models\Student;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,17 @@ use Illuminate\Http\RedirectResponse;
 
 class StudentController extends Controller
 {
+
+    /**
+     * renvoi la page d'ajout d'éléve
+     *
+     * @return View
+     */
+    public function index() : View
+    {
+        $niveaux = Niveau::with('classes.students')->get();
+        return view('admin.student.index', compact('niveaux'));
+    }
 
     /**
      * flush data for new student create

@@ -65,7 +65,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
         Route::get('/', 'HomeController@home')->name('index');
 
         // Gestion des eleves
-        Route::resource('/students', 'StudentController')->only(['destroy','edit','update','store']);
+        Route::resource('/students', 'StudentController')->only(['index', 'destroy','edit','update','store']);
 
         // Gestion des classes
         Route::get('/classes/{classe}', 'ClasseController@show')->name('classes.show');

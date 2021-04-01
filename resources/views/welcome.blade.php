@@ -23,7 +23,7 @@
         </header> --}}
         <main class="page-main">
             <div>
-                <h1>Bienvenue à l' {{ env("APP_NAME") }}</h1>
+                <h1>Bienvenue à l' {{ config("app.name") }}</h1>
                 <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Enim quia officiis repellat aperiam nobis quis reprehenderit aliquid nemo, autem id suscipit vel quos. Illum accusantium asperiores unde. Harum, ex minus!</p>
                 <p class="call-to-action">
                     <a href="{{ route('admin.index') }}" class="btn btn-primary">Espace Administration</a>
@@ -32,7 +32,7 @@
             </div>
         </main>
         <footer class="page-footer">
-            &copy; Copyright <span>{{ env("APP_NAME") }}</span> {{ Carbon\Carbon::now()->year }} - Tous droits réservés - Made By <span>EMPRO</span>
+            &copy; Copyright <span>{{ config("app.name") }}</span> {{ Carbon\Carbon::now()->year }} - Tous droits réservés - Made By <span>EMPRO</span>
         </footer>
     </div>
 </body>
