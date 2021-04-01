@@ -1,6 +1,9 @@
 .PHONY: seed dev stan test
 
 dev:
+	composer install
+	npm install
+	npm run dev 
 	php artisan serve
 
 seed:
