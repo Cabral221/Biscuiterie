@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Note;
+use App\Models\Classe;
 use App\Models\Activity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,7 +15,8 @@ class Student extends Model
     use HasFactory;
 
     public $fillable = [
-        'first_name', 'last_name', 'birthday', 'where_birthday', 'address', 'kind', 'father_name', 'father_phone', 'mother_first_name', 'mother_last_name', 'mother_phone', 'classe_id'
+        'first_name', 'last_name', 'birthday', 'where_birthday', 'address', 'kind', 'father_name', 'father_phone', 'mother_first_name', 'mother_last_name', 'mother_phone', 'classe_id',
+        'total', 'boy_count', 'girl_count',
     ];
 
     public $casts = [
@@ -41,6 +43,38 @@ class Student extends Model
                     'activity_id' => $activity['id'],
                 ]);
             }
+
+            // Incrémenter le nombre d'eleve de la classe
+            /** @var Classe */
+            $classe = $student->classe;
+            $classe->total = $classe->total + 1;
+            
+            if ($student->kind) {
+                // Incrémenter le nombre de Garçon Si c'est un garcon
+                $classe->boy_count = $classe->boy_count + 1;
+            }else{
+                // Incrémenter le nombre de fille Si c'est une fille
+                $classe->girl_count = $classe->girl_count + 1;
+            }
+
+            // sauvegarder
+            $classe->save();
+        });
+
+        static::deleted(function ($student){
+            $classe = $student->classe;
+            $classe->total = $classe->total - 1;
+
+            if ($student->kind) {
+                // Décrémenter le nombre de Garçon Si c'est un garcon
+                $classe->boy_count = $classe->boy_count - 1;
+            }else{
+                // Décrémenter le nombre de fille Si c'est une fille
+                $classe->girl_count = $classe->girl_count - 1;
+            }
+
+            // sauvegarger
+            $classe->save();
         });
     }
 

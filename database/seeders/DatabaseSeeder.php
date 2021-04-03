@@ -163,14 +163,13 @@ class DatabaseSeeder extends Seeder
             foreach ($matieres[$p] as $domain => $value) {
                 $domain = $program->domains()->create(['libele' => $domain,]);
 
-                foreach($value as $lOrM => $v){
+                foreach($value as $lOrM => $v) {
                     if (is_array($v)) {
                         // C'est un sous domain
                         $subdomain = $domain->sub_domains()->create(['libele' => $lOrM]);
                         foreach($v as $a => $d){
                             $subdomain->activities()->create(['libele' => $a, 'dividente' => $d]);
                         }
-
                     }else {
                         // C'est une matiere
                         $domain->activities()->create(['libele' => $lOrM, 'dividente' => $v]);
@@ -190,8 +189,10 @@ class DatabaseSeeder extends Seeder
                 ]);
                 foreach ($cls as  $cl) {
                     $students = Student::factory(20)->make();
-                    foreach ($students as $student) {
-                        $cl->students()->save($student);
+                    foreach ($students as $student) {   
+                        // $cl->students()->create($student);
+                        $student->classe_id = $cl->id;
+                        Student::create($student->getAttributes());
                     }
                 }
             }

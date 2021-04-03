@@ -46,9 +46,12 @@
 			<!-- small box -->
 			<div class="small-box bg-{{$bgColors[$k]}}">
 				<div class="inner">
-					<h3>{{$niveau->libele}} : {{ $niveau->studentsCount() }}</h3>
+					<div class="d-flex align-items-center">
+						<h3>{{$niveau->libele}} : {{ $niveau->studentsCount() }} </h3>
+						<span> éleve(s)</span>
+					</div>
 					@foreach ($niveau->classes as $c)
-					<p>{{$c->libele}} : {{$c->students->count()}}</p>
+					<p>{{$c->libele}} : {{$c->total}} éléve(s)</p>
 					@endforeach
 				</div>
 				<div class="icon">
