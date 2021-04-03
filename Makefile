@@ -10,7 +10,7 @@ seed:
 	php artisan migrate:refresh && php artisan db:seed
 
 .PHONY: test
-test:
+test: vendor
 	php artisan test
 
 .PHONY: stan
