@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{{ $titlePage . ' | Ecole Biscuiterie' ?? 'Administration | Ecole Biscuiterie' }}</title>
+        <title>{{ $titlePage . ' | '. config('app.name') ?? 'Administration |' . config('app.name') }}</title>
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->

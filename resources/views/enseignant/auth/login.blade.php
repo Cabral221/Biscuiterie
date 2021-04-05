@@ -3,7 +3,7 @@
 @section('content')
 <div class="login-box">
     <div class="login-logo">
-        <a href=""><b>Ecole</b>Biscuiterie</a>
+        <a href="">{{ config('app.name') }}</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
