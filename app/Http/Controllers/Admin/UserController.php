@@ -109,20 +109,29 @@ class UserController extends Controller
     /**
      * Delete one admin in database
      *
-     * @param Admin $admin
+     * @param int $id
      * @return RedirectResponse
      */
-    public function destroy(Admin $admin) : RedirectResponse
+    public function destroy(int $id) : RedirectResponse
     {
         /** @var Admin $authAdmin */
         $authAdmin = auth()->user();
-
-        if (!$authAdmin->is_admin) {
+        
+        // Vérifier si c'est un super admin ou on supprime le super admin
+        /** @var Admin */
+        $superAdmin = Admin::first();
+        if (!$authAdmin->is_admin || $id === $superAdmin->id) {
             session()->flash('danger', 'Attention ! vous n\'avez pas les droits pour effectuer cette action !');
             return redirect()->back();
         }
 
-        $admin->delete();
+        // Self delete impossible
+        if ($authAdmin->id === $id) {
+            session()->flash('danger', 'Attention ! l\'auto-suppression est impossible !');
+            return redirect()->back();
+        }
+
+        Admin::findOrFail($id)->delete();
         session()->flash('success', 'L\'administrateur a bien été supprimer !');
         return redirect()->back();
     }

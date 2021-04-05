@@ -70,14 +70,17 @@
                                 @endif
                                 {{-- Editing data for account --}}
                                 <a href="{{ route('admin.users.edit', $admin) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i></a>
+                                
                                 {{-- Delete Admin --}}
-                                <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Êtes vous sûr de vouloir supprimer cette administrateur ?')){document.getElementById('form-delete-admin-{{$admin->id}}').submit();}">
-                                    <i class="fa fa-trash"></i>
-                                    <form action="{{ route('admin.users.destroy', $admin) }}" method="post" id="form-delete-admin-{{$admin->id}}" class="d-none">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                </a>
+                                @if ($admin->id !== Auth::user()->id)
+                                    <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Êtes vous sûr de vouloir supprimer cette administrateur ?')){document.getElementById('form-delete-admin-{{$admin->id}}').submit();}">
+                                        <i class="fa fa-trash"></i>
+                                        <form action="{{ route('admin.users.destroy', $admin) }}" method="post" id="form-delete-admin-{{$admin->id}}" class="d-none">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    </a>    
+                                @endif
                             </td>
                         </tr>
                     @endforeach

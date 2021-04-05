@@ -42,8 +42,10 @@
         <i class="fa fa-users"></i> <span>Enseignants</span>
     </a>
 </li>
+@if (Auth::guard('admin')->user()->is_admin)
 <li class="">
     <a href="{{ route('admin.users.index') }}">
         <i class="fa fa-users"></i> <span>Administrateurs</span>
     </a>
 </li>
+@endif
