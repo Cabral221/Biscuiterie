@@ -2,7 +2,7 @@
 # Development
 # ------------------
 .PHONY: dev
-dev: vendor nodemodules
+dev: vendor node_modules
 	php artisan serve
 
 .PHONY: seed
