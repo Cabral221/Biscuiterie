@@ -20,7 +20,7 @@
         <div class="box-header">
             <div class="d-flex justify-content-between">
                 <span>
-                    <h3 class="box-title">Liste des éléves - <span class="text-primary">{{ $classe->libele }}</span></h3>
+                    <h3 class="box-title"><span class="text-primary">{{ $classe->libele }} :  {{ $classe->total }}</span>  éléve(s)</h3>
                 </span>
                 <span>
                     <h3 class="box-title">Enseignant(e) : <span class="text-primary">{{ $classe->user->full_name }}</span></h3>

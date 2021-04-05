@@ -56,7 +56,7 @@ class HomeController extends Controller
         $totalBoys = 0;
         foreach($niveaux as $niveau){
             foreach($niveau->classes as $classe){
-                $totalBoys += $classe->students()->where('kind', true)->count();
+                $totalBoys += $classe->boy_count;
             }
         }
 
@@ -74,7 +74,7 @@ class HomeController extends Controller
         $totalGirls = 0;
         foreach($niveaux as $niveau){
             foreach($niveau->classes as $classe){
-                $totalGirls += $classe->students()->where('kind', false)->count();
+                $totalGirls += $classe->girl_count;
             }
         }
 
@@ -92,7 +92,7 @@ class HomeController extends Controller
         $totalStudents = 0;
         foreach($niveaux as $niveau){
             foreach($niveau->classes as $classe){
-                $totalStudents += $classe->students->count();
+                $totalStudents += $classe->total;
             }
         }
 

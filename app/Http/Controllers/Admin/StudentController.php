@@ -94,13 +94,14 @@ class StudentController extends Controller
     }
 
     /**
-     * delete one student 
+     * delete one student by id
      *
-     * @param Student $student
+     * @param int $id
      * @return RedirectResponse
      */
-    public function destroy(Student $student) : RedirectResponse
+    public function destroy(int $id) : RedirectResponse
     {
+        $student = Student::findOrFail($id);
         $student->delete();
 
         session()->flash('success', 'L\'éléve a bien été supprimé !');

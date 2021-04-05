@@ -1,16 +1,26 @@
-.PHONY: seed dev stan test
 
-dev:
-	composer install
-	npm install
-	npm run dev 
+# Development
+# ------------------
+.PHONY: dev
+dev: vendor nodemodules
 	php artisan serve
 
+.PHONY: seed
 seed:
 	php artisan migrate:refresh && php artisan db:seed
 
-test:
+.PHONY: test
+test: vendor
 	php artisan test
 
+.PHONY: stan
 stan:
 	./vendor/bin/phpstan analyse --memory-limit=2G --xdebug
+
+# Required
+# ------------------
+vendor:
+	composer install
+
+node_modules:
+	npm install && npm run dev
