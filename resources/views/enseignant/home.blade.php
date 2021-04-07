@@ -172,7 +172,7 @@
     <script>
         $(function () {
             $('#example1').DataTable({
-                "paginate": false,
+                pageLength: 50
             })
         })
     </script>
