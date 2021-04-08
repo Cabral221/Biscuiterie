@@ -1487,8 +1487,7 @@ button.bg-pink:focus {
   background-color: transparent !important;
 }
 
-.border,
-.border-primary {
+.border {
   border: 1px solid #dee2e6 !important;
 }
 
@@ -5266,23 +5265,6 @@ a.text-pink:focus {
 
 .rounded {
   border-radius: 5px;
-}
-
-.border,
-.border-primary {
-  border: 1px solid #000;
-}
-
-.border-primary {
-  border: 1px solid #3490dc;
-}
-
-.card {
-  padding: 1rem;
-}
-
-.card-title {
-  margin: 1rem 0.5rem;
 }
 
 .domain-item {

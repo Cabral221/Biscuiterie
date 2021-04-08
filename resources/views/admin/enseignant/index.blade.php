@@ -107,12 +107,7 @@
 <script>
     $(function () {
         $('#example1').DataTable({
-            'paging'      : false,
-            'lengthChange': true,
-            'searching'   : true,
-            'ordering'    : true,
-            'info'        : false,
-            'autoWidth'   : true
+            pageLength: 50
         })
     })
 </script>

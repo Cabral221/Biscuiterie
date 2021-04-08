@@ -155,7 +155,9 @@
     @section('js')
     <script>
         $(function () {
-            $('#example1').DataTable()
+            $('#example1').DataTable({
+                pageLength: 50
+            })
         })
     </script>
     @endsection

@@ -28,7 +28,7 @@ class Niveau extends Model
     {
         $tot = 0;
         foreach ($this->classes()->get() as $classe) {
-            $tot += $classe->students->count();
+            $tot += $classe->total;
         }
         return $tot;
     }
