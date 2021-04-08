@@ -38,30 +38,33 @@
 			</div>	
 		</div>
 	</div>
-	
 	<hr>
-	<div class="row">
-		@foreach ($niveaux as $k => $niveau)
-		<div class="col-md-4 col-sm-6 col-xs-12">
-			<!-- small box -->
-			<div class="small-box bg-{{$bgColors[$k]}}">
-				<div class="inner">
-					<div class="d-flex align-items-center">
-						<h3>{{$niveau->libele}} : {{ $niveau->studentsCount() }} </h3>
-						<span> éleve(s)</span>
+	@foreach ($niveaux as $niveau)
+	<div class="card border-dark mb-3">
+		<div class="card-body">
+			<div class="d-flex align-items-center justify-content-between">
+				<h1 class="card-title"><b>{{ $niveau->libele }}</b> : {{ $niveau->studentsCount() }} éléve(s)</h2>
+				<div class="d-flex">
+					@foreach ($niveau->classes as $classe)
+					<div class="card border-primary m-2" style="width: 250px;">
+						<div class="card-header">M. {{ $classe->user->full_name }} </div>
+						<a href="{{ route('admin.classes.show', $classe) }}" class="text-primary"><h5 class="text-center">{{ $classe->libele }} : {{ $classe->total }}</h5></a>
+						<div class="card-body d-flex justify-content-between">
+							<div class="border-top border-primary text-primary text-center" style="width: 100px;">
+								<span class="">{{ $classe->boy_count }}</span>
+								<p>Garçons</p>
+							</div>
+							<div class="border-top border-pink text-pink text-center" style="width: 100px;">
+								<span>{{ $classe->girl_count }}</span>
+								<p>Filles</p>
+							</div>
+						</div>
 					</div>
-					@foreach ($niveau->classes as $c)
-					<p>{{$c->libele}} : {{$c->total}} éléve(s)</p>
 					@endforeach
-				</div>
-				<div class="icon">
-					<i class="ion ion-pie-graph"></i>
 				</div>
 			</div>
 		</div>
-		
-		@endforeach
 	</div>
-	
+	@endforeach
 </section>
 @endsection
