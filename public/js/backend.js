@@ -30678,6 +30678,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 __webpack_require__(/*! ./components/App */ "./resources/js/components/App.js");
 
+$(function () {
+  // set active menu item
+  $el = $('.itemMenuList.active');
+  console.log($el);
+});
+
 /***/ }),
 
 /***/ "./resources/js/components/App.js":

@@ -16,4 +16,43 @@ if (!function_exists('all_niveaux')) {
     }
 }
 
+if (! function_exists('activeClass')) {
+    /**
+     * Get the active class if the condition is not false.
+     *
+     * @param bool   $condition
+     * @param string $activeClass
+     * @param string $inactiveClass
+     *
+     * @return string
+     */
+    function activeClass(bool $condition, $activeClass = 'active', $inactiveClass = '') : String
+    {
+        return $condition ? $activeClass : $inactiveClass;
+    }
+}
+
+if (! function_exists('activeMenuOpen')) {
+    /**
+     * Get the active menu class.
+     *
+     * @param int    $niveau_id
+     * @param string $activeClass
+     * @param string $inactiveClass
+     *
+     * @return string
+     */
+    function activeMenuClasseOpen(int $niveau_id, $activeClass = 'active', $inactiveClass = '') : String
+    {
+        
+        $classes =  Niveau::findOrFail($niveau_id)->classes;
+        foreach ($classes as  $classe) {
+            if (route('admin.classes.show',$classe->id) === url()->current()) {
+                return $activeClass;
+            }
+        }
+        return $inactiveClass;
+    }
+}
+
 ?>
