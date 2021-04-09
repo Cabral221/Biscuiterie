@@ -18,14 +18,13 @@
     <form method="POST" action="{{ route('admin.password.email') }}">
       @csrf
 
-      <div class="form-group has-feedback">
+      <div class="form-group has-feedback @error('email') has-error @enderror">
         <input id="email" type="email"
         class="form-control @error('email') is-invalid @enderror" name="email"
         value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="Votre Adresse E-mail">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         @error('email')
-          <span class="glyphicon glyphicon-envelope form-control-feedback">
-            {{ $message }}
-          </span>
+        <span class="help-block">{{ $message }}</span>
         @enderror 
       </div>
 
