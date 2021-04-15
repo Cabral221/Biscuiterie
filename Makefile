@@ -2,7 +2,7 @@
 # Development
 # ------------------
 .PHONY: dev
-dev: vendor node_modules
+dev: vendor node_modules dev_assets
 	php artisan serve
 
 .PHONY: seed
@@ -23,4 +23,18 @@ vendor:
 	composer install
 
 node_modules:
-	npm install && npm run dev
+	npm install
+
+
+# Required development
+# ------------------
+.PHONY: dev_assets
+dev_assets:
+	npm run dev
+
+
+# Required Production
+# ------------------
+.PHONY: prod_assets
+prod_assets:
+	npm run prod
