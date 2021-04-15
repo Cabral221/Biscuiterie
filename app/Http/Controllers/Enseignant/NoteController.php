@@ -95,7 +95,7 @@ class NoteController extends Controller
         foreach($notes as $note) {
             $activitable = $note->activity->activitable;
 
-            if($activitable::class === Domain::class){
+            if(get_class($activitable) === Domain::class){
                 // Le activitable est un domain
                 if($lastDomain !== $activitable->libele){
                     $note->domainExact = $activitable->libele;
