@@ -14,7 +14,7 @@
             
             <input type="hidden" name="token" value="{{ $token }}">
             <div class="form-group has-feedback @error('email') has-error @enderror">
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                <input id="email" type="email" class="form-control" name="email"
                 value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus placeholder="Entre Votre Adresse Email">
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 @error('email')
@@ -24,7 +24,7 @@
             
             <div class="form-group has-feedback @error('password') has-error @enderror">
                 <input id="password" type="password"
-                class="form-control @error('password') is-invalid @enderror" name="password"
+                class="form-control" name="password"
                 required autocomplete="new-password" placeholder="Entrez Votre Mot De Passe">
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 @error('password')
