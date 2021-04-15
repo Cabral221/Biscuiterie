@@ -39,12 +39,9 @@
             </div>
         </div>
         <div class="box-body">
-            {{-- <div class="overlay">
-              <i class="fa fa-refresh fa-spin"></i>
-            </div> --}}
             <table class="table table-bordered">
                 <thead>
-                    <th>Domaines</th>
+                    <th colspan="2">Domaines</th>
                     <th>Activités</th>
                     <th class="text-center">1ére <br> Composition</th>
                     <th class="text-center">2ème <br> Composition</th>
@@ -52,9 +49,18 @@
                     <th>Récaputulations</th>
                 </thead>
                 <tbody>
-                    @foreach ($student->notes as $note)
+                    @foreach ($notes as $note)
                         <tr>
-                            <td>Domaines</td>
+                            @if (is_array($note->domainExact))
+                                <td>true</td>
+                                <td>true</td>
+                            @else
+                                @if ($note->domainExact != null)
+                                    <td colspan="2" rowspan="{{ $note->rowspanCount }}">
+                                        {{ $note->domainExact }}
+                                    </td>
+                                @endif
+                            @endif
                             <td>{{ $note->activity->libele }}</td>
                             <td class="text-bold text-center note-td" 
                                 data-note_id="{{$note->id}}" 
@@ -78,21 +84,21 @@
                         </tr>
                     @endforeach
                     <tr class="h4  text-bold">
-                        <td class="text-center" colspan="2">TOTAL GENERAL</td>
+                        <td class="text-center" colspan="3">TOTAL GENERAL</td>
                         @foreach ($student->totalGen() as $tot)
                             <td class="text-center">{{ $tot }} / {{ $student->totSommeDividente() }}</td>
                         @endforeach
                         <td>Recapitulation</td>
                     </tr>
                     <tr class="h4 text-bold">
-                        <td class="text-center" colspan="2">MOYENNE</td>
+                        <td class="text-center" colspan="3">MOYENNE</td>
                         @foreach ($student->moy() as $moy)
                             <td class="text-center">{{ $moy }} / {{ $student::DIVIDEUR }}</td>
                         @endforeach
                         <td>Recapitulation</td>
                     </tr>
                     <tr class="h4 text-bold">
-                        <td class="text-center" colspan="2">RANG</td>
+                        <td class="text-center" colspan="3">RANG</td>
                         
                         <td class="text-center">{{ $student->rang(1) }}</td>
                         <td class="text-center">{{ $student->rang(2) }}</td>

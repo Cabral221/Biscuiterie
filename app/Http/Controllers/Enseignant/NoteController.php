@@ -11,6 +11,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use App\Models\Domain;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -28,8 +29,7 @@ class NoteController extends Controller
 
         /** @var Classe */
         $classe = $user->classe;
-        // dd($user->classe->students[8]->notes);
-        // dd($user->classe->students[8]->rang(0));
+        
         return view('enseignant.notes.index', compact('user', 'classe'));
     }
 
@@ -42,8 +42,10 @@ class NoteController extends Controller
     public function show(int $id) : View
     {
         $student = Student::with('notes')->findOrFail($id);
+
+        $notes = $this->getNotesForBulletin($student->notes);
         
-        return view('enseignant.notes.show', compact('student'));
+        return view('enseignant.notes.show', compact('student', 'notes'));
     }
 
 
@@ -85,6 +87,36 @@ class NoteController extends Controller
             'position' =>$request->position,
             'note' => $note["note$request->position"]
         ], 200);
+    }
+
+    public function getNotesForBulletin($notes)
+    {
+        $lastDomain = '';
+        foreach($notes as $note) {
+            $activitable = $note->activity->activitable;
+
+            if($activitable::class === Domain::class){
+                // Le activitable est un domain
+                if($lastDomain !== $activitable->libele){
+                    $note->domainExact = $activitable->libele;
+                    $note->rowspanCount = $activitable->activities->count();
+                    $lastDomain = $activitable->libele;
+                }
+
+            }else {
+                // l'acitivitable est un soudomain
+                $array["{$activitable->domain->libele}"] = [];
+                $sub_domains = $activitable->domain->sub_domains;
+
+                foreach ($sub_domains as $subDomain) {
+                    $array["{$activitable->domain->libele}"][] = $subDomain->libele;
+                }
+
+                $note->domainExact = $array;
+            }
+        }
+
+        return $notes;
     }
 
 }
