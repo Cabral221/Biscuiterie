@@ -1,9 +1,6 @@
 
 @extends('layouts.app', ['titlePage' => 'Fiche de notes - '. $student->fullName])
 
-@section('plugin-css')
-<link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
-@endsection
 
 @section('content')
 <section class="content-header">
@@ -114,19 +111,4 @@
     <!-- /.box -->
 </section>
     
-@endsection
-
-@section('plugin-js')
-<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-@endsection
-
-@section('js')
-<script>
-    $(function () {
-        $('#example1').DataTable({
-            "paginate": false,
-        })
-    })
-</script>
 @endsection

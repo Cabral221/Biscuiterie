@@ -17,6 +17,11 @@ test: vendor
 stan:
 	./vendor/bin/phpstan analyse --memory-limit=2G --xdebug
 
+.PHONY: deploy
+deploy: prod_assets
+	git push heroku master
+	heroku run php artisan migrate:refresh --seed
+
 # Required
 # ------------------
 vendor:
