@@ -59,7 +59,7 @@ body {
     flex-direction: column;
     justify-content: center;
     min-height: 100vh;
-    background: var(--main-primary-color) url(https://picsum.photos/1280/1080) no-repeat center / cover;
+    background: var(--main-primary-color) url('../fond-biscuiterie.jpg') no-repeat center / cover;
 }
 
 .wrapper>* {
