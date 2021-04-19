@@ -1,7 +1,6 @@
 
 @extends('layouts.app', ['titlePage' => 'Fiche de notes - '. $student->fullName])
 
-
 @section('content')
 <section class="content-header">
     <h1>
@@ -36,7 +35,7 @@
             </div>
         </div>
         <div class="box-body">
-            <table class="table table-bordered">
+            <table class="">
                 <thead>
                     <th colspan="2">Domaines</th>
                     <th>Activités</th>
