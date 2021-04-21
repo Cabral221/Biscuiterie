@@ -91,6 +91,7 @@ class NoteController extends Controller
 
     public function getNotesForBulletin($notes)
     {
+        //  A refactoring: faire ma refont du boucle
         $lastDomain = '';
         foreach($notes as $note) {
             $activitable = $note->activity->activitable;
