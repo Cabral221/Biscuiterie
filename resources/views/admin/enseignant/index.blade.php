@@ -38,7 +38,7 @@
                         <td>{{ $enseignant->email }}</td>
                         <td>
                             {{-- show details in modal for enseignant --}}
-                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-enseignant-show-{{$enseignant->id}}"><i class="fa fa-eye"></i></button>
+                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-enseignant-show-{{$enseignant->id}}"><i class="fa fa-eye"></i></button>
                             <div class="modal modal-xl fade" id="modal-enseignant-show-{{$enseignant->id}}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
