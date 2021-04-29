@@ -60,11 +60,11 @@
                             <td>
                                 {{-- Togle active account --}}
                                 @if ($admin->is_active)
-                                    <a href="{{ route('admin.users.toggleActive', $admin) }}" class="btn btn-xs btn-info" onclick="if(!confirm('Êtes vous sûr de vouloir désactiver ce compte ?')){event.preventDefault();}">
+                                    <a href="{{ route('admin.users.toggleActive', $admin) }}" class="btn btn-xs btn-primary" onclick="if(!confirm('Êtes vous sûr de vouloir désactiver ce compte ?')){event.preventDefault();}">
                                         <i class="fa fa-toggle-on"></i>
                                     </a>
                                 @else
-                                    <a href="{{ route('admin.users.toggleActive', $admin) }}" class="btn btn-xs btn-info" onclick="if(!confirm('Êtes vous sûr de vouloir activer ce compte ?')){event.preventDefault();}">
+                                    <a href="{{ route('admin.users.toggleActive', $admin) }}" class="btn btn-xs btn-primary" onclick="if(!confirm('Êtes vous sûr de vouloir activer ce compte ?')){event.preventDefault();}">
                                         <i class="fa fa-toggle-off"></i>
                                     </a>
                                 @endif

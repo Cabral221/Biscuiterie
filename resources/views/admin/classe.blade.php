@@ -54,7 +54,7 @@
                         <td>{{ $student->birthday->locale('fr')->format('d M Y')  . ' à ' . $student->where_birthday }}</td>
                         <td>
                             {{-- show details in modal for student --}}
-                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-student-show-{{$student->id}}"><i class="fa fa-eye"></i></button>
+                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-student-show-{{$student->id}}"><i class="fa fa-eye"></i></button>
                             
                             <div class="modal modal-xl fade" id="modal-student-show-{{$student->id}}">
                                 <div class="modal-dialog">
