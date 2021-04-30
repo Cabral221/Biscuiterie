@@ -45,6 +45,32 @@ class User extends Authenticatable
         'is_active' => 'bool',
     ];
 
+    public static function booted()
+    {
+        static::created(function($user) {
+            History_user::create([
+                'original_id' => $user->id,
+                'full_name' => $user->full_name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'classe' => ($user->classe != null) ? $user->classe->libele : 'NEANT',
+            ]);
+        });
+
+        static::updated(function($user) {
+            // recupere lest record on period valide
+            $current_h = History_user::where('original_id', $user->id)->latest()->first();
+            // sync data
+            $current_h->update([
+                'full_name' => $user->full_name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'classe' => ($user->classe != null) ? $user->classe->libele : 'NEANT'
+            ]);
+        });
+
+    } 
+
     public function classe() : HasOne
     {
         return $this->hasOne(Classe::class);
