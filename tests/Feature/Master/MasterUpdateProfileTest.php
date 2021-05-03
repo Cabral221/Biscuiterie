@@ -14,7 +14,7 @@ class MasterUpdateProfileTest extends TestCase
 
         $response = $this->put('master/profile/update');
 
-        $response->assertSessionHasErrors(['full_name', 'email', 'phone']);
+        $response->assertSessionHasErrors(['first_name', 'last_name', 'kind', 'email', 'phone']);
     }
 
     /** @test */
@@ -37,6 +37,7 @@ class MasterUpdateProfileTest extends TestCase
             ->put('master/profile/update', [
                 'first_name' => 'John',
                 'last_name' => 'Doe',
+                'kind' => true,
                 'email' => 'jane@doe.com',
                 'phone' => 709999999,
             ])->assertRedirect('/master/profile');
@@ -47,6 +48,7 @@ class MasterUpdateProfileTest extends TestCase
             'id' => $user->id,
             'first_name' => 'John',
             'last_name' => 'Doe',
+            'kind' => true,
         ]);
     }
     
