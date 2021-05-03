@@ -23,6 +23,7 @@ class User extends Authenticatable
         'phone',
         'password',
         'is_active',
+        'created_at'
     ];
 
     /**
@@ -54,6 +55,8 @@ class User extends Authenticatable
                 'email' => $user->email,
                 'phone' => $user->phone,
                 'classe' => ($user->classe != null) ? $user->classe->libele : 'NEANT',
+                'added_at' => $user->created_at,
+                'period' => static::getPeriodForHistory($user->created_at), 
             ]);
         });
 
@@ -65,11 +68,23 @@ class User extends Authenticatable
                 'full_name' => $user->full_name,
                 'email' => $user->email,
                 'phone' => $user->phone,
-                'classe' => ($user->classe != null) ? $user->classe->libele : 'NEANT'
+                'classe' => ($user->classe != null) ? $user->classe->libele : 'NEANT',
+                'added_at' => $user->created_at,
+                'period' => static::getPeriodForHistory($user->created_at), 
             ]);
         });
 
     } 
+
+    public static function getPeriodForHistory($created_at)
+    {
+        if($created_at->month >= 10){
+            return $created_at->year . '-' . ($created_at->year + 1);
+        }else{
+            return $created_at->year - 1 . '-' .$created_at->year;
+        }
+
+    }
 
     public function classe() : HasOne
     {

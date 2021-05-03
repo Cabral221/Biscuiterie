@@ -19,8 +19,10 @@ class CreateHistoryUsersTable extends Migration
             $table->string('full_name');
             $table->string('email');
             $table->bigInteger('phone');
-            
             $table->string('classe');
+            
+            $table->string('period');
+            $table->timestamp('added_at');
             $table->timestamp('last_Login')->nullable();
 
             $table->timestamps();

@@ -21,5 +21,17 @@ class History_user extends Model
         'phone',
         'classe',
         'last_login',
+        'added_at',
+        'period'
+    ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'added_at' => 'datetime',
+        'last_login' => 'bool',
     ];
 }
