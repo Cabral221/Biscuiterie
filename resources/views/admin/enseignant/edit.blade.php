@@ -3,7 +3,7 @@
 @section('content')
 <section class="content-header">
     <h1>
-        Modifier les informations de Mr (Mme) {{ $enseignant->full_name }}
+        Modifier les informations de {{ $enseignant->full_name }}
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
@@ -21,10 +21,31 @@
             @csrf
             @method('PUT')
             <div class="box-body">
-                <div class="form-group @error('full_name') has-error @enderror">
-                    <label for="full_name">Nom Complet</label>
-                    <input type="text" name="full_name" id="full_name" class="form-control" value="{{ old('full_name') ?? $enseignant->full_name }}">
-                    @error('full_name')
+                <div class="form-group @error('kind') has-error @enderror">
+                    <label>Genre</label>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="kind" id="homme" value="1" {{ $enseignant->kind ? 'checked' : '' }}>
+                        <label class="form-check-label" for="homme">Mr.</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="kind" id="femme" value="0" {{ !$enseignant->kind ? 'checked' : '' }}>
+                        <label class="form-check-label" for="femme">Mme</label>
+                    </div>
+                    @error('kind')
+                        <span class="help-block">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group @error('first_name') has-error @enderror">
+                    <label for="first_name">Prénom</label>
+                    <input type="text" name="first_name" id="first_name" class="form-control" value="{{ old('first_name') ?? $enseignant->first_name }}">
+                    @error('first_name')
+                        <span class="help-block">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group @error('last_name') has-error @enderror">
+                    <label for="last_name">Nom</label>
+                    <input type="text" name="last_name" id="last_name" class="form-control" value="{{ old('last_name') ?? $enseignant->last_name }}">
+                    @error('last_name')
                         <span class="help-block">{{ $message }}</span>
                     @enderror
                 </div>

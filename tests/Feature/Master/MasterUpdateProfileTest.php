@@ -21,19 +21,22 @@ class MasterUpdateProfileTest extends TestCase
     public function a_user_can_update_their_profile() : void
     {
         $user = User::factory()->create([
-            'full_name' => 'Jane Doe',
+            'first_name' => 'Jane',
+            'last_name' => 'Doe',
             'email' => 'jane@doe.com',
             'phone' => 709999999,
         ]);
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
-            'full_name' => 'Jane Doe',
+            'first_name' => 'Jane',
+            'last_name' => 'Doe',
         ]);
 
         $response = $this->actingAs($user)
             ->put('master/profile/update', [
-                'full_name' => 'John Doe',
+                'first_name' => 'John',
+                'last_name' => 'Doe',
                 'email' => 'jane@doe.com',
                 'phone' => 709999999,
             ])->assertRedirect('/master/profile');
@@ -42,7 +45,8 @@ class MasterUpdateProfileTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
-            'full_name' => 'John Doe',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
         ]);
     }
     

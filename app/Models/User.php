@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use App\Notifications\MasterResetPasswordNotification;
@@ -12,13 +13,16 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'full_name',
+        'first_name',
+        'last_name',
+        'kind',
         'email',
         'phone',
         'password',
@@ -43,7 +47,9 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'is_active' => 'bool',
+        'is_active' => 'boolean',
+        'kind' => 'boolean',
+        'created_at' => 'datetime',
     ];
 
     public static function booted()
@@ -76,14 +82,19 @@ class User extends Authenticatable
 
     } 
 
-    public static function getPeriodForHistory($created_at)
+    public function getFullNameAttribute() 
+    {
+        $kind = $this->kind ? 'Mr.' : 'Mme.';
+        return "{$kind} {$this->first_name} {$this->last_name}";    
+    }
+
+    public static function getPeriodForHistory(Carbon $created_at)
     {
         if($created_at->month >= 10){
             return $created_at->year . '-' . ($created_at->year + 1);
         }else{
             return $created_at->year - 1 . '-' .$created_at->year;
         }
-
     }
 
     public function classe() : HasOne

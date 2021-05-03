@@ -37,7 +37,9 @@ class EnseignantController extends Controller
     public function update(Request $request, int $id) : RedirectResponse
     {
         $this->validate($request, [
-            'full_name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'kind' => ['required', 'boolean'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'phone' => ['required', 'numeric'],
         ]);
@@ -50,7 +52,9 @@ class EnseignantController extends Controller
         /** @var User */
         $enseignant = User::find($id);
         $enseignant->update([
-            'full_name' => $request->full_name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'kind' => (bool) $request->kind,
             'email' => $request->email,
             'phone' => $request->phone,
         ]);

@@ -54,12 +54,38 @@
             @csrf
             @method('PUT')
             <div class="box-body">
-                <div class="form-group @error('full_name') has-error @enderror">
-                    <label for="fullname" class="col-sm-4 control-label">Nom Complet</label>
+                <div class="form-group @error('kind') has-error @enderror">
+                    <label class="col-sm-4 control-label">Genre</label>
+                    <div class="col-sm-8">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="kind" id="homme" value="1" {{ $user->kind ? 'checked' : '' }}>
+                            <label class="form-check-label" for="homme">Mr.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="kind" id="femme" value="0" {{ !$user->kind ? 'checked' : '' }}>
+                            <label class="form-check-label" for="femme">Mme</label>
+                        </div>
+                        @error('kind')
+                            <span class="help-block">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group @error('first_name') has-error @enderror">
+                    <label for="first_name" class="col-sm-4 control-label">Prénom</label>
 
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="full_name" id="fullname" placeholder="Votre nom" value="{{ old('full_name') ?? $user->full_name }}">
-                        @error('full_name')
+                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Votre prénom" value="{{ old('first_name') ?? $user->first_name }}">
+                        @error('first_name')
+                            <span class="help-block">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group @error('last_name') has-error @enderror">
+                    <label for="last_name" class="col-sm-4 control-label">Nom</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Votre prénom" value="{{ old('last_name') ?? $user->last_name }}">
+                        @error('last_name')
                             <span class="help-block">{{ $message }}</span>
                         @enderror
                     </div>

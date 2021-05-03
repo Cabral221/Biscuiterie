@@ -25,7 +25,9 @@ class ProfileController extends Controller
     public function update(Request $request) : RedirectResponse
     {
         $this->validate($request, [
-            'full_name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'kind' => ['required', 'boolean'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'phone' => ['required', 'numeric']
         ]);
@@ -55,7 +57,9 @@ class ProfileController extends Controller
         }
 
         $authUser->update([
-            'full_name' => $request->full_name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'kind' => (bool) $request->kind,
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
