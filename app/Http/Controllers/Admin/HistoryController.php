@@ -20,8 +20,8 @@ class HistoryController extends Controller
     {
         $years = [];
         for ($i = 0; $i < 10; $i++) { 
-            $k = Carbon::now()->year;
-            $v = (Carbon::now()->year - 1) .' - '. Carbon::now()->year;
+            $k = Carbon::now()->year - $i;
+            $v = (Carbon::now()->year - 1) - $i .' - '. (Carbon::now()->year - $i);
             $years[$k] = $v;
         }
 
