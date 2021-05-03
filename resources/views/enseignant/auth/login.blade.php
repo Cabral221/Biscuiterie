@@ -3,7 +3,7 @@
 @section('content')
 <div class="login-box">
     <div class="login-logo">
-        <a href="">{{ config('app.name') }}</a>
+        <a href="{{ route('welcome') }}">{{ config('app.name') }}</a>
     </div>
     <!-- /.login-logo -->
     <div class="login-box-body">
@@ -41,6 +41,7 @@
             <div class="row">
                 <div class="col-xs-12 ">
                     <button type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
+                    <a href="{{ route('welcome') }}" class="btn btn-block btn-warning">Revenir à la page d'accueil</a>
                 </div>
                 <!-- /.col -->
             </div>
