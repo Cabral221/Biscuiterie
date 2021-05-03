@@ -104,6 +104,10 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
         Route::get('/enseignant/{user}/edit', 'EnseignantController@edit')->name('enseignants.edit');
         Route::put('/enseignant/{user}/update', 'EnseignantController@update')->name('enseignants.update');
         
+        // Historiques
+        Route::get('/histories', 'HistoryController@index')->name('histories.index');
+        Route::post('/histories/', 'HistoryController@getDataForApi');
+
         // Permission aux role de super admin
         Route::middleware('isAdmin')->group(function (){
             // Gestion des utilisateurs administrateurs

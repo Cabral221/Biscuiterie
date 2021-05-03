@@ -2,8 +2,12 @@
 # Development
 # ------------------
 .PHONY: dev
-dev: vendor node_modules dev_assets
+dev: vendor node_modules
 	php artisan serve
+
+.PHONY: asset
+asset: node_modules
+	npm run watch
 
 .PHONY: seed
 seed:

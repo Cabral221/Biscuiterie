@@ -23,6 +23,7 @@ class User extends Authenticatable
         'phone',
         'password',
         'is_active',
+        'created_at'
     ];
 
     /**
@@ -44,6 +45,46 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'is_active' => 'bool',
     ];
+
+    public static function booted()
+    {
+        static::created(function($user) {
+            History_user::create([
+                'original_id' => $user->id,
+                'full_name' => $user->full_name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'classe' => ($user->classe != null) ? $user->classe->libele : 'NEANT',
+                'added_at' => $user->created_at,
+                'period' => static::getPeriodForHistory($user->created_at), 
+            ]);
+        });
+
+        static::updated(function($user) {
+            // recupere lest record on period valide
+            $current_h = History_user::where('original_id', $user->id)->latest()->first();
+            // sync data
+            $current_h->update([
+                'full_name' => $user->full_name,
+                'email' => $user->email,
+                'phone' => $user->phone,
+                'classe' => ($user->classe != null) ? $user->classe->libele : 'NEANT',
+                'added_at' => $user->created_at,
+                'period' => static::getPeriodForHistory($user->created_at), 
+            ]);
+        });
+
+    } 
+
+    public static function getPeriodForHistory($created_at)
+    {
+        if($created_at->month >= 10){
+            return $created_at->year . '-' . ($created_at->year + 1);
+        }else{
+            return $created_at->year - 1 . '-' .$created_at->year;
+        }
+
+    }
 
     public function classe() : HasOne
     {
