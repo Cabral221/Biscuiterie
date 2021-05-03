@@ -38,6 +38,11 @@
         <i class="fa fa-users"></i> <span>Domaines</span>
     </a>
 </li>
+<li class="{{ activeClass(Route::is('admin.histories.index')) }}">
+    <a href="{{ route('admin.histories.index') }}">
+        <i class="fa fa-database"></i> <span>Historique</span>
+    </a>
+</li>
 
 <li class="header">Utilisateurs</li>
 <li class="{{ activeClass(Route::is('admin.enseignants.index')) }}">
