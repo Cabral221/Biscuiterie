@@ -5,10 +5,6 @@
 dev: vendor node_modules
 	php artisan serve
 
-.PHONY: asset
-asset: node_modules
-	npm run watch
-
 .PHONY: seed
 seed:
 	php artisan migrate:refresh && php artisan db:seed
@@ -23,8 +19,9 @@ stan:
 
 .PHONY: deploy
 deploy: prod_assets
-	git push heroku master
-	heroku run php artisan migrate:refresh --seed
+	git add .
+	git commit -m "Deploy: build production assets"
+	git push heroku main
 
 # Required
 # ------------------
@@ -34,16 +31,19 @@ vendor:
 node_modules:
 	npm install
 
+.PHONY: asset
+asset: node_modules
+	npm run watch
 
 # Required development
 # ------------------
 .PHONY: dev_assets
-dev_assets:
+dev_assets: node_modules
 	npm run dev
 
 
 # Required Production
 # ------------------
 .PHONY: prod_assets
-prod_assets:
+prod_assets: node_modules
 	npm run prod
