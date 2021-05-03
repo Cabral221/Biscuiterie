@@ -101,8 +101,10 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
         
         // Gestion des enseignants
         Route::get('/enseignants', 'EnseignantController@index')->name('enseignants.index');
-        Route::get('/enseignant/{user}/edit', 'EnseignantController@edit')->name('enseignants.edit');
-        Route::put('/enseignant/{user}/update', 'EnseignantController@update')->name('enseignants.update');
+        Route::get('/enseignants/create', 'EnseignantController@create')->name('enseignants.create');
+        Route::post('/enseignants/create', 'EnseignantController@store')->name('enseignants.store');
+        Route::get('/enseignants/{user}/edit', 'EnseignantController@edit')->name('enseignants.edit');
+        Route::put('/enseignants/{user}/update', 'EnseignantController@update')->name('enseignants.update');
         
         // Historiques
         Route::get('/histories', 'HistoryController@index')->name('histories.index');

@@ -21,6 +21,44 @@ class EnseignantController extends Controller
         return view('admin.enseignant.index', compact('enseignants'));
     }
 
+    /**
+     * render page creating master
+     *
+     * @return View
+     */
+    public function create() : View
+    {
+        return view('admin.enseignant.create');
+    }
+
+    /**
+     * store record master on database
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request) : RedirectResponse
+    {
+        $this->validate($request, [
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'kind' => ['required', 'boolean'],
+            'email' => ['required', 'string', 'email', 'unique:users', 'max:255'],
+            'phone' => ['required', 'numeric'],
+        ]);
+
+        User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'kind' => (bool) $request->kind,
+            'email' => $request->email,
+            'phone' => $request->phone,
+        ]);
+
+        session()->flash('success', 'Les modifications ont bien été prises en compte.');
+        return redirect()->route('admin.enseignants.index');
+    }
+
     public function edit(int $id) : View
     {
         $enseignant = User::find($id);
@@ -37,7 +75,9 @@ class EnseignantController extends Controller
     public function update(Request $request, int $id) : RedirectResponse
     {
         $this->validate($request, [
-            'full_name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'kind' => ['required', 'boolean'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'phone' => ['required', 'numeric'],
         ]);
@@ -50,7 +90,9 @@ class EnseignantController extends Controller
         /** @var User */
         $enseignant = User::find($id);
         $enseignant->update([
-            'full_name' => $request->full_name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'kind' => (bool) $request->kind,
             'email' => $request->email,
             'phone' => $request->phone,
         ]);

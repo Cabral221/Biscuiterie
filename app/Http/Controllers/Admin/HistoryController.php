@@ -48,7 +48,14 @@ class HistoryController extends Controller
 
         $data = [];
         foreach ($masters as $master) {
-            $data[] = $master->getAttributes();
+            $data[] = [
+                'id' => $master->id,
+                'full_name' => $master->full_name,
+                'phone' => $master->phone,
+                'email' => $master->email,
+                'classe' => $master->classe,
+                'added_at' => $master->added_at->format('d m Y  H:m'),
+            ];
         }
 
         return response()->json($data, 200);

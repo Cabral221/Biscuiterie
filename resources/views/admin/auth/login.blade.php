@@ -41,7 +41,8 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 ">
-                    <button type="submit" class="btn btn-primary btn-block btn-flat">Connexion</button>
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Se connecter</button>
+                    <a href="{{ route('welcome') }}" class="btn btn-block btn-warning">Revenir à la page d'accueil</a>
                 </div>
                 <!-- /.col -->
             </div>

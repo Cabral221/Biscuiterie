@@ -30,7 +30,7 @@ class History extends React.Component {
                 loader: false
             })
         }).catch((error) => {
-            console.log(error.response.data)
+            console.log(error.response)
             if (error.response.status == 400) {
                 console.log('Une erreur s\'est produite')
                 alert(error.response.data.mesage ? error.response.data.message : 'Une erreur s\'est produite, vueillez réessayer !')
@@ -59,6 +59,7 @@ class History extends React.Component {
                                     <th>Nom</th>
                                     <th>Téléphone</th>
                                     <th>Email</th>
+                                    <th>Classe</th>
                                     <th>Ajouter le</th>
                                 </tr>
                             </thead>
@@ -68,6 +69,7 @@ class History extends React.Component {
                                         <td>{master.full_name}</td>
                                         <td>{master.phone}</td>
                                         <td>{master.email}</td>
+                                        <td><span className="badge badge-primary">{master.classe}</span></td>
                                         <td>{master.added_at}</td>
                                     </tr>
                                 })}
@@ -77,6 +79,7 @@ class History extends React.Component {
                                     <th>Nom</th>
                                     <th>Téléphone</th>
                                     <th>Email</th>
+                                    <th>Classe</th>
                                     <th>Ajouter le</th>
                                 </tr>
                             </tfoot>

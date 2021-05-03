@@ -32,6 +32,6 @@ class History_user extends Model
      */
     protected $casts = [
         'added_at' => 'datetime',
-        'last_login' => 'bool',
+        'last_login' => 'boolean',
     ];
 }
