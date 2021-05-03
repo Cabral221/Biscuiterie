@@ -7,7 +7,7 @@
 @section('content')
 <section class="content-header">
     <h1>
-        Consulter l'historique
+        Consulter l'historique des enseigants
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
