@@ -21,6 +21,7 @@
             <h3 class="box-title">Liste des enseignants par classe</h3>
         </div>
         <div class="box-body">
+            <div class="p-2 mb-2"><a href="{{ route('admin.enseignants.create') }}" class="btn btn-success">Ajouter un(e) enseignant(e)</a></div>
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <th>Classe</th>
@@ -32,7 +33,15 @@
                 <tbody>
                     @foreach ($enseignants as $enseignant)
                     <tr>
-                        <td><a href="{{ route('admin.classes.show', $enseignant->classe) }}"><span class="label label-primary">{{ $enseignant->classe->libele }}</span></a></td>
+                        <td>
+                            @if ($enseignant->classe != null)
+                                <a href="{{ route('admin.classes.show', $enseignant->classe) }}">
+                                    <span class="label label-primary">{{ $enseignant->classe->libele }}</span>
+                                </a>
+                            @else
+                                <span class="label label-primary">NÉANT</span>                                
+                            @endif
+                        </td>
                         <td>{{ $enseignant->full_name }}</td>
                         <td>{{ $enseignant->phone }}</td>
                         <td>{{ $enseignant->email }}</td>
@@ -63,7 +72,13 @@
                                                     </tr>
                                                     <tr>
                                                         <th>Classe</th>
-                                                        <td><a href="{{ route('admin.classes.show', $enseignant->classe) }}" class="btn btn-xs btn-primary">{{ $enseignant->classe->libele }}</a></td>
+                                                        <td>
+                                                            @if ($enseignant->classe != null)
+                                                                <a href="{{ route('admin.classes.show', $enseignant->classe) }}" class="btn btn-xs btn-primary">{{ $enseignant->classe->libele }}</a>
+                                                            @else
+                                                                <span class="badge badge-primary">NÉANT</span>
+                                                            @endif
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
