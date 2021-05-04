@@ -23,9 +23,8 @@ class ClasseFactory extends Factory
     {
         return [
             'libele' => $this->faker->word,
-            'niveau_id' => $this->faker->randomDigit,
+            'niveau_id' => $this->faker->numberBetween(1,3),
             'user_id' => $this->faker->randomDigit,
-            
         ];
     }
 }

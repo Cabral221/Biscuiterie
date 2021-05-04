@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Enseignant\Auth;
 
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -46,5 +49,40 @@ class LoginController extends Controller
     public function showLoginForm()
     {
         return view('enseignant.auth.login');
+    }
+
+    /**
+     * Attempt to log the user into the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    public function attemptLogin(Request $request)
+    {
+        $user = User::where($this->username(), $request->email)->first();
+        if($user == null) return ;
+
+        if($user->classe === null){
+            $this->sendFailedLoginResponseByActivate();
+        }
+        
+        return $this->guard()->attempt(
+            $this->credentials($request), $request->filled('remember')
+        );
+    }
+
+    /**
+     * Get the failed login response instance.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function sendFailedLoginResponseByActivate()
+    {
+        throw ValidationException::withMessages([
+            $this->username() => 'Vous ne disposez pas de classe pour vous connecter !',
+        ]);
     }
 }
