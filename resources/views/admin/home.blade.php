@@ -47,7 +47,7 @@
 				<div class="d-flex">
 					@foreach ($niveau->classes as $classe)
 					<div class="card border-primary m-2" style="width: 250px;">
-						<div class="card-header">M. {{ $classe->user->full_name }} </div>
+						<div class="card-header">{{ $classe->user->full_name }}</div>
 						<a href="{{ route('admin.classes.show', $classe) }}" class="text-primary"><h5 class="text-center">{{ $classe->libele }} : {{ $classe->total }}</h5></a>
 						<div class="card-body d-flex justify-content-between">
 							<div class="border-top border-primary text-primary text-center" style="width: 100px;">

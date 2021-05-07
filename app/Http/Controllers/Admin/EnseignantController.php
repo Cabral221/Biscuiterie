@@ -17,7 +17,7 @@ class EnseignantController extends Controller
      */
     public function index() : View
     {
-        $enseignants = User::all();
+        $enseignants = User::current_period();
         return view('admin.enseignant.index', compact('enseignants'));
     }
 

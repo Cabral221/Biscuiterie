@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Master;
 
+use App\Models\Classe;
 use Tests\TestCase;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -28,6 +29,7 @@ class AuthenticationMasterTest extends TestCase
         $user = User::factory()->create([
             'email' => 'john@example.com',
         ]);
+        Classe::factory()->create(['user_id' => $user]);
 
         $response = $this->post('master/login', [
             'email' => 'john@example.com',

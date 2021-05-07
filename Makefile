@@ -56,3 +56,8 @@ seed_pro: vendor
 	heroku run -a biscuiterie php artisan db:seed
 	heroku run -a biscuiterie-b php artisan migrate:refresh
 	heroku run -a biscuiterie-b php artisan db:seed
+
+.PHONY: prod
+prod:
+	git checkout main
+	git push heroku main
