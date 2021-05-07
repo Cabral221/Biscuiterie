@@ -27,6 +27,7 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
+        'period',
         'is_active',
         'created_at'
     ];
@@ -57,6 +58,7 @@ class User extends Authenticatable
     {
         static::creating(function($user){
             $user->password = Hash::make('password');
+            $user->period = static::getPeriodForHistory(Carbon::now());
         });
 
         static::created(function($user) {
@@ -100,6 +102,23 @@ class User extends Authenticatable
         }else{
             return $created_at->year - 1 . '-' .$created_at->year;
         }
+    }
+
+    public static function current_period()
+    {
+        $period = '';
+        $now = Carbon::now();
+
+        if($now->month >= 10){
+            $period = $now->year . '-' . ($now->year + 1);
+        }else{
+            $period = $now->year - 1 . '-' .$now->year;
+        }
+
+        $users = User::where('period', $period)->orderBy('last_name', 'ASC')->get();
+
+        return $users;
+
     }
 
     public function classe() : HasOne

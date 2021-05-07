@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Enseignant\PrintController;
 use App\Http\Controllers\Enseignant\HomeController;
 use App\Http\Controllers\Enseignant\NoteController;
 use App\Http\Controllers\Enseignant\ProfileController;
@@ -37,6 +38,11 @@ Route::prefix('/master')->name('master.')->group(function () {
         // Home for master
         Route::get('/', [HomeController::class ,'home'])->name('index');
 
+        // Gestion de l'impression
+        Route::prefix('/print')->group(function(){
+            Route::get('/classe/{id}', [PrintController::class, 'classe'])->name('print.classe');
+        });
+
         // Gestion des notes
         Route::get('/notes', [NoteController::class, 'index'])->name('notes.index');
         Route::get('/notes/{student}', [NoteController::class, 'show'])->name('notes.show');
@@ -63,6 +69,12 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
 
     Route::middleware('auth:admin')->group(function () {
         Route::get('/', 'HomeController@home')->name('index');
+
+        // Gestion de l'impression
+        Route::prefix('/print')->group(function(){
+            Route::get('/classe/{id}', 'PrintController@classe')->name('print.classe');
+            Route::get('/master', 'PrintController@master')->name('print.master');
+        });
 
         // Gestion des eleves
         Route::resource('/students', 'StudentController')->only(['index', 'destroy','edit','update','store']);

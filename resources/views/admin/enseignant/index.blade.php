@@ -18,7 +18,14 @@
 <section class="content">
     <div class="box box-primary">
         <div class="box-header">
-            <h3 class="box-title">Liste des enseignants par classe</h3>
+            <div class="d-flex justify-content-between">
+                <span>
+                    <h3 class="box-title">Liste des enseignants</h3>
+                </span>
+                <span>
+                    <a href="{{ route('admin.print.master') }}" target="_blank" class="btn btn-info">Imprimer</a>
+                </span>
+            </div>
         </div>
         <div class="box-body">
             <div class="p-2 mb-2"><a href="{{ route('admin.enseignants.create') }}" class="btn btn-success">Ajouter un(e) enseignant(e)</a></div>

@@ -20,10 +20,11 @@
         <div class="box-header">
             <div class="d-flex justify-content-between">
                 <span>
-                    <h3 class="box-title"><span class="text-primary">{{ $classe->libele }} :  {{ $classe->total }}</span>  éléve(s)</h3>
+                    <h3 class="box-title py-2">Enseignant(e) : <span class="text-primary">{{ $classe->user->full_name }}</span></h3> <br>
+                    <h3 class="box-title py-2">Nb d'éléve(s) : <span class="text-primary">{{ $classe->total }}</span></h3> <br>
                 </span>
                 <span>
-                    <h3 class="box-title">Enseignant(e) : <span class="text-primary">{{ $classe->user->full_name }}</span></h3>
+                    <a href="{{ route('admin.print.classe', $classe->id) }}" target="_blank" class="btn btn-info">Imprimer</a>
                 </span>
             </div>
         </div>

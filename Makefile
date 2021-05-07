@@ -21,7 +21,7 @@ stan:
 deploy: prod_assets
 	git add .
 	git commit -m "Deploy: build production assets"
-	git push heroku main
+	git push
 
 # Required
 # ------------------
@@ -47,3 +47,17 @@ dev_assets: node_modules
 .PHONY: prod_assets
 prod_assets: node_modules
 	npm run prod
+
+
+# Extra
+.PHONY: seed_pro
+seed_pro: vendor
+	heroku run -a biscuiterie php artisan migrate:refresh
+	heroku run -a biscuiterie php artisan db:seed
+	heroku run -a biscuiterie-b php artisan migrate:refresh
+	heroku run -a biscuiterie-b php artisan db:seed
+
+.PHONY: prod
+prod:
+	git checkout main
+	git push heroku main
