@@ -21,7 +21,7 @@ stan:
 deploy: prod_assets
 	git add .
 	git commit -m "Deploy: build production assets"
-	git push heroku main
+	git push
 
 # Required
 # ------------------
