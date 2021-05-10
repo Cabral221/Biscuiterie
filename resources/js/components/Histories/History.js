@@ -1,4 +1,5 @@
 import React from 'react';
+import HistorySelect from './HistorySelect';
 
 
 class History extends React.Component {
@@ -7,36 +8,53 @@ class History extends React.Component {
         super(props)
 
         this.state = {
+            period: parseInt((new Date).getFullYear()),
             data: [],
             error: '',
             loader: false
         }
+        this._isMounted = false;
 
+        this.handleSelectChange = this.handleSelectChange.bind(this)
     }
 
     componentDidMount(){
+        this._isMounted = true;
+        this._isMounted && this.loadData(this.state.period)
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+    }
+
+    handleSelectChange(period) {
+        this.setState({period: parseInt(period)})
+        this.loadData(parseInt(period))
+    }
+
+    async loadData(period) {
         // Activer loader
         this.setState({
             loader: true
         })
 
         window.axios.post('/admin/histories', {
-            year: this.props.year,
+            year: period,
         }).then(response => {
-            console.log(response.data)
-
-            this.setState({
+            this._isMounted && this.setState({
                 data: response.data,
-                loader: false
+                error: '',
+                loader: false,
             })
         }).catch((error) => {
-            console.log(error.response)
+            // console.log(error.response)
             if (error.response.status == 400) {
                 console.log('Une erreur s\'est produite')
                 alert(error.response.data.mesage ? error.response.data.message : 'Une erreur s\'est produite, vueillez réessayer !')
             }
             
-            this.setState({
+            this._isMounted && this.setState({
+                data: [],
                 error: error.response.data.message,
                 loader: false
             })
@@ -44,16 +62,20 @@ class History extends React.Component {
     }
 
     render() {
-        const data = this.state.data
+        const {data, period} = this.state
         
         return (
-            <div>
+            <React.Fragment>
+                <HistorySelect 
+                    period={period} 
+                    onSelectChange={this.handleSelectChange} />
+                <div>
                 {(this.state.loader) 
                 ? <div className="loader"></div>
                 :  <div>
                     {(this.state.error != '') 
-                    ?   <p className="text-danger">{this.state.error}</p>
-                    :   <table id="example1" className="table table-bordered table-striped">
+                    ?   <p className="text-danger text-center"><i className="fa fa-exclamation-circle"></i> {this.state.error}</p>
+                    :   <table className="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Nom</th>
@@ -85,8 +107,9 @@ class History extends React.Component {
                             </tfoot>
                         </table>
                     } 
-                    </div>} 
+                </div>} 
             </div>
+            </React.Fragment>
         );
     }
 }
