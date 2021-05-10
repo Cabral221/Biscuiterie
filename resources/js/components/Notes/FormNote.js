@@ -23,10 +23,6 @@ class FormNote extends React.Component {
         })
     }
 
-    // handleBlur (e) {
-    //     // this.props.submit(this.state.id, this.state.note)
-    // }
-
     handleKeyPress (e) {
         e.preventDefault()
         if(e.keyCode === 13 && e.key === 'Enter') {

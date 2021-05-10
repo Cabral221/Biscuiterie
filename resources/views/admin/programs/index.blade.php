@@ -45,22 +45,34 @@
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <div>
-                        <h4>niveaux concernés</h4>
+                    <div class="niveau_card p-3 mb-3 border shadow border-blue">
+                        <h4>Niveaux</h4>
                         @foreach ($program->niveaux as $niveau)
                             <span class="badge badge-primary">{{ $niveau->libele }}</span>
                         @endforeach
+                        <button class="badge badge-success float-right niveau_toggle_form"><i class="fa fa-plus"></i></button>
+                        <div class="mt-2 d-none form_add_niveau">
+                            <form action="#" method="post" class="form" style="width: 100%">
+                                @csrf
+                                @method('POST')
+                                <input type="text" name="niveau_id" class="d-none" value="{{ $program->id }}" disabled>
+                                <div class="form-group">
+                                    <label for="libele_niveau_{{$program->id}}">Ajouter un niveau</label>
+                                    <input type="text" class="form-control" id="libele_niveau_{{$program->id}}" placeholder="Libellé du niveau">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div>
                         <h4>Domaines</h4>
                         @foreach ($program->domains as $domain)
                         <ul>
                             <li>
-                                <span class="badge badge-success">{{ $domain->libele }}</span>
+                                <span class="">{{ $domain->libele }}</span>
                                 @if (count($domain->sub_domains) > 0)
                                     <ul>
                                         @foreach ($domain->sub_domains as $subdomain)
-                                            <li><span class="badge badge-warning">{{ $subdomain->libele }}</span></li>
+                                            <li><span class="">{{ $subdomain->libele }}</span></li>
                                         @endforeach
                                     </ul>
                                 @endif
