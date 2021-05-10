@@ -16,6 +16,13 @@ class Classe extends Model
 
     public $fillable = ['libele'];
 
+    public static function booted() {
+        static::created(function($classe){
+            $userHistory = History_user::where('original_id', $classe->user->id)->first();
+            $userHistory->update(['classe' => $classe->libele]);
+        });
+    }
+
     public function niveau() : BelongsTo
     {
         return $this->belongsTo(Niveau::class);

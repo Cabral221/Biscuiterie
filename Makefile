@@ -17,8 +17,8 @@ test: vendor
 stan:
 	./vendor/bin/phpstan analyse --memory-limit=2G --xdebug
 
-.PHONY: deploy
-deploy: prod_assets
+.PHONY: push
+push: prod_assets
 	git add .
 	git commit -m "Deploy: build production assets"
 	git push
@@ -56,8 +56,3 @@ seed_pro: vendor
 	heroku run -a biscuiterie php artisan db:seed
 	heroku run -a biscuiterie-b php artisan migrate:refresh
 	heroku run -a biscuiterie-b php artisan db:seed
-
-.PHONY: prod
-prod:
-	git checkout main
-	git push heroku main
