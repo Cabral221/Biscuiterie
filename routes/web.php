@@ -102,11 +102,14 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
             Route::delete('/{subdomain}/destroy', 'SubDomainController@destroy')->name('destroy');
         });
 
-        // Gestion des programmes
+        // Gestion des programmes et niveaux
         Route::prefix('/programs')->name('programs.')->group(function() {
+            // Gestion des niveaux d'etude
+            Route::post('/niveaux', 'NiveauController@store')->name('niveaux.store');
+
+            // Gestion des programme
             Route::get('/', 'ProgramController@index')->name('index');
             Route::post('/', 'ProgramController@store')->name('store');
-            // Route::get('/{program}', 'ProgramController@show')->name('show');
             Route::patch('/{program}/update', 'ProgramController@update')->name('update');
             Route::delete('/{program}/destroy', 'ProgramController@destroy')->name('destroy');
         });
