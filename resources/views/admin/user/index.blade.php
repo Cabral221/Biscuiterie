@@ -111,7 +111,10 @@
 <script>
     $(function () {
         $('#example1').DataTable({
-            pageLegth: 50            
+            pageLegth: 50,
+            scrollResize: true,
+            scrollX: 100,
+            scrollCollapse: true,
         })
     })
 </script>

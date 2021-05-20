@@ -128,37 +128,42 @@
                                         @method('DELETE')
                                     </form>
                                 </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Genre</th>
-                            <th>Date et lieu de naissance</th>
-                            <th>Actions</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            <!-- /.box-body -->
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Genre</th>
+                        <th>Date et lieu de naissance</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
-    </section>
-    @endsection
-    
-    @section('plugin-js')
-    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-    @endsection
-    
-    @section('js')
-    <script>
-        $(function () {
-            $('#example1').DataTable({
-                pageLength: 50
-            })
+        <!-- /.box-body -->
+    </div>
+</section>
+@endsection
+
+@section('plugin-js')
+<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+@endsection
+
+@section('js')
+<script>
+    $(function () {
+        $('#example1').DataTable({
+            pageLength: 50,
+            // responsive: true,
+            scrollResize: true,
+            scrollX: 100,
+            scrollCollapse: true,
         })
-    </script>
-    @endsection
+    })
+</script>
+@endsection
