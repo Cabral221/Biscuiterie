@@ -72,6 +72,40 @@
                             @endforeach
                         @endforeach
                         <button class="badge badge-success float-right classe_toggle_form"><i class="fa fa-plus"></i></button>
+                        <div class="mt-2 d-none form_add_classe">
+                            <form action="{{ route('admin.programs.classes.store') }}" method="post" class="form form_classe" style="width: 100%">
+                                @csrf
+                                @method('POST')
+                                <input type="hidden" name="program_id" value="{{$program->id}}">
+
+                                <div class="form-group">
+                                    <label for="classe_niveau_id_{{$program->id}}">Lier au niveau d'etude</label>
+                                    <select name="niveau_id" id="classe_niveau_id_{{$program->id}}" class="form-control" required>
+                                        <option value="">Selectionnez un niveau</option>
+                                        @foreach ($program->niveaux as $n)
+                                            <option value="{{ $n->id }}">{{ $n->libele }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="classe_user_id_{{$program->id}}">Affecter un(e) Enseigant(e)</label>
+                                    <select name="user_id" class="form-control" id="classe_user_id_{{$program->id}}" required>
+                                        <option value="">Selectionnez un(e) enseignant(e)</option>
+                                        @foreach ($freeMaster as $enseignant)
+                                            <option value="{{ $enseignant->id }}">{{ $enseignant->full_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="classe_libele_{{$program->id}}">Libellé de la classe</label>
+                                    <input type="text" class="form-control" name="libele" id="classe_libele_{{$program->id}}" placeholder="Libellé du niveau" required autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-xs btn-success">Créer la classe</button>
+                                </div>
+                                <div class="position-relative text-center classe_info"></div>
+                            </form>
+                        </div>
                     </div>
                     <div>
                         <h4>Domaines</h4>

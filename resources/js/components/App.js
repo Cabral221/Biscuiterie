@@ -24,3 +24,5 @@ if(element != undefined){
 
 // Gestion des niveaux
 require('./Niveau/Niveau')
+// Gestion des classes
+require('./Classe/Classe')

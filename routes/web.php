@@ -104,6 +104,8 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
 
         // Gestion des programmes et niveaux
         Route::prefix('/programs')->name('programs.')->group(function() {
+            // Gestion des classes
+            Route::post('/classes', 'ClasseController@store')->name('classes.store');
             // Gestion des niveaux d'etude
             Route::post('/niveaux', 'NiveauController@store')->name('niveaux.store');
 
