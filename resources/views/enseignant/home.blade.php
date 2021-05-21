@@ -1,9 +1,5 @@
 @extends('layouts.app', ['titlePage' => $user->full_name])
 
-@section('plugin-css')
-<link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
-@endsection
-
 @section('content')
 <section class="content-header">
     <h1>
@@ -60,7 +56,7 @@
             --}}
         </div>
         <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="example" class="table table-bordered table-striped" width="100%">
                 <thead>
                     <tr>
                         <th>Nom</th>
@@ -92,101 +88,101 @@
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span></button>
-                                                <h4 class="modal-title">Détails de l'éléve</h4>
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title">Détails de l'éléve</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            
+                                            <div class="text-primary">
+                                                <h1>{{ $student->first_name . ' ' . $student->last_name }}</h1>
                                             </div>
-                                            <div class="modal-body">
-                                                
-                                                <div class="text-primary">
-                                                    <h1>{{ $student->first_name . ' ' . $student->last_name }}</h1>
+                                            <table class="table">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>Genre</th>
+                                                        <td>
+                                                            @if ($student->kind)
+                                                            <span class="badge badge-primary">Masculin</span>
+                                                            @else
+                                                            <span class="badge badge-pink">Féminin</span>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Date de naissance</th>
+                                                        <td><span class="text-bold text-primary">{{ $student->birthday->locale('fr')->format('d M Y') }}</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Lieu de naissance</th>
+                                                        <td><span class="text-bold text-primary">{{ $student->where_birthday }}</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Adresse</th>
+                                                        <td><span class="text-bold text-primary">{!! $student->address !!}</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <h3>Filiation du père</h3>
+                                                    <div>Prénom : <span class="text-bold text-primary">{{ $student->father_name }}</span></div>
+                                                    <div>Téléphone : <span class="text-bold text-primary">{{ $student->father_phone }}</span></div>
                                                 </div>
-                                                <table class="table">
-                                                    <tbody>
-                                                        <tr>
-                                                            <th>Genre</th>
-                                                            <td>
-                                                                @if ($student->kind)
-                                                                    <span class="badge badge-primary">Masculin</span>
-                                                                @else
-                                                                    <span class="badge badge-pink">Féminin</span>
-                                                                @endif
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Date de naissance</th>
-                                                            <td><span class="text-bold text-primary">{{ $student->birthday->locale('fr')->format('d M Y') }}</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Lieu de naissance</th>
-                                                            <td><span class="text-bold text-primary">{{ $student->where_birthday }}</span></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <th>Adresse</th>
-                                                            <td><span class="text-bold text-primary">{!! $student->address !!}</span></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <h3>Filiation du père</h3>
-                                                        <div>Prénom : <span class="text-bold text-primary">{{ $student->father_name }}</span></div>
-                                                        <div>Téléphone : <span class="text-bold text-primary">{{ $student->father_phone }}</span></div>
-                                                    </div>
-                                                    <div class="col-sm-6">
-                                                        <h3>Filiation de la mère</h3>
-                                                        <div>Prénom : <span class="text-bold text-primary">{{ $student->mother_first_name }}</span></div>
-                                                        <div>Nom : <span class="text-bold text-primary">{{ $student->mother_last_name }}</span></div>
-                                                        <div>Téléphone : <span class="text-bold text-primary">{{ $student->mother_phone }}</span></div>
-                                                    </div>
+                                                <div class="col-sm-6">
+                                                    <h3>Filiation de la mère</h3>
+                                                    <div>Prénom : <span class="text-bold text-primary">{{ $student->mother_first_name }}</span></div>
+                                                    <div>Nom : <span class="text-bold text-primary">{{ $student->mother_last_name }}</span></div>
+                                                    <div>Téléphone : <span class="text-bold text-primary">{{ $student->mother_phone }}</span></div>
                                                 </div>
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                                {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
-                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                                            {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
                                         </div>
                                     </div>
                                 </div>
-                                
+                            </div>
+                            
                                 {{-- Editing note for student --}}
                                 {{-- <a href="{{ route('admin.students.edit', $student) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i></a> --}}
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Genre</th>
-                            <th>Date et lieu de naissance</th>
-                            <th>Actions</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            <!-- /.box-body -->
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Genre</th>
+                        <th>Date et lieu de naissance</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
-        <!-- /.box -->
-    </section>
+        <!-- /.box-body -->
+    </div>
+    <!-- /.box -->
+</section>
+@endsection
     
-    @endsection
-    
-    @section('plugin-js')
+@section('plugin-js')
     <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-    @endsection
+@endsection
     
-    @section('js')
-    <script>
-        $(function () {
-            $('#example1').DataTable({
-                pageLength: 50,
-                scrollResize: true,
-                scrollX: 100,
-                scrollCollapse: true,
-            })
-        })
-    </script>
-    @endsection
+@section('js')
+<script defer>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "paginate": false,
+            "scrollX": true,
+            "scrollY": 600,
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>
+@endsection
     

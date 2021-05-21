@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="box-body">
-            <table class="table table-bordered">
+            <table id="example" class="table table-bordered" width="100%">
                 <thead>
                     {{-- <th colspan="2">Domaines</th> --}}
                     <th>Activités</th>
@@ -110,4 +110,23 @@
     <!-- /.box -->
 </section>
     
+@endsection
+
+@section('plugin-js')
+<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+@endsection
+
+@section('js')
+<script defer>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "sort": false,
+            "paginate": false,
+            "scrollX": true,
+            "scrollY": 1000,
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>
 @endsection

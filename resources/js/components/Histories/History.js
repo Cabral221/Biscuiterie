@@ -75,7 +75,7 @@ class History extends React.Component {
                 :  <div>
                     {(this.state.error != '') 
                     ?   <p className="text-danger text-center"><i className="fa fa-exclamation-circle"></i> {this.state.error}</p>
-                    :   <table id="example1" className="table table-bordered table-striped">
+                    :   <table className="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>Nom</th>

@@ -1,10 +1,6 @@
 
 @extends('layouts.app', ['titlePage' => 'Notes des éléves'])
 
-@section('plugin-css')
-<link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
-@endsection
-
 @section('content')
 <section class="content-header">
     <h1>
@@ -52,7 +48,7 @@
             </div>
         </div>
         <div class="box-body">
-            <table id="example1" class="table table-hover">
+            <table id="example" class="table table-hover" width="100%">
                 <thead>
                     <tr>
                         <th>Nom</th>
@@ -112,14 +108,14 @@
 @endsection
 
 @section('js')
-<script>
-    $(function () {
-        $('#example1').DataTable({
-            pageLength: 50,
-            scrollResize: true,
-            scrollX: 100,
-            scrollCollapse: true,
-        })
-    })
+<script defer>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "paginate": false,
+            "scrollX": true,
+            "scrollY": 600,
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
 </script>
 @endsection
