@@ -20,3 +20,21 @@
     </div>
 </section>
 @endsection
+
+@section('plugin-js')
+<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+@endsection
+
+@section('js')
+<script defer>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "paginate": false,
+            "scrollX": true,
+            "scrollY": 600,
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>
+@endsection

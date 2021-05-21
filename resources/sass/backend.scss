@@ -58,6 +58,7 @@
 }
 
 .loader {
+    display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
@@ -91,4 +92,9 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+// table responsive
+#example_filter{
+    text-align: right;
 }

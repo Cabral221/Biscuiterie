@@ -14,7 +14,7 @@ class Classe extends Model
 {
     use HasFactory;
 
-    public $fillable = ['libele'];
+    public $fillable = ['libele', 'niveau_id', 'user_id'];
 
     public static function booted() {
         static::created(function($classe){

@@ -1,9 +1,5 @@
 @extends('layouts.app', ['titlePage' => 'Gestion des Enseignants'])
 
-@section('plugin-css')
-<link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
-@endsection
-
 @section('content')
 <section class="content-header">
     <h1>
@@ -29,7 +25,7 @@
         </div>
         <div class="box-body">
             <div class="p-2 mb-2"><a href="{{ route('admin.enseignants.create') }}" class="btn btn-success">Ajouter un(e) enseignant(e)</a></div>
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="example" class="table table-bordered table-striped" width="100%">
                 <thead>
                     <th>Classe</th>
                     <th>Nom Complet</th>
@@ -126,11 +122,14 @@
 @endsection
 
 @section('js')
-<script>
-    $(function () {
-        $('#example1').DataTable({
-            pageLength: 50
-        })
-    })
+<script defer>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "paginate": false,
+            "scrollX": true,
+            "scrollY": 600,
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
 </script>
 @endsection

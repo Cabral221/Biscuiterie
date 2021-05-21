@@ -5,18 +5,29 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Niveau;
 use App\Models\Program;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class ProgramController extends Controller
 {
-
+    /**
+     * Get the index page of programs
+     *
+     * @return View
+     */
     public function index() : View
     {
         $niveaux = Niveau::all();
         $programs = Program::all();
-        return view('admin.programs.index', compact('programs', 'niveaux'));
+
+        $masters = User::all(); 
+        $freeMaster = [];
+        foreach ($masters as $master) {
+            if($master->classe === null) $freeMaster[] = $master; 
+        }
+        return view('admin.programs.index', compact('programs', 'niveaux', 'freeMaster'));
     }
 
     /**

@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import Note from './Note';
+import Note from './Notes/Note'
 import History from './Histories/History'
 
 // Gestion des notes
-const notes_td = document.querySelectorAll('.note-td');
+const notes_td = document.querySelectorAll('.note-td')
 
 notes_td.forEach((note_td) => {
     const id = parseInt(note_td.dataset.note_id)
@@ -17,7 +17,12 @@ notes_td.forEach((note_td) => {
 })
 
 // Gestion de l'historique
-var element = document.getElementById('histories_content')
+const element = document.getElementById('histories_content')
 if(element != undefined){
     ReactDOM.render(<History />, element)
 }
+
+// Gestion des niveaux
+require('./Niveau/Niveau')
+// Gestion des classes
+require('./Classe/Classe')
