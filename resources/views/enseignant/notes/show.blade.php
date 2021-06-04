@@ -121,7 +121,8 @@
 <script defer>
     $(document).ready(function () {
         $('#example').DataTable({
-            "sort": false,
+            "search": false,
+            "ordering": false,
             "paginate": false,
             "scrollX": true,
             "scrollY": 1000,
