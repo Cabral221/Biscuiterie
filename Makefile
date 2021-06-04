@@ -21,7 +21,7 @@ stan:
 push: prod_assets
 	git add .
 	git commit -m "Deploy: build production assets"
-	git push
+	git push origin/develop
 
 # Required
 # ------------------
