@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Admin;
 use App\Models\Niveau;
+use App\Models\Note;
 use App\Models\Program;
 use App\Models\Student;
 use Illuminate\Database\Seeder;
@@ -19,7 +20,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Admin::factory(1)->create([
+            'full_name' => 'Abdourahmane Diop',
             'email' => 'admin@admin.com',
+            'phone' => 778435052,
             'is_admin' => true
         ]);
         Admin::factory(1)->create([
@@ -196,6 +199,16 @@ class DatabaseSeeder extends Seeder
                     }
                 }
             }
+        }
+
+        // Seed des notes fictives
+        $notes = Note::all();
+        foreach($notes as $note){
+            $note->update([
+                'note1' => rand(1, 10),
+                'note2' => rand(1, 10),
+                'note3' => rand(1, 10),
+            ]);
         }
 
     }
