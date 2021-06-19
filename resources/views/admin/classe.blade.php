@@ -16,7 +16,10 @@
         <div class="box-header">
             <div class="d-flex justify-content-between">
                 <span>
-                    <h3 class="box-title py-2">Enseignant(e) : <span class="text-primary">{{ $classe->user->full_name }}</span></h3> <br>
+                    <h3 class="box-title py-2">Enseignant{{ !$classe->user->kind ? 'e' : '' }} : <span class="text-primary">{{ $classe->user->full_name }}</span></h3> <br>
+                    <h3 class="box-title py-2">Matricule : <span class="text-primary">{{ $classe->user->matricule }}</span></h3> <br>
+                    <h3 class="box-title py-2">Téléphone : <span class="text-primary"> (+221) {{ $classe->user->phone }}</span></h3>
+                    <hr>
                     <h3 class="box-title py-2">Nb d'éléve(s) : <span class="text-primary">{{ $classe->total }}</span></h3> <br>
                 </span>
                 <span>

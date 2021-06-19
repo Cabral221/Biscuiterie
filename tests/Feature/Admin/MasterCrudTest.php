@@ -36,6 +36,7 @@ class MasterCrudTest extends TestCase {
             'kind' => true,
             'email' => 'cabraldiop18@gmail.com',
             'phone' => 778435052,
+            'matricule' => '123456/X',
         ];
         $response = $this->post('/admin/enseignants/create', $data);
 
@@ -50,6 +51,7 @@ class MasterCrudTest extends TestCase {
             'kind' => true,
             'email' => 'cabraldiop18@gmail.com',
             'phone' => 778435052,
+            'matricule' => '123456/X',
         ]);
     }
 }

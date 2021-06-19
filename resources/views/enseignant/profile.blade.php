@@ -29,6 +29,10 @@
         <div class="box-body">
             <table class="table">
                 <tr>
+                    <th>Matricule</th>
+                    <td class="text-bold">{{ $user->matricule }}</td>
+                </tr>
+                <tr>
                     <th>Nom complet</th>
                     <td>{{ $user->full_name }}</td>
                 </tr>
@@ -66,6 +70,16 @@
                             <label class="form-check-label" for="femme">Mme</label>
                         </div>
                         @error('kind')
+                            <span class="help-block">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group @error('matricule') has-error @enderror">
+                    <label for="matricule" class="col-sm-4 control-label">Matricule</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="matricule" id="matricule" placeholder="Votre prénom" value="{{ old('matricule') ?? $user->matricule }}">
+                        @error('matricule')
                             <span class="help-block">{{ $message }}</span>
                         @enderror
                     </div>
