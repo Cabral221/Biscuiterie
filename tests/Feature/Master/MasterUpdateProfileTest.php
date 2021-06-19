@@ -25,12 +25,14 @@ class MasterUpdateProfileTest extends TestCase
             'last_name' => 'Doe',
             'email' => 'jane@doe.com',
             'phone' => 709999999,
+            'matricule' => '123456/X'
         ]);
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'first_name' => 'Jane',
             'last_name' => 'Doe',
+            'matricule' => '123456/X'
         ]);
 
         $response = $this->actingAs($user)
@@ -40,6 +42,7 @@ class MasterUpdateProfileTest extends TestCase
                 'kind' => true,
                 'email' => 'jane@doe.com',
                 'phone' => 709999999,
+                'matricule' => '123456/Y'
             ])->assertRedirect('/master/profile');
 
         $response->assertSessionHas('success', __('Profile successfully updated.'));
@@ -49,6 +52,8 @@ class MasterUpdateProfileTest extends TestCase
             'first_name' => 'John',
             'last_name' => 'Doe',
             'kind' => true,
+            'matricule' => '123456/Y',
+
         ]);
     }
     
