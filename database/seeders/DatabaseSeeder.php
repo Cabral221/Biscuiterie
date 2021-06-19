@@ -39,14 +39,14 @@ class DatabaseSeeder extends Seeder
         $matieres = [
             'CI-CP' => [
                 'Langues et communication' => [
-                    'Principe Alphabétique'         => 5,
-                    'Conscience phonétique'         => 5,
-                    'Dichiffache mots / non mots'   => 5,
-                    'Fluidité'                      => 5,
-                    'Production d\'Ecrits'          => 5,
-                    'T.S.Q'                         => 5,
-                    'Dictée'                        => 5,
-                    'Lecture Compréhension'         => 5,
+                    'Principe Alphabétique'         => 10,
+                    'Conscience phonétique'         => 10,
+                    'Dichiffache mots / non mots'   => 10,
+                    'Fluidité'                      => 10,
+                    'Production d\'Ecrits'          => 10,
+                    'T.S.Q'                         => 10,
+                    'Dictée'                        => 10,
+                    'Lecture Compréhension'         => 10,
                 ],
                 'Maths' => [
                     'Act. numériques'               => 10,

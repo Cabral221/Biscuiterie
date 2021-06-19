@@ -27,6 +27,7 @@ class User extends Authenticatable
         'email',
         'phone',
         'password',
+        'matricule',
         'period',
         'is_active',
         'created_at'

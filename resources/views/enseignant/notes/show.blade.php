@@ -76,7 +76,7 @@
                                 data-note="{{ $note->note3 }}"
                                 data-note_dividente="{{ $note->activity->dividente }}">
                             </td>
-                            <td>Recapitulation</td>
+                            <td>...</td>
                         </tr>
                     @endforeach
                     <tr class="h4 text-bold">
@@ -100,7 +100,7 @@
                         <td class="text-center">{{ $student->rang(2) }}</td>
                         <td class="text-center">{{ $student->rang(3) }}</td>
                         
-                        <td>Recapitulation</td>
+                        <td>...</td>
                     </tr>
                 </tbody>
             </table>

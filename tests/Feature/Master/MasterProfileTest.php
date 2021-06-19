@@ -23,4 +23,6 @@ class MasterProfileTest extends TestCase
 
         $this->get('/master/profile')->assertOk();
     }
+
+    // test "put" data for update profile 
 }

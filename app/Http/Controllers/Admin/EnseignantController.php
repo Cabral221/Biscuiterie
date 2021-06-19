@@ -45,6 +45,7 @@ class EnseignantController extends Controller
             'kind' => ['required', 'boolean'],
             'email' => ['required', 'string', 'email', 'unique:users', 'max:255'],
             'phone' => ['required', 'numeric'],
+            'matricule' => ['required', 'string', 'min:3', 'max:10', 'unique:users']
         ]);
 
         User::create([
@@ -53,6 +54,7 @@ class EnseignantController extends Controller
             'kind' => (bool) $request->kind,
             'email' => $request->email,
             'phone' => $request->phone,
+            'matricule' => $request->matricule
         ]);
 
         session()->flash('success', 'Les modifications ont bien été prises en compte.');

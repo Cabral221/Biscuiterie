@@ -31,6 +31,7 @@
                     <th>Nom Complet</th>
                     <th>Téléphone</th>
                     <th>Email</th>
+                    <th>Matricule</th>
                     <th>Actions</th>
                 </thead>
                 <tbody>
@@ -48,6 +49,7 @@
                         <td>{{ $enseignant->full_name }}</td>
                         <td>{{ $enseignant->phone }}</td>
                         <td>{{ $enseignant->email }}</td>
+                        <td>{{ $enseignant->matricule }}</td>
                         <td>
                             {{-- show details in modal for enseignant --}}
                             <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-enseignant-show-{{$enseignant->id}}"><i class="fa fa-eye"></i></button>
@@ -107,6 +109,7 @@
                         <th>Nom Complet</th>
                         <th>Téléphone</th>
                         <th>Email</th>
+                        <th>Matricule</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>

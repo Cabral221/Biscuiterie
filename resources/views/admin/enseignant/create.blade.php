@@ -26,11 +26,11 @@
                         <div class="form-group @error('kind') has-error @enderror">
                             <label>Genre</label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="kind" id="homme" value="1">
+                                <input class="form-check-input" type="radio" name="kind" id="homme" value="1" {{ old('kind') == "1" ? "checked='checked'" : '' }}>
                                 <label class="form-check-label" for="homme">Mr.</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="kind" id="femme" value="0">
+                                <input class="form-check-input" type="radio" name="kind" id="femme" value="0" {{ old('kind') == "0" ? "checked='checked'" : '' }}>
                                 <label class="form-check-label" for="femme">Mme</label>
                             </div>
                             @error('kind')
@@ -67,6 +67,13 @@
                         </div>
                     </div>
                     <div class="col-md-6">
+                        <div class="form-group @error('matricule') has-error @enderror">
+                            <label for="matricule">Matricule ex: 12345/X</label>
+                            <input type="text" name="matricule" id="matricule" class="form-control" value="{{ old('matricule') }}">
+                            @error('matricule')
+                                <span class="help-block">{{ $message }}</span>
+                            @enderror
+                        </div>
                         <h3 class="text-center text-warning">Infos </h3>
                         <p class="pr-5 pl-5 pb-5">Un(e) enseignant(e) qui n'est pas affecté à une classe ne poura pas se connecter à la plateforme.</p>
                     </div>
