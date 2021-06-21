@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(CountriesSeeder::class);
+
         Admin::factory(1)->create([
             'full_name' => 'Abdourahmane Diop',
             'email' => 'admin@admin.com',

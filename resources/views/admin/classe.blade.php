@@ -94,6 +94,10 @@
                                                             <th>Adresse</th>
                                                             <td><span class="text-bold text-primary">{!! $student->address !!}</span></td>
                                                         </tr>
+                                                        <tr>
+                                                            <th>Nationnalité</th>
+                                                            <td><span class="text-bold text-primary">{!! $student->country->name !!}</span></td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                                 <div class="row">
@@ -101,12 +105,14 @@
                                                         <h3>Filiation du père</h3>
                                                         <div>Prénom : <span class="text-bold text-primary">{{ $student->father_name }}</span></div>
                                                         <div>Téléphone : <span class="text-bold text-primary">{{ $student->father_phone }}</span></div>
+                                                        <div>NIN : <span class="text-bold text-primary">{{ $student->father_nin }}</span></div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <h3>Filiation de la mère</h3>
                                                         <div>Prénom : <span class="text-bold text-primary">{{ $student->mother_first_name }}</span></div>
                                                         <div>Nom : <span class="text-bold text-primary">{{ $student->mother_last_name }}</span></div>
                                                         <div>Téléphone : <span class="text-bold text-primary">{{ $student->mother_phone }}</span></div>
+                                                        <div>NIN : <span class="text-bold text-primary">{{ $student->mother_nin }}</span></div>
                                                     </div>
                                                 </div>
                                             </div>
