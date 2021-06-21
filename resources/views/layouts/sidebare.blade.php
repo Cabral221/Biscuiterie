@@ -9,9 +9,9 @@
             <div class="pull-left info text-capitalize">
                 <p>{{ auth()->user()->full_name }}</p> 
                 @if(Auth::guard('admin')->user() != Null)
-                <i class="fa fa-circle text-success"></i> Administrateur
+                    <i class="fa fa-circle text-success"></i> Administrateur
                 @elseif(Auth::guard('web')->user() != Null)
-                <i class="fa fa-circle text-success"></i> Enseignant
+                    <i class="fa fa-circle text-success"></i> Enseignant
                 @endif
             </div>
         </div>
