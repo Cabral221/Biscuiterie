@@ -25,8 +25,10 @@ class StudentTest extends TestCase
             'address' => $student->address,
             'father_name' => $student->father_name,
             'father_phone' => $student->father_phone,
+            'father_nin' => 1251199700766,
             'mother_first_name' =>$student->mother_first_name,
             'mother_last_name' => $student->mother_last_name,
+            'mother_nin' => 2251199700766,
             'mother_phone' => $student->mother_phone,
             'classe_id' => $student->classe_id,
         ]);
@@ -41,6 +43,8 @@ class StudentTest extends TestCase
             'birthday' => $student->birthday,
             'where_birthday' => $student->where_birthday,
             'kind' => $student->kind,
+            'mother_nin' => 2251199700766,
+            'father_nin' => 1251199700766,
         ]);
     }
     
@@ -66,9 +70,11 @@ class StudentTest extends TestCase
             'address' => $student->address,
             'father_name' => $student->father_name,
             'father_phone' => $student->father_phone,
+            'father_nin' => 1251199700767,
             'mother_first_name' => $student->mother_first_name,
             'mother_last_name' => $student->mother_last_name,
             'mother_phone' => $student->mother_phone,
+            'mother_nin' => 2251199700767,
             'classe_id' => $student->classe_id,
         ]);
         
@@ -79,6 +85,8 @@ class StudentTest extends TestCase
             'last_name' => 'Ndiaye',
             'where_birthday' => 'Dakar',
             'kind' => 0,
+            'father_nin' => 1251199700767,
+            'mother_nin' => 2251199700767,
         ]);
     }
 }

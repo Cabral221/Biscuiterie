@@ -17,12 +17,12 @@
 			<h2 class="box-title">Ajouter un(e) éléve</h2>
 		</div> 
 		<div class="box-body">
+			<h3 class="box-title">informations de l'éléve</h3>
 			<form action="{{ route('admin.students.store') }}" method="post">
 				@csrf
 				@method('POST')
 				<div class="row">
 					<div class="col-sm-6">
-						<h3 class="box-title">informations de l'éléve</h3>
 						<div class="form-group @error('classe_id') has-error @enderror">
 							<label>Classe</label>
 							<select class="form-control" name="classe_id">
@@ -64,6 +64,8 @@
 							<span class="help-block">{{ $message }}</span>
 							@enderror
 						</div>
+					</div>
+					<div class="col-sm-6">
 						<div class="form-group @error('birthday') has-error @enderror">
 							<label for="last_name">Date de naissance</label>
 							<input type="date" name="birthday" id="birthday" class="form-control" value="{{ old('birthday') }}">
@@ -86,46 +88,69 @@
 							@enderror
 						</div>
 					</div>
+				</div>
+				<div class="row mb-2">
 					<div class="col-sm-6">
-						<h3 class="box-title">Filiation des parents</h3>
-						<div class="form-group @error('father_name') has-error @enderror">
-							<label for="father_name">Prénom du père</label>
-							<input type="text" name="father_name" id="father_name" class="form-control" value="{{ old('father_name') }}">
-							@error('father_name')
-							<span class="help-block">{{ $message }}</span>
-							@enderror
+						<h4 class="box-title">Filiation du Pére ou tuteur</h3>
+						<div class="border border-primary rounded px-3 py-2">
+							<div class="form-group @error('father_name') has-error @enderror">
+								<label for="father_name">Prénom</label>
+								<input type="text" name="father_name" id="father_name" class="form-control" value="{{ old('father_name') }}">
+								@error('father_name')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
+							<div class="form-group @error('father_phone') has-error @enderror">
+								<label for="father_phone">Téléphone</label>
+								<input type="number" name="father_phone" id="father_phone" class="form-control" value="{{ old('father_phone') }}">
+								@error('father_phone')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
+							<div class="form-group @error('father_nin') has-error @enderror">
+								<label for="father_nin">Numéro d'identification National</label>
+								<input type="number" name="father_nin" id="father_nin" class="form-control" value="{{ old('father_nin') }}">
+								@error('father_nin')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
 						</div>
-						<div class="form-group @error('father_phone') has-error @enderror">
-							<label for="father_phone">Téléphone du pére</label>
-							<input type="number" name="father_phone" id="father_phone" class="form-control" value="{{ old('father_phone') }}">
-							@error('father_phone')
-							<span class="help-block">{{ $message }}</span>
-							@enderror
-						</div>
-						<hr>
-						<div class="form-group @error('mother_first_name') has-error @enderror">
-							<label for="mother_first_name">Prénom de la mère</label>
-							<input type="text" name="mother_first_name" id="mother_first_name" class="form-control" value="{{ old('mother_first_name') }}">
-							@error('mother_first_name')
-							<span class="help-block">{{ $message }}</span>
-							@enderror
-						</div>
-						<div class="form-group @error('mother_last_name') has-error @enderror">
-							<label for="mother_last_name">Nom de la mère</label>
-							<input type="text" name="mother_last_name" id="mother_last_name" class="form-control" value="{{ old('mother_last_name') }}">
-							@error('mother_last_name')
-							<span class="help-block">{{ $message }}</span>
-							@enderror
-						</div>
-						<div class="form-group @error('mother_phone') has-error @enderror">
-							<label for="mother_phone">Téléphone de la mère</label>
-							<input type="number" name="mother_phone" id="mother_phone" class="form-control" value="{{ old('mother_phone') }}">
-							@error('mother_phone')
-							<span class="help-block">{{ $message }}</span>
-							@enderror
+					</div>
+					<div class="col-sm-6">
+						<h4 class="box-title">Filiation de la Mére ou tutrice</h3>
+						<div class="border border-primary rounded px-3 py-2">
+							<div class="form-group @error('mother_first_name') has-error @enderror">
+								<label for="mother_first_name">Prénom</label>
+								<input type="text" name="mother_first_name" id="mother_first_name" class="form-control" value="{{ old('mother_first_name') }}">
+								@error('mother_first_name')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
+							<div class="form-group @error('mother_last_name') has-error @enderror">
+								<label for="mother_last_name">Nom</label>
+								<input type="text" name="mother_last_name" id="mother_last_name" class="form-control" value="{{ old('mother_last_name') }}">
+								@error('mother_last_name')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
+							<div class="form-group @error('mother_phone') has-error @enderror">
+								<label for="mother_phone">Téléphone</label>
+								<input type="number" name="mother_phone" id="mother_phone" class="form-control" value="{{ old('mother_phone') }}">
+								@error('mother_phone')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
+							<div class="form-group @error('mother_nin') has-error @enderror">
+								<label for="mother_nin">Numéro d'identification National</label>
+								<input type="number" name="mother_nin" id="mother_nin" class="form-control" value="{{ old('mother_nin') }}">
+								@error('mother_nin')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
 						</div>
 					</div>
 				</div>
+				<hr>
 				<div class="form-group">
 					<button type="submit" class="btn btn-block btn-md btn-primary">Enregistrer</button>
 				</div>
