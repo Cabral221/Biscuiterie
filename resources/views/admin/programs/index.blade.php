@@ -68,7 +68,36 @@
                         <h4>Classes</h4>
                         @foreach ($program->niveaux as $niveau)
                             @foreach ($niveau->classes as $classe)
-                                <span class="badge badge-primary">{{ $classe->libele }}</span>
+                                <div class="btn-group dropright" role="group">
+                                   
+                                    <span type="button" class="badge badge-primary dropdown-toggle" data-toggle="dropdown">
+                                    <a tabindex="0" class="text-white" role="button" data-toggle="popover" data-trigger="focus" title="Modifier" data-content="">{{ $classe->libele }}</a>
+                                        <span class="caret"></span>
+                                    </span>
+                                    <ul class="dropdown-menu text-white " role="menu">
+                                         <li>
+                                            <form action="{{ route('admin.programs.classes.update',$classe->id) }}" method="post" style="padding:5px;">
+                                                @csrf
+                                                {{ method_field('PUT') }}
+                                                <label for="" class="text-black label">Modifier</label>
+                                                <input type="text" value="{{ $classe->libele }}" name="libele" id="" class="form-control text-center" style="outline:none;"> 
+                                            </form>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li class="text-center"><a class="text-primary" href="{{ route('admin.classes.show',$classe) }}"><i class="fa fa-eye"> Détails</i></a></li>
+                                        <li class="text-center">
+                                              <a href="#" class="text-danger" onclick="event.preventDefault();if(confirm('Attention si vous supprimer cette classe tout les eleves inscrit dans cette classe seront supprimer !')){document.getElementById('form-delete-classe-{{$classe->id}}').submit();}">
+                                                    <i class="fa fa-trash"> Supprimer</i>
+                                                    <form action="{{ route('admin.programs.classes.destroy',$classe->id) }}" method="post" id="form-delete-classe-{{$classe->id}}" class="d-none">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                    </form>
+                                                </a>
+                                        
+                                        </li>
+                                       
+                                    </ul>
+                                </div>
                             @endforeach
                         @endforeach
                         <button class="badge badge-success float-right classe_toggle_form"><i class="fa fa-plus"></i></button>

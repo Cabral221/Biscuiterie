@@ -57,4 +57,19 @@ class ClasseController extends Controller
         return Response::json($classe->getAttributes(), 200);
     }
 
+    public function update(Request $request , $id){
+        // $validator = Validator::make($request->all(), [
+        //     'libele' => ['required', 'string', 'min:2', 'max:10'],
+        // ]);
+        $update_class = Classe::where('id',$id)->first();
+        $update_class->libele = $request->libele;
+        $update_class->save();
+        return back()->with('success','Classe modifier avec success');
+    }
+
+    public function destroy($id){
+        Classe::find($id)->delete();
+        return back()->with('success','Classe supprimer avec success');
+    }
+
 }
