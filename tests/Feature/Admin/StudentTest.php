@@ -62,7 +62,7 @@ class StudentTest extends TestCase
         $this->loginAsAdmin(Admin::factory()->create());
 
         // Quand
-        $country = Country::factory()->create();
+        $country = Country::factory()->create(['code' => 'XX', 'name' => 'X contry']);
         $student = Student::factory()->create([
             'last_name' => 'Diop',
             'where_birthday' => 'Saint Louis',
