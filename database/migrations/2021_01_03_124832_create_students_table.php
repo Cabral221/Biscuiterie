@@ -21,7 +21,6 @@ class CreateStudentsTable extends Migration
             $table->date('birthday');
             $table->string('where_birthday');
             $table->boolean('kind');
-
             $table->string('address');
 
             $table->string('father_name')->nullable();
@@ -33,11 +32,13 @@ class CreateStudentsTable extends Migration
             $table->bigInteger('mother_phone')->nullable();
             $table->bigInteger('mother_nin')->nullable();
 
+            $table->unsignedBigInteger('country_id')->index();
             $table->unsignedBigInteger('classe_id')->index();
 
             $table->timestamps();
 
             $table->foreign('classe_id')->references('id')->on('classes')->onDelete('cascade');
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
         });
     }
 

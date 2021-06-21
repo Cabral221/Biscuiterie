@@ -18,7 +18,7 @@ class Student extends Model
         'first_name', 'last_name', 'birthday', 'where_birthday', 'address', 'kind', 
         'father_name', 'father_phone', 'father_nin',
         'mother_first_name', 'mother_last_name', 'mother_phone', 'mother_nin',
-        'classe_id',
+        'classe_id', 'country_id'
     ];
 
     public $casts = [
@@ -26,7 +26,7 @@ class Student extends Model
         'kind' => 'boolean',
     ];
 
-    protected $with = ['notes'];
+    protected $with = ['notes', 'country'];
 
     public CONST DIVIDEUR = 10;
 
@@ -86,6 +86,14 @@ class Student extends Model
     public function getFullNameAttribute() : string
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function country() : BelongsTo
+    {
+        return $this->belongsTo(Country::class);
     }
 
     /**

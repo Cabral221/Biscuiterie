@@ -21,71 +21,85 @@
 			<form action="{{ route('admin.students.store') }}" method="post">
 				@csrf
 				@method('POST')
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="form-group @error('classe_id') has-error @enderror">
-							<label>Classe</label>
-							<select class="form-control" name="classe_id">
-								<option selected disabled value="">Selectonner une classe</option>
-								@foreach ($niveaux as $n)
-								<option disabled><b>{{ $n->libele }}</b></option>
-								@foreach ($n->classes as $classe)
-								<option value="{{ $classe->id }}">{{ $classe->libele }}</option>
-								@endforeach
-								@endforeach
-							</select>
-							@error('classe_id')
-							<span class="help-block">{{ $message }}</span>
-							@enderror
+				<div class="border border-primary px-3 py-2">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group @error('classe_id') has-error @enderror">
+								<label>Classe</label>
+								<select class="form-control" name="classe_id">
+									<option selected disabled value="">Selectonner une classe</option>
+									@foreach ($niveaux as $n)
+									<option disabled><b>{{ $n->libele }}</b></option>
+									@foreach ($n->classes as $classe)
+									<option value="{{ $classe->id }}">{{ $classe->libele }}</option>
+									@endforeach
+									@endforeach
+								</select>
+								@error('classe_id')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
+							<div class="form-group @error('kind') has-error @enderror">
+								<label for="kind" class="mr-5">Genre</label>
+								<label class="radio-inline">
+									<input type="radio" name="kind" value="1">Masculin
+								</label>
+								<label class="radio-inline">
+									<input type="radio" name="kind" value="0">Féminin
+								</label>
+								@error('kind')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
+							<div class="form-group @error('first_name') has-error @enderror">
+								<label for="first_name">Prénom</label>
+								<input type="text" name="first_name" id="first_name" class="form-control" value="{{ old('first_name') }}">
+								@error('first_name')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
+							<div class="form-group @error('last_name') has-error @enderror">
+								<label for="last_name">Nom</label>
+								<input type="text" name="last_name" id="last_name" class="form-control" value="{{ old('last_name') }}">
+								@error('last_name')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
 						</div>
-						<div class="form-group @error('kind') has-error @enderror">
-							<label for="kind" class="mr-5">Genre</label>
-							<label class="radio-inline">
-								<input type="radio" name="kind" value="1">Masculin
-							</label>
-							<label class="radio-inline">
-								<input type="radio" name="kind" value="0">Féminin
-							</label>
-							@error('kind')
-							<span class="help-block">{{ $message }}</span>
-							@enderror
-						</div>
-						<div class="form-group @error('first_name') has-error @enderror">
-							<label for="first_name">Prénom</label>
-							<input type="text" name="first_name" id="first_name" class="form-control" value="{{ old('first_name') }}">
-							@error('first_name')
-							<span class="help-block">{{ $message }}</span>
-							@enderror
-						</div>
-						<div class="form-group @error('last_name') has-error @enderror">
-							<label for="last_name">Nom</label>
-							<input type="text" name="last_name" id="last_name" class="form-control" value="{{ old('last_name') }}">
-							@error('last_name')
-							<span class="help-block">{{ $message }}</span>
-							@enderror
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="form-group @error('birthday') has-error @enderror">
-							<label for="last_name">Date de naissance</label>
-							<input type="date" name="birthday" id="birthday" class="form-control" value="{{ old('birthday') }}">
-							@error('birthday')
-							<span class="help-block">{{ $message }}</span>
-							@enderror
-						</div>
-						<div class="form-group @error('where_birthday') has-error @enderror">
-							<label for="where_birthday">Lieu de naissance</label>
-							<input type="text" name="where_birthday" id="where_birthday" class="form-control" value="{{ old('where_birthday') }}">
-							@error('where_birthday')
-							<span class="help-block">{{ $message }}</span>
-							@enderror
-						</div>
-						<div class="form-group @error('address') has-error @enderror">
-							<label for="address">Adresse</label>
-							<input type="text" name="address" id="address" class="form-control" value="{{ old('address') }}">
-							@error('address')
-							<span class="help-block">{{ $message }}</span>
-							@enderror
+						<div class="col-sm-6">
+							<div class="form-group @error('birthday') has-error @enderror">
+								<label for="last_name">Date de naissance</label>
+								<input type="date" name="birthday" id="birthday" class="form-control" value="{{ old('birthday') }}">
+								@error('birthday')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
+							<div class="form-group @error('where_birthday') has-error @enderror">
+								<label for="where_birthday">Lieu de naissance</label>
+								<input type="text" name="where_birthday" id="where_birthday" class="form-control" value="{{ old('where_birthday') }}">
+								@error('where_birthday')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
+							<div class="form-group @error('address') has-error @enderror">
+								<label for="address">Adresse</label>
+								<input type="text" name="address" id="address" class="form-control" value="{{ old('address') }}">
+								@error('address')
+								<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>					
+							<div class="form-group @error('country_id') has-error @enderror">
+								<label>Nationnalité</label>
+								<select class="form-control" name="country_id">
+									<option selected disabled value="">Selectonner la nationnalité</option>
+									@foreach ($countries as $country)
+										<option value="{{ $country->id }}"><b>{{ $country->name }}</b></option>
+									@endforeach
+								</select>
+								@error('country_id')
+									<span class="help-block">{{ $message }}</span>
+								@enderror
+							</div>
 						</div>
 					</div>
 				</div>

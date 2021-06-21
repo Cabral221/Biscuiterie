@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
+use App\Models\Country;
 use Illuminate\Http\RedirectResponse;
 
 class StudentController extends Controller
@@ -22,7 +23,8 @@ class StudentController extends Controller
     public function index() : View
     {
         $niveaux = Niveau::with('classes.students')->get();
-        return view('admin.student.index', compact('niveaux'));
+        $countries = Country::orderBy('name')->get();
+        return view('admin.student.index', compact('niveaux', 'countries'));
     }
 
     /**
@@ -37,6 +39,7 @@ class StudentController extends Controller
         /** @var Student $student */
         $student = Student::create([
             'classe_id' => $request->classe_id,
+            'country_id' => $request->country_id,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'birthday' => $request->birthday,
@@ -79,6 +82,7 @@ class StudentController extends Controller
     {
         $this->validate($request, [
             'classe_id' => ['required','numeric'],
+            'country_id' => ['required','numeric'],
             'first_name' => ['required','string','min:2'],
             'last_name' => ['required','string','min:2'],
             'birthday' => ['required','date'],
@@ -96,6 +100,7 @@ class StudentController extends Controller
 
         $student->update([
             'classe_id' => $request->classe_id,
+            'country_id' => $request->country_id,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'birthday' => $request->birthday,

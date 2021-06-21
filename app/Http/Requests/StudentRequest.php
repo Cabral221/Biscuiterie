@@ -25,6 +25,7 @@ class StudentRequest extends FormRequest
     {
         return [
             'classe_id' => ['required','numeric'],
+            'country_id' => ['required','numeric'],
             'first_name' => ['required','string','min:2'],
             'last_name' => ['required','string','min:2'],
             'birthday' => ['required','date'],

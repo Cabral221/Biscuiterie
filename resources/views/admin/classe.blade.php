@@ -94,6 +94,10 @@
                                                             <th>Adresse</th>
                                                             <td><span class="text-bold text-primary">{!! $student->address !!}</span></td>
                                                         </tr>
+                                                        <tr>
+                                                            <th>Nationnalité</th>
+                                                            <td><span class="text-bold text-primary">{!! $student->country->name !!}</span></td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                                 <div class="row">
