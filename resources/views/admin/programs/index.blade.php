@@ -22,7 +22,7 @@
                     @csrf
                     <div class="form-group @error('libele') has-error @enderror">
                         <label>Nom du programme</label>
-                        <input type="text" name="libele" class="form-control">
+                        <input type="text" name="libele" class="form-control" required>
                         @error('libele')
                             <span class="help-block">{{ $message }}</span>
                         @enderror
@@ -79,8 +79,8 @@
                                             <form action="{{ route('admin.programs.classes.update',$classe->id) }}" method="post" style="padding:5px;">
                                                 @csrf
                                                 {{ method_field('PUT') }}
-                                                <label for="" class="text-black label">Modifier</label>
-                                                <input type="text" value="{{ $classe->libele }}" name="libele" id="" class="form-control text-center" style="outline:none;"> 
+                                                <label for="edit_classe_label" class="text-black label">Modifier</label>
+                                                <input type="text" value="{{ $classe->libele }}" name="libele" id="edit_classe_label" class="form-control text-center" style="outline:none;" required> 
                                             </form>
                                         </li>
                                         <li class="divider"></li>
