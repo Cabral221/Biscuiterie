@@ -52,7 +52,7 @@
                         <td>{{ $enseignant->matricule }}</td>
                         <td>
                             {{-- show details in modal for enseignant --}}
-                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-enseignant-show-{{$enseignant->id}}"><i class="fa fa-eye"></i></button>
+                            <button type="button" class="btn btn-xs btn-primary" title="Details" data-toggle="modal" data-target="#modal-enseignant-show-{{$enseignant->id}}"><i class="fa fa-eye"></i></button>
                             <div class="modal modal-xl fade" id="modal-enseignant-show-{{$enseignant->id}}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -85,6 +85,26 @@
                                                             @endif
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <th>Diplomes academique</th>
+                                                        <td><span class="text-bold text-primary">
+                                                             @foreach($enseignant->qualifications as $diplome_academique)
+                                                                @if($diplome_academique->type == 0)
+                                                                    {{$diplome_academique->libele}},
+                                                                @endif
+                                                            @endforeach
+                                                        </span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Diplomes professionnel</th>
+                                                        <td><span class="text-bold text-primary">
+                                                             @foreach($enseignant->qualifications as $diplome_proffessionnel)
+                                                                @if($diplome_proffessionnel->type == 1)
+                                                                    {{$diplome_proffessionnel->libele}},
+                                                                @endif
+                                                            @endforeach
+                                                        </span></td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -97,7 +117,7 @@
                             </div>
 
                             {{-- Edit enseignant<User> button --}}
-                            <a href="{{ route('admin.enseignants.edit', $enseignant) }}" class="btn btn-xs btn-warning" data-target="#modal-enseignant-edit-{{$enseignant->id}}"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('admin.enseignants.edit', $enseignant) }}" title="Modifier" class="btn btn-xs btn-warning" data-target="#modal-enseignant-edit-{{$enseignant->id}}"><i class="fa fa-edit"></i></a>
                                 
                         </td>
                     </tr>
