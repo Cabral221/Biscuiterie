@@ -26,11 +26,11 @@
                         <div class="form-group @error('kind') has-error @enderror">
                             <label>Genre</label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="kind" id="homme" value="1" {{ old('kind') == "1" ? "checked='checked'" : '' }}>
+                                <input class="form-check-input" type="radio" name="kind" id="homme" value="1" {{ old('kind') == "1" ? "checked='checked'" : '' }} required>
                                 <label class="form-check-label" for="homme">Mr.</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="kind" id="femme" value="0" {{ old('kind') == "0" ? "checked='checked'" : '' }}>
+                                <input class="form-check-input" type="radio" name="kind" id="femme" value="0" {{ old('kind') == "0" ? "checked='checked'" : '' }} required>
                                 <label class="form-check-label" for="femme">Mme</label>
                             </div>
                             @error('kind')
@@ -39,28 +39,28 @@
                         </div>
                         <div class="form-group @error('first_name') has-error @enderror">
                             <label for="first_name">Prénom</label>
-                            <input type="text" name="first_name" id="first_name" class="form-control" value="{{ old('first_name') }}">
+                            <input type="text" name="first_name" id="first_name" class="form-control" value="{{ old('first_name') }}" required>
                             @error('first_name')
                                 <span class="help-block">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group @error('last_name') has-error @enderror">
                             <label for="last_name">Nom</label>
-                            <input type="text" name="last_name" id="last_name" class="form-control" value="{{ old('last_name') }}">
+                            <input type="text" name="last_name" id="last_name" class="form-control" value="{{ old('last_name') }}" required>
                             @error('last_name')
                                 <span class="help-block">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group @error('email') has-error @enderror">
                             <label for="email">Adresse email</label>
-                            <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}">
+                            <input type="email" name="email" id="email" class="form-control" value="{{ old('email') }}" required>
                             @error('email')
                                 <span class="help-block">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group @error('phone') has-error @enderror">
                             <label for="phone">Numéro de Téléphone</label>
-                            <input type="number" name="phone" id="phone" class="form-control" value="{{ old('phone') }}">
+                            <input type="number" name="phone" id="phone" class="form-control" value="{{ old('phone') }}" required>
                             @error('phone')
                                 <span class="help-block">{{ $message }}</span>
                             @enderror
@@ -69,7 +69,7 @@
                     <div class="col-md-6">
                         <div class="form-group @error('matricule') has-error @enderror">
                             <label for="matricule">Matricule ex: 12345/X</label>
-                            <input type="text" name="matricule" id="matricule" class="form-control" value="{{ old('matricule') }}">
+                            <input type="text" name="matricule" id="matricule" class="form-control" value="{{ old('matricule') }}" required>
                             @error('matricule')
                                 <span class="help-block">{{ $message }}</span>
                             @enderror

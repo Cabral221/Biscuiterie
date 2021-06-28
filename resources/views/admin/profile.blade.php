@@ -58,7 +58,7 @@
                     <label for="fullname" class="col-sm-4 control-label">Nom Complet</label>
 
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="full_name" id="fullname" placeholder="Votre nom" value="{{ old('full_name') ?? $user->full_name }}">
+                        <input type="text" class="form-control" name="full_name" id="fullname" placeholder="Votre nom" value="{{ old('full_name') ?? $user->full_name }}" required>
                         @error('full_name')
                             <span class="help-block">{{ $message }}</span>
                         @enderror
@@ -68,7 +68,7 @@
                     <label for="email" class="col-sm-4 control-label">Adresse Email</label>
 
                     <div class="col-sm-8">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="adresse Email" value="{{ old('email') ?? $user->email }}">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="adresse Email" value="{{ old('email') ?? $user->email }}" required>
                         @error('email')
                             <span class="help-block">{{ $message }}</span>
                         @enderror
@@ -78,7 +78,7 @@
                     <label for="phone" class="col-sm-4 control-label">Téléphone</label>
 
                     <div class="col-sm-8">
-                        <input type="text" name="phone" class="form-control" id="phone" placeholder="Téléphone" value="{{ old('phone') ?? $user->phone }}">
+                        <input type="text" name="phone" class="form-control" id="phone" placeholder="Téléphone" value="{{ old('phone') ?? $user->phone }}" required>
                         @error('phone')
                             <span class="help-block">{{ $message }}</span>
                         @enderror
@@ -107,7 +107,7 @@
                     <label for="old_password" class="col-sm-4 control-label">Ancien mot de passe</label>
 
                     <div class="col-sm-8">
-                        <input type="password" class="form-control" name="old_password" id="old_password" placeholder="Ancien mot de passe">
+                        <input type="password" class="form-control" name="old_password" id="old_password" placeholder="Ancien mot de passe" required>
                         @error('old_password') 
                             <span class="help-block">{{ $message }}</span>
                         @enderror
@@ -117,7 +117,7 @@
                     <label for="password" class="col-sm-4 control-label">Nouveau mot de passe</label>
 
                     <div class="col-sm-8">
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Nouveau mot de passe">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Nouveau mot de passe" required>
                         @error('password')
                             <span class="help-block">{{ $message }}</span>
                         @enderror
@@ -127,7 +127,7 @@
                     <label for="password_confirmation" class="col-sm-4 control-label">Confirmation mot de passe</label>
 
                     <div class="col-sm-8">
-                        <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirmer le mot de passe">
+                        <input type="password" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="Confirmer le mot de passe" required>
                     </div>
                 </div>
             </div>
