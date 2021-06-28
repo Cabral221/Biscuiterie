@@ -98,7 +98,7 @@ class StudentController extends Controller
             'father_nin' => ['required', 'unique:students,id,'.$student->id],
             'mother_first_name' => ['string','min:2'],
             'mother_last_name' => ['string','min:2'],
-            'mother_phone' => ['numeric'],
+            'mother_phone' => ['numeric','unique:students,id,'.$student->id],
             'mother_nin' => ['required', 'unique:students,id,'.$student->id]
         ]);
 
