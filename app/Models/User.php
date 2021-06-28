@@ -9,6 +9,7 @@ use App\Notifications\MasterResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Qualification;
 
 class User extends Authenticatable
 {
@@ -136,5 +137,10 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token) : void
     {
         $this->notify(new MasterResetPasswordNotification($token));
+    }
+
+
+    public function qualifications(){
+        return $this->belongsToMany(Qualification::class,'user_qualifications');
     }
 }

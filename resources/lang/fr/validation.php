@@ -176,5 +176,43 @@ return [
         'time'                  => 'heure',
         'available'             => 'disponible',
         'size'                  => 'taille',
+
+        //self traduction validation
+        'id' => 'identifiant',
+        'classe_id' => 'classe',
+        'country_id' => 'nationnalité',
+        'first_name' => 'prénom',
+        'last_name' => 'nom',
+        'birthday' => 'date de naissance',
+        'where_birthday' => 'lieu de naissance',
+        'kind' => 'Genre',
+        'address' => 'adresse',
+        'father_name' => 'prénom du père',
+        'father_phone' => 'téléphone du père',
+        'father_nin' => 'numéro d\'identité du père',
+        'mother_first_name' => 'prénom de la mère',
+        'mother_last_name' => 'nom de la mère',
+        'mother_phone' => 'téléphone de la mère',
+        'mother_nin' => 'numéro d\'identité de la mère',
+        'libele' => 'libelé',
+        'dividente' => 'dividende',
+        'activitable_type' => 'type de matière',
+        'activitable_id' => 'identifiant de matière',
+        'niveau_id' => 'niveau',
+        'user_id' => 'utilisateur',
+        'program' => 'programme',
+        'phone' => 'téléphone',
+        'year' => 'année',
+        'program_id' => 'identifiant du programme',
+        'old_password' => 'ancien mot de passe',
+        'password' => 'mot de passe',
+        'sub_domain_domain' => 'sous domaine',
+        'sub_domain_libele' => 'sous libelé',
+        'domain_id' => 'identifiant du domaine',
+        'password_confirmation' => 'confirmation du mot de passe'
+
+
+
+
     ],
 ];

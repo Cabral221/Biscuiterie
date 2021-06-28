@@ -63,6 +63,43 @@
                         <span class="help-block">{{ $message }}</span>
                     @enderror
                 </div>
+                <div class="row @error('qualification') has-error @enderror">
+                    <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                        <label for="name">Qualification academique</label>
+                        @foreach($qualifications as $qualification)
+                            @if($qualification->type == 0)
+                                <div class="checkbox">
+                                    <label for="qualification-{{ $qualification->id }}"> <input type="checkbox" value="{{$qualification->id}}" name="qualification[]" id="qualification-{{ $qualification->id }}"
+                                    @foreach($enseignant->qualifications as $rp)
+                                        @if($rp->id == $qualification->id)
+                                            checked
+                                        @endif
+                                    @endforeach
+                                    >{{ $qualification->libele }} </label>
+                                </div>
+                            @endif
+                        @endforeach
+                        @error('qualification')
+                            <span class="help-block">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                        <label for="name">Qualification proffessionnel</label>
+                        @foreach($qualifications as $qualification)
+                            @if($qualification->type == 1)
+                                <div class="checkbox">
+                                    <label for="qualification-{{ $qualification->id }}"> <input type="checkbox" value="{{$qualification->id}}" name="qualification[]" id="qualification-{{ $qualification->id }}"
+                                        @foreach($enseignant->qualifications as $rp)
+                                            @if($rp->id == $qualification->id)
+                                                checked
+                                            @endif
+                                        @endforeach
+                                    >{{ $qualification->libele }} </label>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
             </div>
             <div class="box-footer">
                 <button type="submit" class="btn btn-success">Enregistrer</button>

@@ -74,6 +74,31 @@
                                 <span class="help-block">{{ $message }}</span>
                             @enderror
                         </div>
+                        <div class="row @error('qualification') has-error @enderror">
+                            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
+                                <label for="name">Qualification academique</label>
+                                @foreach($qualifications as $qualification)
+                                    @if($qualification->type == 0)
+                                        <div class="checkbox">
+                                            <label for="qualification-{{ $qualification->id }}"> <input type="checkbox" value="{{$qualification->id}}" name="qualification[]" id="qualification-{{ $qualification->id }}">{{ $qualification->libele }} </label>
+                                        </div>
+                                    @endif
+                                @endforeach
+                                @error('qualification')
+                                    <span class="help-block">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6">
+                                <label for="name">Qualification proffessionnel</label>
+                                @foreach($qualifications as $qualification)
+                                    @if($qualification->type == 1)
+                                        <div class="checkbox">
+                                            <label for="qualification-{{ $qualification->id }}"> <input type="checkbox" value="{{$qualification->id}}" name="qualification[]" id="qualification-{{ $qualification->id }}">{{ $qualification->libele }} </label>
+                                        </div>
+                                    @endif
+                                @endforeach
+                            </div>
+                        </div>
                         <h3 class="text-center text-warning">Infos </h3>
                         <p class="pr-5 pl-5 pb-5">Un(e) enseignant(e) qui n'est pas affecté à une classe ne poura pas se connecter à la plateforme.</p>
                     </div>
