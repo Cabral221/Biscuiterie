@@ -63,6 +63,11 @@ class History extends React.Component {
 
     render() {
         const {data, period} = this.state
+
+        const styles = {
+            display: 'block',
+            overflowX: 'scroll',
+        }
         
         return (
             <React.Fragment>
@@ -72,7 +77,7 @@ class History extends React.Component {
                 <div>
                 {(this.state.loader) 
                 ? <div className="loader"></div>
-                :  <div>
+                :  <div style={styles}>
                     {(this.state.error != '') 
                     ?   <p className="text-danger text-center"><i className="fa fa-exclamation-circle"></i> {this.state.error}</p>
                     :   <table className="table table-bordered table-striped">
