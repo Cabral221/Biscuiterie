@@ -55,7 +55,7 @@
                         <td>{{ $student->birthday->locale('fr')->format('d M Y')  . ' à ' . $student->where_birthday }}</td>
                         <td>
                             {{-- show details in modal for student --}}
-                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-student-show-{{$student->id}}"><i class="fa fa-eye"></i></button>
+                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" title="Details" data-target="#modal-student-show-{{$student->id}}"><i class="fa fa-eye"></i></button>
                             
                             <div class="modal modal-xl fade" id="modal-student-show-{{$student->id}}">
                                 <div class="modal-dialog">
@@ -123,18 +123,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                {{-- Editing data for student --}}
-                                <a href="{{ route('admin.students.edit', $student) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i></a>
-                                {{-- Delete student --}}
-                                <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Êtes vous sûr de vouloir supprimer cet (cette) éléve ?')){document.getElementById('form-delete-student-{{$student->id}}').submit();}">
-                                    <i class="fa fa-trash"></i>
-                                    <form action="{{ route('admin.students.destroy', $student) }}" method="post" id="form-delete-student-{{$student->id}}" class="d-none">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                </a>
                             </div>
+                                
+                            {{-- Editing data for student --}}
+                            <a href="{{ route('admin.students.edit', $student) }}" class="btn btn-xs btn-warning" title="Modifier" aria-label="Modifier" ><i class="fa fa-edit"></i></a>
+                            {{-- Delete student --}}
+                            <a href="#" class="btn btn-xs btn-danger" title="Supprimer" onclick="event.preventDefault();if(confirm('Êtes vous sûr de vouloir supprimer cet (cette) éléve ?')){document.getElementById('form-delete-student-{{$student->id}}').submit();}">
+                                <i class="fa fa-trash"></i>
+                                <form action="{{ route('admin.students.destroy', $student) }}" method="post" id="form-delete-student-{{$student->id}}" class="d-none">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </a>
                         </td>
                     </tr>
                     @endforeach

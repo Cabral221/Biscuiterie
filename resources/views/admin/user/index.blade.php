@@ -56,20 +56,20 @@
                             <td>
                                 {{-- Togle active account --}}
                                 @if ($admin->is_active)
-                                    <a href="{{ route('admin.users.toggleActive', $admin) }}" class="btn btn-xs btn-primary" onclick="if(!confirm('Êtes vous sûr de vouloir désactiver ce compte ?')){event.preventDefault();}">
+                                    <a href="{{ route('admin.users.toggleActive', $admin) }}" title="Activer / Desactiver" class="btn btn-xs btn-primary" onclick="if(!confirm('Êtes vous sûr de vouloir désactiver ce compte ?')){event.preventDefault();}">
                                         <i class="fa fa-toggle-on"></i>
                                     </a>
                                 @else
-                                    <a href="{{ route('admin.users.toggleActive', $admin) }}" class="btn btn-xs btn-primary" onclick="if(!confirm('Êtes vous sûr de vouloir activer ce compte ?')){event.preventDefault();}">
+                                    <a href="{{ route('admin.users.toggleActive', $admin) }}" title="Activer / Desactiver" class="btn btn-xs btn-primary" onclick="if(!confirm('Êtes vous sûr de vouloir activer ce compte ?')){event.preventDefault();}">
                                         <i class="fa fa-toggle-off"></i>
                                     </a>
                                 @endif
                                 {{-- Editing data for account --}}
-                                <a href="{{ route('admin.users.edit', $admin) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i></a>
+                                <a href="{{ route('admin.users.edit', $admin) }}" class="btn btn-xs btn-warning" aria-label="Modifier" title="Modifier"><i class="fa fa-edit"></i></a>
                                 
                                 {{-- Delete Admin --}}
                                 @if ($admin->id !== Auth::user()->id)
-                                    <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Êtes vous sûr de vouloir supprimer cette administrateur ?')){document.getElementById('form-delete-admin-{{$admin->id}}').submit();}">
+                                    <a href="#" class="btn btn-xs btn-danger" title="Supprimer" onclick="event.preventDefault();if(confirm('Êtes vous sûr de vouloir supprimer cette administrateur ?')){document.getElementById('form-delete-admin-{{$admin->id}}').submit();}">
                                         <i class="fa fa-trash"></i>
                                         <form action="{{ route('admin.users.destroy', $admin) }}" method="post" id="form-delete-admin-{{$admin->id}}" class="d-none">
                                             @csrf

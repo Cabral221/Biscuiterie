@@ -77,7 +77,7 @@
                         @endforeach
                         <td>
                             {{-- Gérer --}}
-                            <a href="{{ route('master.notes.show', $student) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i> Gérer</a>
+                            <a href="{{ route('master.notes.show', $student) }}" class="btn btn-xs btn-warning" title="Modifier" aria-label="Modifier"><i class="fa fa-edit"></i> Gérer</a>
                         </td>
                     </tr>
                     @endforeach

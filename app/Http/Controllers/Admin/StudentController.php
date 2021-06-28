@@ -35,7 +35,7 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request) : RedirectResponse
     {
-
+        // dd($request->all());
         /** @var Student $student */
         $student = Student::create([
             'classe_id' => $request->classe_id,
@@ -49,10 +49,12 @@ class StudentController extends Controller
             'father_name' => $request->father_name,
             'father_phone' => $request->father_phone,
             'father_nin' => $request->father_nin,
+            'father_type' => $request->father_type,
             'mother_first_name' => $request->mother_first_name,
             'mother_last_name' => $request->mother_last_name,
             'mother_phone' => $request->mother_phone,
             'mother_nin' => $request->mother_nin,
+            'mother_type' => $request->mother_type
         ]);
 
         session()->flash('success', "L'éléve {$student->fullName} a bien été ajouté(e).");
@@ -67,8 +69,10 @@ class StudentController extends Controller
      */
     public function edit(Student $student) : View
     {
+        $niveaux = Niveau::with('classes.students')->get();
+        $countries = Country::orderBy('name')->get();
         $classes = Classe::all();
-        return view('admin.student.edit', compact('student','classes'));
+        return view('admin.student.edit', compact('student','classes','niveaux','countries'));
     }
 
     /**
@@ -90,12 +94,12 @@ class StudentController extends Controller
             'kind' => ['required', 'boolean'],
             'address' => ['required','string','min:2'],
             'father_name' => ['string','min:2'],
-            'father_phone' => ['numeric'],
-            'father_nin' => ['required', 'unique:students,id'.$student->id],
+            'father_phone' => ['numeric','unique:students,id,'.$student->id],
+            'father_nin' => ['required', 'unique:students,id,'.$student->id],
             'mother_first_name' => ['string','min:2'],
             'mother_last_name' => ['string','min:2'],
-            'mother_phone' => ['numeric'],
-            'mother_nin' => ['required', 'unique:students,id'.$student->id]
+            'mother_phone' => ['numeric','unique:students,id,'.$student->id],
+            'mother_nin' => ['required', 'unique:students,id,'.$student->id]
         ]);
 
         $student->update([
@@ -110,10 +114,12 @@ class StudentController extends Controller
             'father_name' => $request->father_name,
             'father_phone' => $request->father_phone,
             'father_nin' => $request->father_nin,
+            'father_type' => $request->father_type,
             'mother_first_name' => $request->mother_first_name,
             'mother_last_name' => $request->mother_last_name,
             'mother_phone' => $request->mother_phone,
             'mother_nin' => $request->mother_nin,
+            'mother_type' => $request->mother_type
         ]);
 
         session()->flash('success', 'Les modifications ont été modifié avec succés');

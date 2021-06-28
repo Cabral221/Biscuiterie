@@ -16,14 +16,16 @@ class Student extends Model
 
     public $fillable = [
         'first_name', 'last_name', 'birthday', 'where_birthday', 'address', 'kind', 
-        'father_name', 'father_phone', 'father_nin',
-        'mother_first_name', 'mother_last_name', 'mother_phone', 'mother_nin',
+        'father_name', 'father_phone', 'father_nin','father_type',
+        'mother_first_name', 'mother_last_name', 'mother_phone', 'mother_nin','mother_type',
         'classe_id', 'country_id'
     ];
 
     public $casts = [
         'birthday' => 'date',
         'kind' => 'boolean',
+        'father_type' => 'boolean',
+        'mother_type' => 'boolean'
     ];
 
     protected $with = ['notes', 'country'];
