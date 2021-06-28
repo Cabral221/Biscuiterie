@@ -94,7 +94,7 @@ class StudentController extends Controller
             'kind' => ['required', 'boolean'],
             'address' => ['required','string','min:2'],
             'father_name' => ['string','min:2'],
-            'father_phone' => ['numeric'],
+            'father_phone' => ['numeric','unique:students,id,'.$student->id],
             'father_nin' => ['required', 'unique:students,id,'.$student->id],
             'mother_first_name' => ['string','min:2'],
             'mother_last_name' => ['string','min:2'],
