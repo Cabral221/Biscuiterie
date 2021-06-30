@@ -56,6 +56,7 @@ Route::prefix('/master')->name('master.')->group(function () {
         // Gestion d'absence
         Route::get('/missing', [MissingController::class, 'index'])->name('missings.index');
         Route::get('/missing/create', [MissingController::class, 'create'])->name('missings.create');
+        Route::post('/missing/mark', [MissingController::class, 'mark'])->name('missings.mark');
     });
 });
 

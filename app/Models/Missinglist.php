@@ -10,7 +10,11 @@ class Missinglist extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['student_id'];
+    protected $fillable = ['student_id', 'missing'];
+
+    public $casts = [
+        'missing' => 'boolean',
+    ];
 
     public $timestamps = false;
 

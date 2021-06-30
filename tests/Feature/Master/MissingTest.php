@@ -19,11 +19,23 @@ class MissingTest extends TestCase
     public function testAccessMissingPage() {
         // Etant donné que
         // Je suis connecté en tant que enseignant
-        $this->loginAsMaster(User::factory()->create());
+        $this->loginAsMaster(User::first());
         // quand je vais sur /master/missing
         $response = $this->get('/master/missing');
         // Alors je dois recevoir un 200
         $response->assertOk();
+    }
+
+    public function testAccessIfMasterHaventClasse() {
+        // Etant donné que
+        // Je suis connecté en tant que enseignant qui n'a pas de classe
+        $master = User::factory()->create();
+        $this->loginAsMaster($master);
+        // quand je vais sur /master/missing
+        $response = $this->get('/master/missing');
+        // Alors je dois recevoir un 302
+        $response->assertStatus(302);
+        $response->assertSessionHas('danger', 'Vous ne disposez pas de classe pour générer une liste d\'absence');
     }
 
     public function testGenerateMissingListOfDay() {
@@ -63,5 +75,27 @@ class MissingTest extends TestCase
         $this->assertDatabaseCount('missings', 1);
     }
 
+    public function testMarkMissing() {
+        // Etant donné que j'un list du jour
+        $master = User::first();
+        $this->loginAsMaster($master);
+        $this->get('/master/missing/create');
+
+        // Quand je marque un eleve abscent
+        $ListDay = $master->fresh()->classe->missings()->first();
+        $studentMark = $ListDay->missinglists()->first();
+        $response = $this->post('/master/missing/mark',[
+            'missing_list_item' => $studentMark->id,
+        ]);
+
+        // Alors il doit etre marqué en base de données
+        // dd($response->getContent());
+        $response->assertSuccessful();
+
+        $this->assertDatabaseHas('missinglists', [
+            'id' => $studentMark->id,
+            'missing' => true,
+        ]);
+    }
 
 }
