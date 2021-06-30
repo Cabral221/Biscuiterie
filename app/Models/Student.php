@@ -114,6 +114,11 @@ class Student extends Model
         return $this->hasMany(Note::class);
     }
 
+    public function misinglists() : HasMany
+    {
+        return $this->hasMany(Missinglist::class);
+    }
+
     public function totalGen() : array
     {
         $sommeNotes1 = null;

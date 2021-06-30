@@ -9,7 +9,7 @@ use App\Http\Controllers\Enseignant\Auth\LoginController;
 use App\Http\Controllers\Enseignant\Auth\ResetPasswordController;
 use App\Http\Controllers\Enseignant\Auth\ForgotPasswordController;
 use App\Http\Controllers\Enseignant\Auth\ConfirmPasswordController;
-
+use App\Http\Controllers\Master\MissingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +52,10 @@ Route::prefix('/master')->name('master.')->group(function () {
         Route::get('/profile', [ProfileController::class ,'index'])->name('profile');
         Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
         Route::put('/profile/password', [ProfileController::class, 'password'])->name('profile.password');
+        
+        // Gestion d'absence
+        Route::get('/missing', [MissingController::class, 'index'])->name('missings.index');
+        Route::get('/missing/create', [MissingController::class, 'create'])->name('missings.create');
     });
 });
 

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Niveau;
+use App\Models\Missing;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -36,6 +37,11 @@ class Classe extends Model
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function missings() : HasMany
+    {
+        return $this->hasMany(Missing::class);
     }
 
     public function getAllMoy() : array 
