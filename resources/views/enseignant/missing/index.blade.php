@@ -36,7 +36,7 @@
     <!-- Default box -->
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Liste des éléves de de la classe</h3>
+            <h3 class="box-title">Feuille d'absence</h3>
             
             <div class="box-tools pull-right">
                 <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -99,22 +99,4 @@
     <!-- /.box -->
 </section>
 
-@endsection
-
-@section('plugin-js')
-<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-@endsection
-
-@section('js')
-<script defer>
-    $(document).ready(function () {
-        $('#missing').DataTable({
-            "paginate": false,
-            // "scrollX": true,
-            // "scrollY": 600,
-        });
-        $('.dataTables_length').addClass('bs-select');
-    });
-</script>
 @endsection

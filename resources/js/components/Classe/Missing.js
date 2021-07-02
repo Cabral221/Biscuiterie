@@ -1,3 +1,5 @@
+import Swal from 'sweetalert2'
+
 var btns_toggle_missing = document.querySelectorAll('.toggle-missing-checkbox')
 
 const toggle_missing_student = (e) => {
@@ -14,7 +16,13 @@ const toggle_missing_student = (e) => {
     }).then((response) => {
         console.log(response.data)
         // sweet Alert
-        // ...
+        Swal.fire({
+            position: 'bottom-end',
+            icon: 'success',
+            title: response.data.message,
+            timer: 1000,
+            showConfirmButton: false,
+        })
         // desable loader
         div.classList.remove('loader')
         div.appendChild(checkbox)
@@ -22,7 +30,13 @@ const toggle_missing_student = (e) => {
     }).catch((error) => {
         console.log(error.response)
         // sweet Alert
-        // ...
+        Swal.fire({
+            position: 'bottom-end',
+            icon: 'error',
+            title: response.data.message,
+            timer: 1000,
+            showConfirmButton: false,
+        })
         // desable loader
         div.classList.remove('loader')
         div.appendChild(checkbox)
