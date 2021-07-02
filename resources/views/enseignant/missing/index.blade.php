@@ -56,7 +56,8 @@
                     </a>
                 </div>
             @else
-                <table class="table table-bordered table-striped">
+                <div class="text-center"><h3>Date : {{ $missing->created_at }} </h3></div>
+                <table class="table table-bordered table-striped" id="missing-table">
                     <thead>
                         <tr>
                             <td>Absent(e)</td>
@@ -68,7 +69,22 @@
                     <tbody>
                         @foreach ($missing->missinglists as $missinglist)
                             <tr>
-                                <td>...</td>
+                                <td>
+                                    {{-- Checkbox to toggle --}}
+                                    <div>
+                                        <input 
+                                            type="checkbox" 
+                                            name="toggle-missing" 
+                                            class="toggle-missing-checkbox" 
+                                            value="1" 
+                                            data-missingid="{{ $missinglist->id }}"
+                                            @if ($missinglist->missing)
+                                                checked
+                                            @endif
+                                            >
+                                    </div>
+                                    {{-- End Checkbox to toggle --}}
+                                </td>
                                 <td>{{ $missinglist->student->last_name }}</td>
                                 <td>{{ $missinglist->student->first_name }}</td>
                                 <td>{{ $missinglist->student->birthday }}</td>
@@ -93,10 +109,10 @@
 @section('js')
 <script defer>
     $(document).ready(function () {
-        $('#example').DataTable({
+        $('#missing').DataTable({
             "paginate": false,
-            "scrollX": true,
-            "scrollY": 600,
+            // "scrollX": true,
+            // "scrollY": 600,
         });
         $('.dataTables_length').addClass('bs-select');
     });

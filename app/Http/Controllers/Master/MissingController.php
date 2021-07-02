@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Missing;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use App\Http\Controllers\Controller;
 use App\Models\Missinglist;
 use Illuminate\Support\Facades\Response;
@@ -56,13 +55,17 @@ class MissingController extends Controller
 
         if($validator->fails()) {
             return Response::json($validator->messages(), 400);
-            return Response::json($validator->messages(), 400);
         }
 
         $missingItem = Missinglist::find($request->missing_list_item);
         $missingItem->update([
             'missing' => !$missingItem->missing
         ]);
-        return Response::json(['message' => 'Modification enregistrée'], 200);
+        return Response::json([
+            'message' => 'Modification enregistrée',
+            // 'missingId' => $missingItem->id,
+            // 'missingState' => $missingItem->missing,
+            // 'missingStudent' => $missingItem->student_id
+        ], 200);
     } 
 }

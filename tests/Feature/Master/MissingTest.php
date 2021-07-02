@@ -84,7 +84,7 @@ class MissingTest extends TestCase
         // Quand je marque un eleve abscent
         $ListDay = $master->fresh()->classe->missings()->first();
         $studentMark = $ListDay->missinglists()->first();
-        $response = $this->post('/master/missing/mark',[
+        $response = $this->json('POST','/master/missing/mark',[
             'missing_list_item' => $studentMark->id,
         ]);
 

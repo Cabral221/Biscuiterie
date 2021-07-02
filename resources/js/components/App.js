@@ -26,3 +26,4 @@ if(element != undefined){
 require('./Niveau/Niveau')
 // Gestion des classes
 require('./Classe/Classe')
+require('./Classe/Missing')
