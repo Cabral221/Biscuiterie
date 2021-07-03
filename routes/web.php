@@ -89,7 +89,18 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
         Route::resource('/students', 'StudentController')->only(['index', 'destroy','edit','update','store']);
 
         // Gestion des classes
-        Route::get('/classes/{classe}', 'ClasseController@show')->name('classes.show');
+        Route::prefix('/classes')->name('classes.')->group(function() {
+            Route::get('/{classe}', 'ClasseController@show')->name('show');
+
+            // Gestion d'absence
+            Route::group(['prefix' => '{classe}/missing'],function() {
+                Route::get('/', 'MissingController@index')->name('missings.index');
+                // Route::get('/create', 'MissingController@create')->name('missings.create');
+                // Route::post('/mark', [MissingController::class, 'mark'])->name('missings.mark');
+                // Route::get('/list', [MissingController::class, 'list'])->name('missings.list');
+                // Route::get('/list/{missing}/show', [MissingController::class, 'show'])->name('missings.list.show');
+            });
+        });
 
         // Gestion des matieres
         Route::prefix('/activities')->name('activities.')->group(function(){
