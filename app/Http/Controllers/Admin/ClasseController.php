@@ -22,7 +22,7 @@ class ClasseController extends Controller
      */
     public function show(Classe $classe)
     {
-        return view('admin.classe', compact('classe'));
+        return view('admin.classe.index', compact('classe'));
     }
 
     /**

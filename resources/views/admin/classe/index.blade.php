@@ -23,7 +23,10 @@
                     <h3 class="box-title py-2">Nb d'éléve(s) : <span class="text-primary">{{ $classe->total }}</span></h3> <br>
                 </span>
                 <span>
-                    <a href="{{ route('admin.print.classe', $classe->id) }}" target="_blank" class="btn btn-info">Imprimer</a>
+                    <div>
+                        <div class="mb-1 text-right"><a href="{{ route('admin.print.classe', $classe->id) }}" target="_blank" class="btn btn-info">Imprimer</a></div>
+                        <div class="mb-1 text-right"><a href="{{ route('admin.classes.missings.index', $classe) }}" class="btn btn-info">Gestion d'absence</a></div>
+                    </div>
                 </span>
             </div>
         </div>
