@@ -32,7 +32,7 @@ if (! function_exists('activeClass')) {
     }
 }
 
-if (! function_exists('activeMenuOpen')) {
+if (! function_exists('activeMenuClasseOpen')) {
     /**
      * Get the active menu class.
      *
@@ -50,6 +50,26 @@ if (! function_exists('activeMenuOpen')) {
             if (route('admin.classes.show',$classe->id) === url()->current()) {
                 return $activeClass;
             }
+        }
+        return $inactiveClass;
+    }
+}
+
+if (! function_exists('activeMenuOpen')) {
+    /**
+     * Get the active menu class.
+     *
+     * @param int    $niveau_id
+     * @param string $activeClass
+     * @param string $inactiveClass
+     *
+     * @return string
+     */
+    function activeMenuOpen(string $prefix, $activeClass = 'active', $inactiveClass = '') : String
+    {
+        // dd(Route::current()->action['prefix']);
+        if (Route::current()->action['prefix'] == $prefix) {
+            return $activeClass;
         }
         return $inactiveClass;
     }
