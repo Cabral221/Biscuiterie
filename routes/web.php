@@ -9,7 +9,7 @@ use App\Http\Controllers\Enseignant\Auth\LoginController;
 use App\Http\Controllers\Enseignant\Auth\ResetPasswordController;
 use App\Http\Controllers\Enseignant\Auth\ForgotPasswordController;
 use App\Http\Controllers\Enseignant\Auth\ConfirmPasswordController;
-use App\Http\Controllers\Master\MissingController;
+use App\Http\Controllers\Enseignant\MissingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,9 +54,13 @@ Route::prefix('/master')->name('master.')->group(function () {
         Route::put('/profile/password', [ProfileController::class, 'password'])->name('profile.password');
         
         // Gestion d'absence
-        Route::get('/missing', [MissingController::class, 'index'])->name('missings.index');
-        Route::get('/missing/create', [MissingController::class, 'create'])->name('missings.create');
-        Route::post('/missing/mark', [MissingController::class, 'mark'])->name('missings.mark');
+        Route::prefix('/missing')->group(function() {
+            Route::get('/', [MissingController::class, 'index'])->name('missings.index');
+            Route::get('/create', [MissingController::class, 'create'])->name('missings.create');
+            Route::post('/mark', [MissingController::class, 'mark'])->name('missings.mark');
+            Route::get('/list', [MissingController::class, 'list'])->name('missings.list');
+            Route::get('/list/{missing}/show', [MissingController::class, 'show'])->name('missings.list.show');
+        });
     });
 });
 

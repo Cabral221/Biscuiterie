@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Master;
+namespace App\Http\Controllers\Enseignant;
 
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Missing;
+use App\Models\Missinglist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Missinglist;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,7 +26,37 @@ class MissingController extends Controller
         ->whereDate('created_at', Carbon::now())
         ->first();
 
-        return view('enseignant.missing.index', compact('master', 'missing'));
+        $builder = $master->classe->missings();
+        if($missing !== null) $builder = $builder->where('id', '!=', $missing->id); 
+        $missings = $builder->orderBy('created_at', 'DESC')->get();
+        foreach ($missings as $missingrec) {
+            $missingrec->missingCount = $missingrec->missinglists()->where('missing', true)->count();
+        }
+
+        return view('enseignant.missing.index', compact('master', 'missing', 'missings'));
+    }
+
+    public function list() 
+    {
+        /** @var User */
+        $master = auth()->user();
+        $missings = $master->classe->missings()->orderBy('created_at', 'DESC')->get();
+        foreach ($missings as $missing) {
+            $missing->missingCount = $missing->missinglists()->where('missing', true)->count();
+        }
+
+        return view('enseignant.missing.list', compact('master', 'missings'));
+    }
+
+    public function show(Missing $missing)
+    {
+        $master = auth()->user();
+        $missings = $master->classe->missings()->orderBy('created_at', 'DESC')->get();
+        foreach ($missings as $missingrec) {
+            $missingrec->missingCount = $missingrec->missinglists()->where('missing', true)->count();
+        }
+
+        return view('enseignant.missing.show', compact('missing', 'missings'));
     }
 
     public function create()
