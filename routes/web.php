@@ -96,9 +96,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
             Route::group(['prefix' => '{classe}/missing'],function() {
                 Route::get('/', 'MissingController@index')->name('missings.index');
                 Route::get('/{missing}/list', 'MissingController@list')->name('missings.list');
-                // Route::get('/create', 'MissingController@create')->name('missings.create');
-                // Route::post('/mark', [MissingController::class, 'mark'])->name('missings.mark');
-                // Route::get('/list/{missing}/show', [MissingController::class, 'show'])->name('missings.list.show');
+                Route::post('/mark', 'MissingController@mark')->name('missings.mark');
             });
         });
 

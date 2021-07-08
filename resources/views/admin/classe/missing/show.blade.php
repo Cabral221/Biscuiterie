@@ -38,18 +38,37 @@
         <div class="box-body">
             
             <div class="text-center"><h3>Liste d'absence : <span class="bg-primary p-2">{{ $missing->created_at }}</span> </h3></div>
-            <table class="table table-bordered table-striped" id="missing-day" data-order='[[ 2, "asc" ]]' data-page-length='50'>
+            <table class="table table-bordered table-striped" id="missing-day" data-order='[[ 3, "asc" ]]' data-page-length='50'>
                 <thead>
                     <tr>
-                        <td>Absent(e)</td>
-                        <td>Prénom</td>
-                        <td>Nom</td>
-                        <td>Date de Naissance</td>
+                        <th>Marquer</th>
+                        <th>Absent(e)</th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Date de Naissance</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($missing->missinglists as $missinglist)
                     <tr>
+
+                        <td>
+                            {{-- Checkbox to toggle --}}
+                            <div>
+                                <input 
+                                    type="checkbox" 
+                                    name="toggle-missing" 
+                                    class="toggle-missing-checkbox-admin" 
+                                    value="1" 
+                                    data-missingid="{{ $missinglist->id }}"
+                                    data-classeid="{{ $classe->id }}"
+                                    @if ($missinglist->missing)
+                                        checked
+                                    @endif
+                                    >
+                            </div>
+                            {{-- End Checkbox to toggle --}}
+                        </td>
                         <td>
                             {{-- Checkbox to toggle --}}
                             @if ($missinglist->missing)
@@ -65,6 +84,15 @@
                     </tr>
                     @endforeach
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Marquer</th>
+                        <th>Absent(e)</th>
+                        <th>Prénom</th>
+                        <th>Nom</th>
+                        <th>Date de Naissance</th>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <!-- /.box-body -->
