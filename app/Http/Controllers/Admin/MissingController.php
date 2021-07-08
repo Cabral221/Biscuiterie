@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Classe;
-use Illuminate\Http\Request;
+use App\Models\Missing;
 
 class MissingController extends Controller
 {
@@ -23,69 +23,22 @@ class MissingController extends Controller
         return view('admin.classe.missing.index', compact('classe', 'missings'));
     }
 
-    // /**
-    //  * Show the form for creating a new resource.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function create()
-    // {
-    //     //
-    // }
+    /**
+     * Show the list of one daye missing record.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function list(Classe $classe, Missing $missing)
+    {
+        // dd($classe, $missing);
 
-    // /**
-    //  * Store a newly created resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function store(Request $request)
-    // {
-    //     //
-    // }
+        $missings = $classe->missings()->orderBy('created_at', 'DESC')->get();
+        foreach ($missings as $missingrec) {
+            $missingrec->missingCount = $missingrec->missinglists()->where('missing', true)->count();
+        }
 
-    // /**
-    //  * Display the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function show($id)
-    // {
-    //     //
-    // }
+        // return view('enseignant.missing.show', compact('missing', 'missings'));
+        return view('admin.classe.missing.show', compact('classe', 'missing', 'missings'));
+    }
 
-    // /**
-    //  * Show the form for editing the specified resource.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function edit($id)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Update the specified resource in storage.
-    //  *
-    //  * @param  \Illuminate\Http\Request  $request
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function update(Request $request, $id)
-    // {
-    //     //
-    // }
-
-    // /**
-    //  * Remove the specified resource from storage.
-    //  *
-    //  * @param  int  $id
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function destroy($id)
-    // {
-    //     //
-    // }
 }

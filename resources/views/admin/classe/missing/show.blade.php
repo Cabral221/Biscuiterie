@@ -1,4 +1,4 @@
-@extends('layouts.app', ['titlePage' => 'Gestion d\'absence'])
+@extends('layouts.app', ['titlePage' => $classe->libele . ' | Gestion d\'absence'])
 
 @section('plugin-css')
     <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
@@ -11,7 +11,9 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="{{ route('master.index') }}"><i class="fa fa-dashboard"></i> Tableu de bord</a></li>
-        <li class="active"><i class="fa fa-dashboard"></i> Gestion des absences</li>
+        <li><a href="{{ route('admin.classes.show', [$classe]) }}"><i class="fa fa-dashboard"></i> {{ $classe->libele }}</a></li>
+        <li><a href="{{ route('admin.classes.missings.index', [$classe]) }}"><i class="fa fa-dashboard"></i> Gestion des absences</a></li>
+        <li class="active">{{ $missing->created_at }}</li>
     </ol>
 </section>
 
@@ -35,7 +37,7 @@
         </div>
         <div class="box-body">
             
-            <div class="text-center"><h3>Liste d'absence du {{ $missing->created_at }} </h3></div>
+            <div class="text-center"><h3>Liste d'absence : <span class="bg-primary p-2">{{ $missing->created_at }}</span> </h3></div>
             <table class="table table-bordered table-striped" id="missing-day" data-order='[[ 2, "asc" ]]' data-page-length='50'>
                 <thead>
                     <tr>
@@ -95,9 +97,9 @@
                 <tbody>
                     @foreach ($missings as $missingrec)
                     <tr>
-                        <td><a href="#">{{ $missingrec->created_at }}</a></td>
+                        <td><a href="{{ route('admin.classes.missings.list', [$classe, $missingrec]) }}">{{ $missingrec->created_at }}</a></td>
                         <td><span class="title bg-primary p-3">{{ $missingrec->missingCount }}</span></td>
-                        <td><a href="{{ route('master.missings.list.show', $missingrec) }}" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
+                        <td><a href="{{ route('admin.classes.missings.list', [$classe, $missingrec]) }}" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
                     </tr>
                     @endforeach
                 </tbody>

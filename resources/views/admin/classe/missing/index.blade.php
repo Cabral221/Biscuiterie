@@ -44,9 +44,9 @@
                 <tbody>
                     @foreach ($missings as $missing)
                     <tr>
-                        <td><a href="#">{{ $missing->created_at }}</a></td>
+                        <td><a href="{{ route('admin.classes.missings.list', [$classe, $missing]) }}">{{ $missing->created_at }}</a></td>
                         <td><span class="title p-2 bg-primary">{{ $missing->missingCount }}</span></td>
-                        <td><a href="#" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
+                        <td><a href="{{ route('admin.classes.missings.list', [$classe, $missing]) }}" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
                     </tr>
                     @endforeach
                 </tbody>
