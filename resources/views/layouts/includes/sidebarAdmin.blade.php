@@ -8,7 +8,7 @@
 </li>
 <li class="header">Niveau</li>
 @foreach (all_niveaux() as $niveau)
-<li class="treeview @if(Route::is('admin.classes.show')) {{ activeMenuClasseOpen($niveau->id) }} @endif">
+<li class="treeview {{ activeMenuClasseOpen($niveau->id) }}">
     
     <a href="#">
         <i class="fa fa-th"></i>
@@ -19,7 +19,11 @@
     </a>
     <ul class="treeview-menu">
         @foreach ($niveau->classes as $classe)
-        <li class="itemMenuList  @if(url()->current() == route('admin.classes.show', $classe->id)) active @endif">
+        <li class="itemMenuList  
+            @if(url()->current() == route('admin.classes.show', $classe->id) 
+            || strpos(url()->current(), "admin/classes/$classe->id/missing")) 
+                active 
+            @endif">
             <a href="{{ route('admin.classes.show', $classe) }}"><i class="fa fa-circle-o"></i> {{ $classe->libele }}</a>
         </li>
         @endforeach
