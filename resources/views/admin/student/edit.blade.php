@@ -69,7 +69,7 @@
 						<div class="col-sm-6">
 							<div class="form-group @error('birthday') has-error @enderror">
 								<label for="last_name">Date de naissance</label>
-								<input type="date" name="birthday" required id="birthday" class="form-control" value="{{ old('birthday') ?? $student->birthday  }}">
+								<input type="date" name="birthday" required id="birthday" class="form-control" value="{{ old('birthday') ?? Carbon\Carbon::CreateFromFormat('d/m/Y',$student->birthday)->format('Y-m-d')  }}">
 								@error('birthday')
 								<span class="help-block">{{ $message }}</span>
 								@enderror

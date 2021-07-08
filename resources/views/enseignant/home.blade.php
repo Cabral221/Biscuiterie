@@ -1,5 +1,9 @@
 @extends('layouts.app', ['titlePage' => $user->full_name])
 
+@section('plugin-css')
+    <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+@endsection
+
 @section('content')
 <section class="content-header">
     <h1>
@@ -43,20 +47,9 @@
                     <a href="{{ route('master.print.classe', $user->classe->id) }}" target="_blank" class="btn btn-info">Imprimer</a>
                 </span>
             </div>
-            
-            {{-- 
-            <div class="box-tools pull-right">
-                <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                    <i class="fa fa-minus"></i>
-                </button>
-                <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                    <i class="fa fa-times"></i>
-                </button> 
-            </div>
-            --}}
         </div>
         <div class="box-body">
-            <table id="example" class="table table-bordered table-striped" width="100%">
+            <table id="student-list-table" class="table table-bordered table-striped"  data-page-length='50'>
                 <thead>
                     <tr>
                         <th>Nom</th>
@@ -78,7 +71,7 @@
                             <span class="badge badge-pink">Féminin</span>
                             @endif
                         </td>
-                        <td>{{ $student->birthday->locale('fr')->format('d M Y')  . ' à ' . $student->where_birthday }}</td>
+                        <td>{{ $student->birthday  . ' à ' . $student->where_birthday }}</td>
                         <td>
                             {{-- show details in modal for student --}}
                             <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-student-show-{{$student->id}}"><i class="fa fa-eye"></i></button>
@@ -111,7 +104,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>Date de naissance</th>
-                                                        <td><span class="text-bold text-primary">{{ $student->birthday->locale('fr')->format('d M Y') }}</span></td>
+                                                        <td><span class="text-bold text-primary">{{ $student->birthday }}</span></td>
                                                     </tr>
                                                     <tr>
                                                         <th>Lieu de naissance</th>
@@ -177,12 +170,9 @@
 @section('js')
 <script defer>
     $(document).ready(function () {
-        $('#example').DataTable({
-            "paginate": false,
-            "scrollX": true,
-            "scrollY": 600,
+        $('#student-list-table').DataTable({
+            responsive: true,
         });
-        $('.dataTables_length').addClass('bs-select');
     });
 </script>
 @endsection

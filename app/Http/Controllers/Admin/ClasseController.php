@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Models\Classe;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Foundation\Application;
-use Illuminate\Http\JsonResponse;
 
 class ClasseController extends Controller
 {
@@ -22,7 +23,7 @@ class ClasseController extends Controller
      */
     public function show(Classe $classe)
     {
-        return view('admin.classe', compact('classe'));
+        return view('admin.classe.index', compact('classe'));
     }
 
     /**

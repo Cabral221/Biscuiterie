@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Note;
 use App\Models\Classe;
 use App\Models\Activity;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -88,6 +89,17 @@ class Student extends Model
     public function getFullNameAttribute() : string
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * getter for birthday attribute
+     *
+     * @param string $birthday
+     * @return string
+     */
+    public function getBirthdayAttribute($birthday) : string
+    {
+        return Carbon::createFromDate($birthday)->locale('fr')->calendar();
     }
 
     /**

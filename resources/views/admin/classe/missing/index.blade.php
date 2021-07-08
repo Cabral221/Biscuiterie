@@ -1,4 +1,4 @@
-@extends('layouts.app', ['titlePage' => 'Gestion d\'absence'])
+@extends('layouts.app', ['titlePage' => $classe->libele . ' | Gestion d\'absence'])
 
 @section('plugin-css')
     <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
@@ -7,37 +7,19 @@
 @section('content')
 <section class="content-header">
     <h1>
-        Gestion des absences
+        {{ $classe->libele }}
     </h1>
     <ol class="breadcrumb">
-        <li><a href="{{ route('master.index') }}"><i class="fa fa-dashboard"></i> Tableu de bord</a></li>
-        <li class="active"><i class="fa fa-dashboard"></i> Gestion des absences</li>
+        <li><a href="{{ route('admin.index') }}"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
+        <li><a href="{{ route('admin.classes.show', $classe) }}"><i class="fa fa-dashboard"></i> {{ $classe->libele }}</a></li>
+        <li class="active">{{ $classe->libele }}</li>
     </ol>
 </section>
 
 <section class="content">
-    
+
     <!-- Default box -->
-    <div class="small-box bg-aqua">
-        <div class="inner">
-            <h3>{{$master->classe->libele}} : {{ $master->classe->students->count() }} éléve(s)</h3>
-            <p>
-                <span class="badge badge-primary">
-                    {{ $master->classe->students()->whereKind(true)->count() }} Garçon(s)
-                </span>
-                <span class="badge badge-pink">
-                    {{ $master->classe->students()->whereKind(false)->count() }} Fille(s)
-                </span>
-            </p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-pie-graph"></i>
-        </div>
-    </div>
-    <!-- /.box -->
-    
-    <!-- Default box -->
-    <div class="box">
+    <div class="box box-primary">
         <div class="box-header with-border">
             <h3 class="box-title">Liste des feuilles d'absences</h3>
             
@@ -62,9 +44,9 @@
                 <tbody>
                     @foreach ($missings as $missing)
                     <tr>
-                        <td><a href="{{ route('master.missings.list.show', $missing) }}">{{ $missing->created_at }}</a></td>
+                        <td><a href="{{ route('admin.classes.missings.list', [$classe, $missing]) }}">{{ $missing->created_at }}</a></td>
                         <td><span class="title p-2 bg-primary">{{ $missing->missingCount }}</span></td>
-                        <td><a href="{{ route('master.missings.list.show', $missing) }}" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
+                        <td><a href="{{ route('admin.classes.missings.list', [$classe, $missing]) }}" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -74,7 +56,6 @@
     </div>
     <!-- /.box -->
 </section>
-
 @endsection
 
 @section('plugin-js')

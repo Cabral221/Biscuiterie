@@ -2,14 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Missing extends Model
 {
     use HasFactory;
+
+    public $casts = [
+        'created_at' => 'datetime',
+    ];
 
     public static function booted()
     {
@@ -19,6 +24,11 @@ class Missing extends Model
                 $missing->missinglists()->create(['student_id' => $student->id]);
             }
         });
+    }
+
+    public function getCreatedAtAttribute($created_at)
+    {
+        return Carbon::createFromDate($created_at)->calendar();
     }
 
     public function classe() : BelongsTo

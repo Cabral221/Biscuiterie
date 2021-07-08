@@ -39,20 +39,12 @@ class StudentTest extends TestCase
             'classe_id' => $student->classe_id,
             'country_id' => $country->id,
         ]);
-        
+        $student = Student::orderBy('created_at', 'DESC')->first();
+
         // Alors
         $response->assertSessionHas('success');
         $response->assertRedirect("/admin/classes/$student->classe_id");
-        $this->assertDatabaseHas('students', [
-            'first_name' => $student->first_name,
-            'last_name' => $student->last_name,
-            'birthday' => $student->birthday,
-            'where_birthday' => $student->where_birthday,
-            'kind' => $student->kind,
-            'mother_nin' => 2251199700766,
-            'father_nin' => 1251199700766,
-            'country_id' => $country->id,
-        ]);
+        $this->assertDatabaseHas('students', $student->getAttributes());
     }
     
     /** @test */

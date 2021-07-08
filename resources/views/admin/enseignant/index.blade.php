@@ -1,5 +1,9 @@
 @extends('layouts.app', ['titlePage' => 'Gestion des Enseignants'])
 
+@section('plugin-css')
+    <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+@endsection
+
 @section('content')
 <section class="content-header">
     <h1>
@@ -25,7 +29,7 @@
         </div>
         <div class="box-body">
             <div class="p-2 mb-2"><a href="{{ route('admin.enseignants.create') }}" class="btn btn-success">Ajouter un(e) enseignant(e)</a></div>
-            <table id="example" class="table table-bordered table-striped" width="100%">
+            <table id="master-list-table" class="table table-bordered table-striped" data-page-length='20'>
                 <thead>
                     <th>Classe</th>
                     <th>Nom Complet</th>
@@ -140,19 +144,17 @@
 @endsection
 
 @section('plugin-js')
-<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 @endsection
 
 @section('js')
 <script defer>
     $(document).ready(function () {
-        $('#example').DataTable({
-            "paginate": false,
-            "scrollX": true,
-            "scrollY": 600,
+        $('#master-list-table').DataTable({
+            responsive: true,
+            ordering: false,
         });
-        $('.dataTables_length').addClass('bs-select');
     });
 </script>
 @endsection

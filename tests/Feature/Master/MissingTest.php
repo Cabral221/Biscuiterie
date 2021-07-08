@@ -1,5 +1,7 @@
 <?php
 
+namespace Test\Feature\Master;
+
 use App\Models\User;
 use Tests\TestCase;
 

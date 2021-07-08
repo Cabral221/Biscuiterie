@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Master;
+namespace Tests\Feature\Master;
 
 use Tests\TestCase;
 use App\Models\Note;

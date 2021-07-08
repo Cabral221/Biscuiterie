@@ -76,14 +76,13 @@
                     <span class="badge badge-pink">Féminin</span>
                     @endif
                 </td>
-                <td>{{ $student->birthday->locale('fr_FR')->format('d M Y') }}</td>
+                <td>{{ $student->birthday }}</td>
                 <td>{{ $student->where_birthday }}</td>
             </tr>
             @endforeach
         </tbody>
     </table>
     
-    {{-- <script src="{{ asset('js/app.js') }}"></script> --}}
     <script defer>
         window.print();
     </script>

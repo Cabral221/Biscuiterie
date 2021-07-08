@@ -16,11 +16,9 @@ class CreateMissingTable extends Migration
         Schema::create('missings', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('classe_id');
-            // $table->unsignedBigInteger('user_id');
             $table->timestamps();
 
             $table->foreign('classe_id')->references('id')->on('classes')->onDelete('cascade');
-            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

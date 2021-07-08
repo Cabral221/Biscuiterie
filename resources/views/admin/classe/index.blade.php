@@ -1,5 +1,9 @@
 @extends('layouts.app', ['titlePage' => $classe->libele])
 
+@section('plugin-css')
+    <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+@endsection
+
 @section('content')
 <section class="content-header">
     <h1>
@@ -23,14 +27,16 @@
                     <h3 class="box-title py-2">Nb d'éléve(s) : <span class="text-primary">{{ $classe->total }}</span></h3> <br>
                 </span>
                 <span>
-                    <a href="{{ route('admin.print.classe', $classe->id) }}" target="_blank" class="btn btn-info">Imprimer</a>
+                    <div>
+                        <div class="mb-1 text-right"><a href="{{ route('admin.print.classe', $classe->id) }}" target="_blank" class="btn btn-info">Imprimer</a></div>
+                        <div class="mb-1 text-right"><a href="{{ route('admin.classes.missings.index', $classe) }}" class="btn btn-info">Gestion d'absence</a></div>
+                    </div>
                 </span>
             </div>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="example" class="table table-striped table-bordered table-sm" cellspacing="0"
-            width="100%">
+            <table id="student-list-table" class="table table-striped table-bordered table-sm" data-page-length='50'>
                 <thead>
                     <tr>
                         <th>Nom</th>
@@ -52,7 +58,7 @@
                             <span class="badge badge-pink">Féminin</span>
                             @endif
                         </td>
-                        <td>{{ $student->birthday->locale('fr')->format('d M Y')  . ' à ' . $student->where_birthday }}</td>
+                        <td>{{ $student->birthday  . ' à ' . $student->where_birthday }}</td>
                         <td>
                             {{-- show details in modal for student --}}
                             <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" title="Details" data-target="#modal-student-show-{{$student->id}}"><i class="fa fa-eye"></i></button>
@@ -84,7 +90,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Date de naissance</th>
-                                                            <td><span class="text-bold text-primary">{{ $student->birthday->locale('fr')->format('d M Y') }}</span></td>
+                                                            <td><span class="text-bold text-primary">{{ $student->birthday }}</span></td>
                                                         </tr>
                                                         <tr>
                                                             <th>Lieu de naissance</th>
@@ -156,19 +162,16 @@
 @endsection
 
 @section('plugin-js')
-<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 @endsection
 
 @section('js')
 <script defer>
     $(document).ready(function () {
-        $('#example').DataTable({
-            "paginate": false,
-            "scrollX": true,
-            "scrollY": 600,
+        $('#student-list-table').DataTable({
+            responsive: true,
         });
-        $('.dataTables_length').addClass('bs-select');
     });
 </script>
 @endsection

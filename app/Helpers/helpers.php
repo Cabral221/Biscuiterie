@@ -44,10 +44,10 @@ if (! function_exists('activeMenuClasseOpen')) {
      */
     function activeMenuClasseOpen(int $niveau_id, $activeClass = 'active', $inactiveClass = '') : String
     {
-        
+        $currentUrl = url()->current();
         $classes =  Niveau::findOrFail($niveau_id)->classes;
         foreach ($classes as  $classe) {
-            if (route('admin.classes.show',$classe->id) === url()->current()) {
+            if (route('admin.classes.show',$classe->id) === $currentUrl || strpos($currentUrl, "admin/classes/" . $classe->id. "/missing") !== false) {
                 return $activeClass;
             }
         }
