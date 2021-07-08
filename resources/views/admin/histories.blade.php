@@ -30,11 +30,9 @@
 <script defer>
     $(document).ready(function () {
         $('#example').DataTable({
-            "paginate": false,
-            "scrollX": true,
-            "scrollY": 600,
+            responsive: true,
+
         });
-        $('.dataTables_length').addClass('bs-select');
     });
 </script>
 @endsection

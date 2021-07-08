@@ -1,5 +1,9 @@
 @extends('layouts.app', ['titlePage' => $user->full_name])
 
+@section('plugin-css')
+    <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+@endsection
+
 @section('content')
 <section class="content-header">
     <h1>
@@ -45,7 +49,7 @@
             </div>
         </div>
         <div class="box-body">
-            <table id="example" class="table table-bordered table-striped" width="100%">
+            <table id="student-list-table" class="table table-bordered table-striped"  data-page-length='50'>
                 <thead>
                     <tr>
                         <th>Nom</th>
@@ -166,12 +170,9 @@
 @section('js')
 <script defer>
     $(document).ready(function () {
-        $('#example').DataTable({
-            "paginate": false,
-            "scrollX": true,
-            "scrollY": 600,
+        $('#student-list-table').DataTable({
+            responsive: true,
         });
-        $('.dataTables_length').addClass('bs-select');
     });
 </script>
 @endsection

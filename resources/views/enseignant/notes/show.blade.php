@@ -1,6 +1,10 @@
 
 @extends('layouts.app', ['titlePage' => 'Fiche de notes - '. $student->fullName])
 
+@section('plugin-css')
+    <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+@endsection
+
 @section('content')
 <section class="content-header">
     <h1>
@@ -35,7 +39,7 @@
             </div>
         </div>
         <div class="box-body">
-            <table id="example" class="table table-bordered" width="100%">
+            <table id="note-table" class="table table-bordered" data-page-length='100'>
                 <thead>
                     {{-- <th colspan="2">Domaines</th> --}}
                     <th>Activités</th>
@@ -120,14 +124,10 @@
 @section('js')
 <script defer>
     $(document).ready(function () {
-        $('#example').DataTable({
-            "search": false,
-            "ordering": false,
-            "paginate": false,
-            "scrollX": true,
-            "scrollY": 1000,
+        $('#note-table').DataTable({
+            responsive: true,
+            ordering: false,
         });
-        $('.dataTables_length').addClass('bs-select');
     });
 </script>
 @endsection
