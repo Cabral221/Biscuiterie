@@ -35,7 +35,6 @@ class StudentController extends Controller
      */
     public function store(StudentRequest $request) : RedirectResponse
     {
-        // dd($request->all());
         /** @var Student $student */
         $student = Student::create([
             'classe_id' => $request->classe_id,

@@ -55,7 +55,7 @@
                             <span class="badge badge-pink">Féminin</span>
                             @endif
                         </td>
-                        <td>{{ $student->birthday->locale('fr')->format('d M Y')  . ' à ' . $student->where_birthday }}</td>
+                        <td>{{ $student->birthday  . ' à ' . $student->where_birthday }}</td>
                         <td>
                             {{-- show details in modal for student --}}
                             <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" title="Details" data-target="#modal-student-show-{{$student->id}}"><i class="fa fa-eye"></i></button>
@@ -87,7 +87,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Date de naissance</th>
-                                                            <td><span class="text-bold text-primary">{{ $student->birthday->locale('fr')->format('d M Y') }}</span></td>
+                                                            <td><span class="text-bold text-primary">{{ $student->birthday }}</span></td>
                                                         </tr>
                                                         <tr>
                                                             <th>Lieu de naissance</th>

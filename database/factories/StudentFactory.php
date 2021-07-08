@@ -25,7 +25,7 @@ class StudentFactory extends Factory
         return [
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'birthday' => Carbon::now()->subYears(10),
+            'birthday' => Carbon::now()->subYears(10)->format('Y-m-d'),
             'where_birthday' => $this->faker->city,
             'kind' => $this->faker->boolean(),
             'address' => $this->faker->address,
