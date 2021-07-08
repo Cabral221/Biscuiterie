@@ -95,7 +95,7 @@
                 <tbody>
                     @foreach ($missings as $missingrec)
                     <tr>
-                        <td><a href="#">{{ $missingrec->created_at }}</a></td>
+                        <td><a href="{{ route('master.missings.list.show', $missingrec) }}">{{ $missingrec->created_at }}</a></td>
                         <td><span class="title bg-primary p-3">{{ $missingrec->missingCount }}</span></td>
                         <td><a href="{{ route('master.missings.list.show', $missingrec) }}" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
                     </tr>
