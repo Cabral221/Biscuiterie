@@ -13,6 +13,10 @@ seed:
 test: vendor
 	php artisan test
 
+.PHONY: cc
+cc:
+	php artisan cache:clear
+
 .PHONY: stan
 stan:
 	./vendor/bin/phpstan analyse --memory-limit=2G --xdebug

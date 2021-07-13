@@ -30,6 +30,7 @@
                     <div>
                         <div class="mb-1 text-right"><a href="{{ route('admin.print.classe', $classe->id) }}" target="_blank" class="btn btn-info">Imprimer</a></div>
                         <div class="mb-1 text-right"><a href="{{ route('admin.classes.missings.index', $classe) }}" class="btn btn-info">Gestion d'absence</a></div>
+                        <div class="mb-1 text-right"><a href="{{ route('admin.classes.notes.index', $classe) }}" class="btn btn-info">Consulter les notes</a></div>
                     </div>
                 </span>
             </div>

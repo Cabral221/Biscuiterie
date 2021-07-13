@@ -47,7 +47,10 @@ if (! function_exists('activeMenuClasseOpen')) {
         $currentUrl = url()->current();
         $classes =  Niveau::findOrFail($niveau_id)->classes;
         foreach ($classes as  $classe) {
-            if (route('admin.classes.show',$classe->id) === $currentUrl || strpos($currentUrl, "admin/classes/" . $classe->id. "/missing") !== false) {
+            if (route('admin.classes.show',$classe->id) === $currentUrl 
+                || strpos($currentUrl, "admin/classes/" . $classe->id. "/missing") !== false
+                || strpos($currentUrl, "admin/classes/" . $classe->id. "/notes") !== false) 
+            {
                 return $activeClass;
             }
         }

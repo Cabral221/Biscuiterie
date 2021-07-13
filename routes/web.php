@@ -86,6 +86,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
         });
 
         // Gestion des eleves
+        // Route::get('/students/{student}/notes', 'NoteStudentController@index');
         Route::resource('/students', 'StudentController')->only(['index', 'destroy','edit','update','store']);
 
         // Gestion des classes
@@ -93,10 +94,16 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
             Route::get('/{classe}', 'ClasseController@show')->name('show');
 
             // Gestion d'absence
-            Route::group(['prefix' => '{classe}/missing'],function() {
+            Route::group(['prefix' => '{classe}/missing'], function() {
                 Route::get('/', 'MissingController@index')->name('missings.index');
                 Route::get('/{missing}/list', 'MissingController@list')->name('missings.list');
                 Route::post('/mark', 'MissingController@mark')->name('missings.mark');
+            });
+
+            // Gestion des notes
+            Route::group(['prefix' => '{classe}/notes'], function() {
+                Route::get('/', 'NoteController@index')->name('notes.index');
+                Route::get('/{student}/bulletin', 'NoteController@show')->name('notes.show');
             });
         });
 
