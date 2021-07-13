@@ -15,6 +15,7 @@ class CreateMissingTable extends Migration
     {
         Schema::create('missings', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('missing_count')->default(0);
             $table->unsignedBigInteger('classe_id');
             $table->timestamps();
 

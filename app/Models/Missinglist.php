@@ -18,6 +18,17 @@ class Missinglist extends Model
 
     public $timestamps = false;
 
+    public static function booted()
+    {
+        static::updated(function($missinglist) {
+            $missing = Missing::find($missinglist->missing_id);
+            if($missinglist->missing) {
+                $missing->missing_count = $missing->missing_count + 1;
+                $missing->save();
+            }
+        });
+    }
+
     public function missing() : BelongsTo
     {
         return $this->belongsTo(Missing::class);
