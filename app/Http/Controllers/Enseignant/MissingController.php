@@ -29,9 +29,9 @@ class MissingController extends Controller
         $builder = $master->classe->missings();
         if($missing !== null) $builder = $builder->where('id', '!=', $missing->id); 
         $missings = $builder->orderBy('created_at', 'DESC')->get();
-        foreach ($missings as $missingrec) {
-            $missingrec->missingCount = $missingrec->missinglists()->where('missing', true)->count();
-        }
+        // foreach ($missings as $missingrec) {
+        //     $missingrec->missing_count = $missingrec->missinglists()->where('missing', true)->count();
+        // }
 
         return view('enseignant.missing.index', compact('master', 'missing', 'missings'));
     }
@@ -41,9 +41,9 @@ class MissingController extends Controller
         /** @var User */
         $master = auth()->user();
         $missings = $master->classe->missings()->orderBy('created_at', 'DESC')->get();
-        foreach ($missings as $missing) {
-            $missing->missingCount = $missing->missinglists()->where('missing', true)->count();
-        }
+        // foreach ($missings as $missing) {
+        //     $missing->missing_count = $missing->missinglists()->where('missing', true)->count();
+        // }
 
         return view('enseignant.missing.list', compact('master', 'missings'));
     }
@@ -52,9 +52,9 @@ class MissingController extends Controller
     {
         $master = auth()->user();
         $missings = $master->classe->missings()->orderBy('created_at', 'DESC')->get();
-        foreach ($missings as $missingrec) {
-            $missingrec->missingCount = $missingrec->missinglists()->where('missing', true)->count();
-        }
+        // foreach ($missings as $missingrec) {
+        //     $missingrec->missing_count = $missingrec->missinglists()->where('missing', true)->count();
+        // }
 
         return view('enseignant.missing.show', compact('missing', 'missings'));
     }

@@ -7,7 +7,6 @@ use App\Models\Missing;
 use App\Models\Missinglist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -20,14 +19,7 @@ class MissingController extends Controller
      */
     public function index(Classe $classe)
     {
-        // $url = url()->current();
-        // dd(strpos($url, "admin/classes/12") !== false, Route::current()->action['prefix'], url()->current());
-        // dd(Route::current()->action['prefix'], url()->current());
-
         $missings = $classe->missings()->orderBy('created_at', 'DESC')->get();
-        foreach ($missings as $missing) {
-            $missing->missingCount = $missing->missinglists()->where('missing', true)->count();
-        }
         
         return view('admin.classe.missing.index', compact('classe', 'missings'));
     }
@@ -39,14 +31,8 @@ class MissingController extends Controller
      */
     public function list(Classe $classe, Missing $missing)
     {
-        // dd($classe, $missing);
-
         $missings = $classe->missings()->orderBy('created_at', 'DESC')->get();
-        foreach ($missings as $missingrec) {
-            $missingrec->missingCount = $missingrec->missinglists()->where('missing', true)->count();
-        }
-
-        // return view('enseignant.missing.show', compact('missing', 'missings'));
+        
         return view('admin.classe.missing.show', compact('classe', 'missing', 'missings'));
     }
 
