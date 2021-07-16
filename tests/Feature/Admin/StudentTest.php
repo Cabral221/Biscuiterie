@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Admin;
 
+use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Admin;
 use App\Models\Country;
@@ -25,7 +26,7 @@ class StudentTest extends TestCase
         $response = $this->post('/admin/students', [
             'first_name' => $student->first_name,
             'last_name' => $student->last_name,
-            'birthday' => $student->birthday,
+            'birthday' => Carbon::CreateFromFormat('d/m/Y', $student->birthday),
             'where_birthday' => $student->where_birthday,
             'kind' => $student->kind,
             'address' => $student->address,
@@ -66,7 +67,7 @@ class StudentTest extends TestCase
             'kind' => 0,
 
             'first_name' => $student->first_name,
-            'birthday' => $student->birthday,
+            'birthday' => Carbon::CreateFromFormat('d/m/Y', $student->birthday),
             'address' => $student->address,
             'father_name' => $student->father_name,
             'father_phone' => $student->father_phone,
