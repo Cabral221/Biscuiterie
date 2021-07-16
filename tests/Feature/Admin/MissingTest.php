@@ -49,7 +49,6 @@ class MissingTest extends TestCase
                 'missing_list_item' => $studentMark->id,
             ]);
             // Alors il doit etre marqué en base de données
-            // dd($response->getContent());
             $response->assertSuccessful();
 
             $this->assertDatabaseHas('missinglists', [
@@ -70,6 +69,31 @@ class MissingTest extends TestCase
             'id' => $missingStudentItem->id,
             'missing' => false,
         ]);
+    }
+
+    public function testDeleteMissingListOnAdmin() {
+        // Etant donné que
+        $master = User::first();
+        $classe = $master->fresh()->classe;
+            $this->loginAsMaster($master);
+            $this->get('/master/missing/create');
+            // Quand je marque un eleve abscent
+            $ListDay = $master->fresh()->classe->missings()->first();
+            
+
+        // Quand je mark un eleve en tant que admin
+        $this->loginAsAdmin(Admin::first());
+        $response = $this->delete("admin/classes/$classe->id/missing/delete", [
+            'list_id' => $ListDay->id,
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect("/admin/classes/$classe->id/missing");
+        $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('missings',[
+            'id' => $ListDay->id,
+        ]);
+
     }
 
 }

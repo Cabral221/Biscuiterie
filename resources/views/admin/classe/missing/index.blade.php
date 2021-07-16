@@ -12,7 +12,7 @@
     <ol class="breadcrumb">
         <li><a href="{{ route('admin.index') }}"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
         <li><a href="{{ route('admin.classes.show', $classe) }}"><i class="fa fa-dashboard"></i> {{ $classe->libele }}</a></li>
-        <li class="active">{{ $classe->libele }}</li>
+        <li class="active">Gestion d'absences</li>
     </ol>
 </section>
 
@@ -46,7 +46,24 @@
                     <tr>
                         <td><a href="{{ route('admin.classes.missings.list', [$classe, $missing]) }}">{{ $missing->created_at }}</a></td>
                         <td><span class="title p-2 bg-primary">{{ $missing->missing_count }}</span></td>
-                        <td><a href="{{ route('admin.classes.missings.list', [$classe, $missing]) }}" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
+                        <td>
+                            <a href="{{ route('admin.classes.missings.list', [$classe, $missing]) }}" class="btn btn-info"><i class="fa fa-eye"></i></a>
+                            
+                            <a href="#" 
+                                class="btn btn-xs btn-danger"
+                                onclick="event.preventDefault();
+                                    if(confirm('Êtes-vous sûr de vouloir supprimer cette liste ?'))
+                                    {
+                                        document.getElementById('form-delete-missing-{{$missing->id}}').submit();
+                                    }"><i class="fa fa-trash"></i> </a>
+                            <form action="{{ route('admin.classes.missings.delete', [$classe]) }}"
+                                method="POST"
+                                id="form-delete-missing-{{$missing->id}}" class="d-none">
+                                @csrf
+                                @method('DELETE')
+                                <input type="number" name="list_id" value="{{$missing->id}}" id="list_id_{{$missing->id}}" class="d-none">
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

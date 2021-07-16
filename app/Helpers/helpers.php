@@ -70,11 +70,24 @@ if (! function_exists('activeMenuOpen')) {
      */
     function activeMenuOpen(string $prefix, $activeClass = 'active', $inactiveClass = '') : String
     {
-        // dd(Route::current()->action['prefix']);
         if (Route::current()->action['prefix'] == $prefix) {
             return $activeClass;
         }
         return $inactiveClass;
+    }
+}
+
+if (! function_exists('myClasse')) {
+    
+    /**
+     * Get classe of the current master logging
+     *
+     * @return String
+     */
+    function myClasse() : String
+    {
+        $classe = auth()->user()->classe;
+        return $classe->libele ?? null;
     }
 }
 

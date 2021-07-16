@@ -94,6 +94,7 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
                 Route::get('/', 'MissingController@index')->name('missings.index');
                 Route::get('/{missing}/list', 'MissingController@list')->name('missings.list');
                 Route::post('/mark', 'MissingController@mark')->name('missings.mark');
+                Route::delete('/delete', 'MissingController@delete')->name('missings.delete');
             });
             
             // Gestion des notes

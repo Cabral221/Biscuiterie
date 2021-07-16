@@ -58,4 +58,17 @@ class MissingController extends Controller
         ], 200);
     }
 
+    public function delete(Classe $classe, Request $request)
+    {
+        $this->validate($request, [
+            'list_id' => ['required', 'numeric'],
+        ]);
+
+        $missing = Missing::find($request->list_id);
+        $missing->delete();
+
+        session()->flash('success', "La liste d'absence n°: $missing->id à bien été supprimée");
+        return redirect()->route('admin.classes.missings.index', [$classe]);
+    }
+
 }
