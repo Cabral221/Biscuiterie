@@ -99,7 +99,8 @@ class MissingTest extends TestCase
         ]);
     }
 
-    public function testIncrementMissingCount() : void
+    /** @test */
+    public function incrementMissingCount() : void
     {
         // Etant donné que j'un list du jour
         $master = User::first();
@@ -119,6 +120,38 @@ class MissingTest extends TestCase
         $this->assertDatabaseHas('missinglists', [
             'id' => $studentMark->id,
             'missing' => true,
+        ]);
+    }
+
+    /** @test */
+    public function uncrementMissingCount() : void
+    {
+        // Etant donné que j'un list du jour
+        $master = User::first();
+        $this->loginAsMaster($master);
+        $this->get('/master/missing/create');
+
+        // Quand je marque un eleve abscent
+        $ListDay = $master->fresh()->classe->missings()->first();
+        $studentMark = $ListDay->missinglists()->first();
+    
+        $response = $this->json('POST','/master/missing/mark',[
+            'missing_list_item' => $studentMark->id,
+        ]);
+
+        $response->assertSuccessful();
+        $this->assertEquals(1, $ListDay->fresh()->missing_count);
+
+        $response2 = $this->json('POST','/master/missing/mark',[
+            'missing_list_item' => $studentMark->id,
+        ]);
+
+        // Alors il doit etre marqué en base de données
+        $response2->assertSuccessful();
+        $this->assertEquals(0, $ListDay->fresh()->missing_count);
+        $this->assertDatabaseHas('missinglists', [
+            'id' => $studentMark->id,
+            'missing' => false,
         ]);
     }
 }

@@ -24,8 +24,10 @@ class Missinglist extends Model
             $missing = Missing::find($missinglist->missing_id);
             if($missinglist->missing) {
                 $missing->missing_count = $missing->missing_count + 1;
-                $missing->save();
+            }else{
+                $missing->missing_count = $missing->missing_count - 1;
             }
+            $missing->save();
         });
     }
 
