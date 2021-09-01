@@ -2,12 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Admin;
-use App\Models\Niveau;
-use App\Models\Note;
 use App\Models\Program;
-use App\Models\Student;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,13 +20,22 @@ class DatabaseSeeder extends Seeder
 
 
         Admin::factory(1)->create([
-            'full_name' => 'Abdourahmane Diop',
-            'email' => 'admin@admin.com',
-            'phone' => 778435052,
+            'full_name' => 'Amadou Ndao',
+            'phone' => 774285785,
+            'email' => 'admin@empro.com',
             'is_admin' => true
         ]);
         Admin::factory(1)->create([
-            'email' => 'admin1@admin.com',
+            'full_name' => 'Khadidiatou Badji',
+            'phone' => 775579933,
+            'email' => 'kadidiatoubadji397@gmail.com',
+            'is_admin' => true
+        ]);
+        Admin::factory(1)->create([
+            'full_name' => 'Dadouda Diatta',
+            'phone' => 775603563,
+            'email' => 'diattadaoudasane@gmail.com',
+            'is_admin' => true
         ]);
             
         $programs = [
@@ -155,11 +160,11 @@ class DatabaseSeeder extends Seeder
         ];
         
         // $profs = [];
-        $profs = User::factory(11)->create();
-        $profs[] = User::factory(1)->create([
-            'email' => 'user@user.com',
-        ]);
-        $x = 0;
+        // $profs = User::factory(11)->create();
+        // $profs[] = User::factory(1)->create([
+        //     'email' => 'user@user.com',
+        // ]);
+        // $x = 0;
 
         foreach($programs as $p => $niveaux){
             $program = Program::create([
@@ -184,36 +189,36 @@ class DatabaseSeeder extends Seeder
                 }
             }
 
-            foreach($niveaux as $k => $niveau){
-                $n = Niveau::create([
-                    'libele' => $niveau,
-                    'program_id' => $program->id,
-                ]);
+            // foreach($niveaux as $k => $niveau){
+            //     $n = Niveau::create([
+            //         'libele' => $niveau,
+            //         'program_id' => $program->id,
+            //     ]);
 
-                $cls = $n->classes()->createMany([
-                    ['libele' => $n->libele . ' A', 'user_id' => ++$x],
-                    ['libele' => $n->libele . ' B', 'user_id' => ++$x],
-                ]);
-                foreach ($cls as  $cl) {
-                    $students = Student::factory(20)->make();
-                    foreach ($students as $student) {   
-                        // $cl->students()->create($student);
-                        $student->classe_id = $cl->id;
-                        Student::create($student->getAttributes());
-                    }
-                }
-            }
+            //     $cls = $n->classes()->createMany([
+            //         ['libele' => $n->libele . ' A', 'user_id' => ++$x],
+            //         ['libele' => $n->libele . ' B', 'user_id' => ++$x],
+            //     ]);
+            //     foreach ($cls as  $cl) {
+            //         $students = Student::factory(20)->make();
+            //         foreach ($students as $student) {   
+            //             // $cl->students()->create($student);
+            //             $student->classe_id = $cl->id;
+            //             Student::create($student->getAttributes());
+            //         }
+            //     }
+            // }
         }
 
         // Seed des notes fictives
-        $notes = Note::all();
-        foreach($notes as $note){
-            $note->update([
-                'note1' => rand(1, 10),
-                'note2' => rand(1, 10),
-                'note3' => rand(1, 10),
-            ]);
-        }
+        // $notes = Note::all();
+        // foreach($notes as $note){
+        //     $note->update([
+        //         'note1' => rand(1, 10),
+        //         'note2' => rand(1, 10),
+        //         'note3' => rand(1, 10),
+        //     ]);
+        // }
 
     }
 }
