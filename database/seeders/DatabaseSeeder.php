@@ -19,11 +19,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Admin::factory(1)->create([
-            'email' => 'admin@admin.com',
+            'email' => 'admin@empro.com',
             'is_admin' => true
         ]);
         Admin::factory(1)->create([
-            'email' => 'admin1@admin.com',
+            'email' => 'kadidiatoubadji397@gmail.com',
+            'is_admin' => true
+        ]);
+        Admin::factory(1)->create([
+            'email' => 'diattadaoudasane@gmail.com',
+            'is_admin' => true
         ]);
             
         $programs = [
@@ -148,11 +153,11 @@ class DatabaseSeeder extends Seeder
         ];
         
         // $profs = [];
-        $profs = User::factory(11)->create();
-        $profs[] = User::factory(1)->create([
-            'email' => 'user@user.com',
-        ]);
-        $x = 0;
+        // $profs = User::factory(11)->create();
+        // $profs[] = User::factory(1)->create([
+        //     'email' => 'user@user.com',
+        // ]);
+        // $x = 0;
 
         foreach($programs as $p => $niveaux){
             $program = Program::create([
@@ -177,25 +182,25 @@ class DatabaseSeeder extends Seeder
                 }
             }
 
-            foreach($niveaux as $k => $niveau){
-                $n = Niveau::create([
-                    'libele' => $niveau,
-                    'program_id' => $program->id,
-                ]);
+            // foreach($niveaux as $k => $niveau){
+            //     $n = Niveau::create([
+            //         'libele' => $niveau,
+            //         'program_id' => $program->id,
+            //     ]);
 
-                $cls = $n->classes()->createMany([
-                    ['libele' => $n->libele . ' A', 'user_id' => ++$x],
-                    ['libele' => $n->libele . ' B', 'user_id' => ++$x],
-                ]);
-                foreach ($cls as  $cl) {
-                    $students = Student::factory(20)->make();
-                    foreach ($students as $student) {   
-                        // $cl->students()->create($student);
-                        $student->classe_id = $cl->id;
-                        Student::create($student->getAttributes());
-                    }
-                }
-            }
+            //     $cls = $n->classes()->createMany([
+            //         ['libele' => $n->libele . ' A', 'user_id' => ++$x],
+            //         ['libele' => $n->libele . ' B', 'user_id' => ++$x],
+            //     ]);
+            //     foreach ($cls as  $cl) {
+            //         $students = Student::factory(20)->make();
+            //         foreach ($students as $student) {   
+            //             // $cl->students()->create($student);
+            //             $student->classe_id = $cl->id;
+            //             Student::create($student->getAttributes());
+            //         }
+            //     }
+            // }
         }
 
     }
