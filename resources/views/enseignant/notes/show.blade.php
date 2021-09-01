@@ -1,6 +1,10 @@
 
 @extends('layouts.app', ['titlePage' => 'Fiche de notes - '. $student->fullName])
 
+@section('plugin-css')
+    <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+@endsection
+
 @section('content')
 <section class="content-header">
     <h1>
@@ -35,7 +39,7 @@
             </div>
         </div>
         <div class="box-body">
-            <table class="table table-bordered">
+            <table id="note-table" class="table table-bordered" data-page-length='100'>
                 <thead>
                     {{-- <th colspan="2">Domaines</th> --}}
                     <th>Activités</th>
@@ -76,7 +80,7 @@
                                 data-note="{{ $note->note3 }}"
                                 data-note_dividente="{{ $note->activity->dividente }}">
                             </td>
-                            <td>Recapitulation</td>
+                            <td>...</td>
                         </tr>
                     @endforeach
                     <tr class="h4 text-bold">
@@ -100,7 +104,7 @@
                         <td class="text-center">{{ $student->rang(2) }}</td>
                         <td class="text-center">{{ $student->rang(3) }}</td>
                         
-                        <td>Recapitulation</td>
+                        <td>...</td>
                     </tr>
                 </tbody>
             </table>
@@ -110,4 +114,20 @@
     <!-- /.box -->
 </section>
     
+@endsection
+
+@section('plugin-js')
+<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+@endsection
+
+@section('js')
+<script defer>
+    $(document).ready(function () {
+        $('#note-table').DataTable({
+            responsive: true,
+            ordering: false,
+        });
+    });
+</script>
 @endsection

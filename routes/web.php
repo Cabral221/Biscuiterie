@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Enseignant\PrintController;
 use App\Http\Controllers\Enseignant\HomeController;
 use App\Http\Controllers\Enseignant\NoteController;
 use App\Http\Controllers\Enseignant\ProfileController;
@@ -8,7 +9,7 @@ use App\Http\Controllers\Enseignant\Auth\LoginController;
 use App\Http\Controllers\Enseignant\Auth\ResetPasswordController;
 use App\Http\Controllers\Enseignant\Auth\ForgotPasswordController;
 use App\Http\Controllers\Enseignant\Auth\ConfirmPasswordController;
-
+use App\Http\Controllers\Enseignant\MissingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,11 @@ Route::prefix('/master')->name('master.')->group(function () {
         // Home for master
         Route::get('/', [HomeController::class ,'home'])->name('index');
 
+        // Gestion de l'impression
+        Route::prefix('/print')->group(function(){
+            Route::get('/classe/{id}', [PrintController::class, 'classe'])->name('print.classe');
+        });
+
         // Gestion des notes
         Route::get('/notes', [NoteController::class, 'index'])->name('notes.index');
         Route::get('/notes/{student}', [NoteController::class, 'show'])->name('notes.show');
@@ -46,6 +52,15 @@ Route::prefix('/master')->name('master.')->group(function () {
         Route::get('/profile', [ProfileController::class ,'index'])->name('profile');
         Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
         Route::put('/profile/password', [ProfileController::class, 'password'])->name('profile.password');
+        
+        // Gestion d'absence
+        Route::prefix('/missing')->group(function() {
+            Route::get('/', [MissingController::class, 'index'])->name('missings.index');
+            Route::get('/create', [MissingController::class, 'create'])->name('missings.create');
+            Route::post('/mark', [MissingController::class, 'mark'])->name('missings.mark');
+            Route::get('/list', [MissingController::class, 'list'])->name('missings.list');
+            Route::get('/list/{missing}/show', [MissingController::class, 'show'])->name('missings.list.show');
+        });
     });
 });
 
@@ -64,11 +79,26 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
     Route::middleware('auth:admin')->group(function () {
         Route::get('/', 'HomeController@home')->name('index');
 
+        // Gestion de l'impression
+        Route::prefix('/print')->group(function(){
+            Route::get('/classe/{id}', 'PrintController@classe')->name('print.classe');
+            Route::get('/master', 'PrintController@master')->name('print.master');
+        });
+
         // Gestion des eleves
         Route::resource('/students', 'StudentController')->only(['index', 'destroy','edit','update','store']);
 
         // Gestion des classes
-        Route::get('/classes/{classe}', 'ClasseController@show')->name('classes.show');
+        Route::prefix('/classes')->name('classes.')->group(function() {
+            Route::get('/{classe}', 'ClasseController@show')->name('show');
+
+            // Gestion d'absence
+            Route::group(['prefix' => '{classe}/missing'],function() {
+                Route::get('/', 'MissingController@index')->name('missings.index');
+                Route::get('/{missing}/list', 'MissingController@list')->name('missings.list');
+                Route::post('/mark', 'MissingController@mark')->name('missings.mark');
+            });
+        });
 
         // Gestion des matieres
         Route::prefix('/activities')->name('activities.')->group(function(){
@@ -90,20 +120,33 @@ Route::prefix('/admin')->namespace('App\Http\Controllers\Admin')->name('admin.')
             Route::delete('/{subdomain}/destroy', 'SubDomainController@destroy')->name('destroy');
         });
 
-        // Gestion des programmes
+        // Gestion des programmes et niveaux
         Route::prefix('/programs')->name('programs.')->group(function() {
+            // Gestion des classes
+            Route::post('/classes', 'ClasseController@store')->name('classes.store');
+            Route::put('/classes/{id}/update', 'ClasseController@update')->name('classes.update');
+            Route::delete('/classes/{id}/destroy', 'ClasseController@destroy')->name('classes.destroy');
+            // Gestion des niveaux d'etude
+            Route::post('/niveaux', 'NiveauController@store')->name('niveaux.store');
+
+            // Gestion des programme
             Route::get('/', 'ProgramController@index')->name('index');
             Route::post('/', 'ProgramController@store')->name('store');
-            // Route::get('/{program}', 'ProgramController@show')->name('show');
             Route::patch('/{program}/update', 'ProgramController@update')->name('update');
             Route::delete('/{program}/destroy', 'ProgramController@destroy')->name('destroy');
         });
         
         // Gestion des enseignants
         Route::get('/enseignants', 'EnseignantController@index')->name('enseignants.index');
-        Route::get('/enseignant/{user}/edit', 'EnseignantController@edit')->name('enseignants.edit');
-        Route::put('/enseignant/{user}/update', 'EnseignantController@update')->name('enseignants.update');
+        Route::get('/enseignants/create', 'EnseignantController@create')->name('enseignants.create');
+        Route::post('/enseignants/create', 'EnseignantController@store')->name('enseignants.store');
+        Route::get('/enseignants/{user}/edit', 'EnseignantController@edit')->name('enseignants.edit');
+        Route::put('/enseignants/{user}/update', 'EnseignantController@update')->name('enseignants.update');
         
+        // Historiques
+        Route::get('/histories', 'HistoryController@index')->name('histories.index');
+        Route::post('/histories/', 'HistoryController@getDataForApi');
+
         // Permission aux role de super admin
         Route::middleware('isAdmin')->group(function (){
             // Gestion des utilisateurs administrateurs

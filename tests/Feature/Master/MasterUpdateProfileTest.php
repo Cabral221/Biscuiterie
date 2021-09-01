@@ -14,35 +14,46 @@ class MasterUpdateProfileTest extends TestCase
 
         $response = $this->put('master/profile/update');
 
-        $response->assertSessionHasErrors(['full_name', 'email', 'phone']);
+        $response->assertSessionHasErrors(['first_name', 'last_name', 'kind', 'email', 'phone']);
     }
 
     /** @test */
     public function a_user_can_update_their_profile() : void
     {
         $user = User::factory()->create([
-            'full_name' => 'Jane Doe',
+            'first_name' => 'Jane',
+            'last_name' => 'Doe',
             'email' => 'jane@doe.com',
             'phone' => 709999999,
+            'matricule' => '123456/X'
         ]);
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
-            'full_name' => 'Jane Doe',
+            'first_name' => 'Jane',
+            'last_name' => 'Doe',
+            'matricule' => '123456/X'
         ]);
 
         $response = $this->actingAs($user)
             ->put('master/profile/update', [
-                'full_name' => 'John Doe',
+                'first_name' => 'John',
+                'last_name' => 'Doe',
+                'kind' => true,
                 'email' => 'jane@doe.com',
                 'phone' => 709999999,
+                'matricule' => '123456/Y'
             ])->assertRedirect('/master/profile');
 
         $response->assertSessionHas('success', __('Profile successfully updated.'));
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
-            'full_name' => 'John Doe',
+            'first_name' => 'John',
+            'last_name' => 'Doe',
+            'kind' => true,
+            'matricule' => '123456/Y',
+
         ]);
     }
     

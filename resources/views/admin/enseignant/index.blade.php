@@ -1,7 +1,7 @@
 @extends('layouts.app', ['titlePage' => 'Gestion des Enseignants'])
 
 @section('plugin-css')
-<link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 @endsection
 
 @section('content')
@@ -18,27 +18,45 @@
 <section class="content">
     <div class="box box-primary">
         <div class="box-header">
-            <h3 class="box-title">Liste des enseignants par classe</h3>
+            <div class="d-flex justify-content-between">
+                <span>
+                    <h3 class="box-title">Liste des enseignants</h3>
+                </span>
+                <span>
+                    <a href="{{ route('admin.print.master') }}" target="_blank" class="btn btn-info">Imprimer</a>
+                </span>
+            </div>
         </div>
         <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <div class="p-2 mb-2"><a href="{{ route('admin.enseignants.create') }}" class="btn btn-success">Ajouter un(e) enseignant(e)</a></div>
+            <table id="master-list-table" class="table table-bordered table-striped" data-page-length='20'>
                 <thead>
                     <th>Classe</th>
                     <th>Nom Complet</th>
                     <th>Téléphone</th>
                     <th>Email</th>
+                    <th>Matricule</th>
                     <th>Actions</th>
                 </thead>
                 <tbody>
                     @foreach ($enseignants as $enseignant)
                     <tr>
-                        <td><a href="{{ route('admin.classes.show', $enseignant->classe) }}"><span class="label label-primary">{{ $enseignant->classe->libele }}</span></a></td>
+                        <td>
+                            @if ($enseignant->classe != null)
+                                <a href="{{ route('admin.classes.show', $enseignant->classe) }}">
+                                    <span class="label label-primary">{{ $enseignant->classe->libele }}</span>
+                                </a>
+                            @else
+                                <span class="label label-primary">NÉANT</span>                                
+                            @endif
+                        </td>
                         <td>{{ $enseignant->full_name }}</td>
                         <td>{{ $enseignant->phone }}</td>
                         <td>{{ $enseignant->email }}</td>
+                        <td>{{ $enseignant->matricule }}</td>
                         <td>
                             {{-- show details in modal for enseignant --}}
-                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-enseignant-show-{{$enseignant->id}}"><i class="fa fa-eye"></i></button>
+                            <button type="button" class="btn btn-xs btn-primary" title="Details" data-toggle="modal" data-target="#modal-enseignant-show-{{$enseignant->id}}"><i class="fa fa-eye"></i></button>
                             <div class="modal modal-xl fade" id="modal-enseignant-show-{{$enseignant->id}}">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
@@ -63,7 +81,33 @@
                                                     </tr>
                                                     <tr>
                                                         <th>Classe</th>
-                                                        <td><a href="{{ route('admin.classes.show', $enseignant->classe) }}" class="btn btn-xs btn-primary">{{ $enseignant->classe->libele }}</a></td>
+                                                        <td>
+                                                            @if ($enseignant->classe != null)
+                                                                <a href="{{ route('admin.classes.show', $enseignant->classe) }}" class="btn btn-xs btn-primary">{{ $enseignant->classe->libele }}</a>
+                                                            @else
+                                                                <span class="badge badge-primary">NÉANT</span>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Diplomes academique</th>
+                                                        <td><span class="text-bold text-primary">
+                                                             @foreach($enseignant->qualifications as $diplome_academique)
+                                                                @if($diplome_academique->type == 0)
+                                                                    {{$diplome_academique->libele}},
+                                                                @endif
+                                                            @endforeach
+                                                        </span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th>Diplomes professionnel</th>
+                                                        <td><span class="text-bold text-primary">
+                                                             @foreach($enseignant->qualifications as $diplome_proffessionnel)
+                                                                @if($diplome_proffessionnel->type == 1)
+                                                                    {{$diplome_proffessionnel->libele}},
+                                                                @endif
+                                                            @endforeach
+                                                        </span></td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -77,7 +121,7 @@
                             </div>
 
                             {{-- Edit enseignant<User> button --}}
-                            <a href="{{ route('admin.enseignants.edit', $enseignant) }}" class="btn btn-xs btn-warning" data-target="#modal-enseignant-edit-{{$enseignant->id}}"><i class="fa fa-edit"></i></a>
+                            <a href="{{ route('admin.enseignants.edit', $enseignant) }}" title="Modifier" class="btn btn-xs btn-warning" data-target="#modal-enseignant-edit-{{$enseignant->id}}"><i class="fa fa-edit"></i></a>
                                 
                         </td>
                     </tr>
@@ -89,6 +133,7 @@
                         <th>Nom Complet</th>
                         <th>Téléphone</th>
                         <th>Email</th>
+                        <th>Matricule</th>
                         <th>Actions</th>
                     </tr>
                 </tfoot>
@@ -99,16 +144,17 @@
 @endsection
 
 @section('plugin-js')
-<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 @endsection
 
 @section('js')
-<script>
-    $(function () {
-        $('#example1').DataTable({
-            pageLength: 50
-        })
-    })
+<script defer>
+    $(document).ready(function () {
+        $('#master-list-table').DataTable({
+            responsive: true,
+            ordering: false,
+        });
+    });
 </script>
 @endsection

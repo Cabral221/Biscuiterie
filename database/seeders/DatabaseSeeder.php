@@ -2,11 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
 use App\Models\Admin;
-use App\Models\Niveau;
 use App\Models\Program;
-use App\Models\Student;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -18,15 +15,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(CountriesSeeder::class);
+        $this->call(QualificationSeeder::class);
+
+
         Admin::factory(1)->create([
+            'full_name' => 'Amadou Ndao',
+            'phone' => 774285785,
             'email' => 'admin@empro.com',
             'is_admin' => true
         ]);
         Admin::factory(1)->create([
+            'full_name' => 'Khadidiatou Badji',
+            'phone' => 775579933,
             'email' => 'kadidiatoubadji397@gmail.com',
             'is_admin' => true
         ]);
         Admin::factory(1)->create([
+            'full_name' => 'Dadouda Diatta',
+            'phone' => 775603563,
             'email' => 'diattadaoudasane@gmail.com',
             'is_admin' => true
         ]);
@@ -41,14 +48,14 @@ class DatabaseSeeder extends Seeder
         $matieres = [
             'CI-CP' => [
                 'Langues et communication' => [
-                    'Principe Alphabétique'         => 5,
-                    'Conscience phonétique'         => 5,
-                    'Dichiffache mots / non mots'   => 5,
-                    'Fluidité'                      => 5,
-                    'Production d\'Ecrits'          => 5,
-                    'T.S.Q'                         => 5,
-                    'Dictée'                        => 5,
-                    'Lecture Compréhension'         => 5,
+                    'Principe Alphabétique'         => 10,
+                    'Conscience phonétique'         => 10,
+                    'Dichiffache mots / non mots'   => 10,
+                    'Fluidité'                      => 10,
+                    'Production d\'Ecrits'          => 10,
+                    'T.S.Q'                         => 10,
+                    'Dictée'                        => 10,
+                    'Lecture Compréhension'         => 10,
                 ],
                 'Maths' => [
                     'Act. numériques'               => 10,
@@ -202,6 +209,16 @@ class DatabaseSeeder extends Seeder
             //     }
             // }
         }
+
+        // Seed des notes fictives
+        // $notes = Note::all();
+        // foreach($notes as $note){
+        //     $note->update([
+        //         'note1' => rand(1, 10),
+        //         'note2' => rand(1, 10),
+        //         'note3' => rand(1, 10),
+        //     ]);
+        // }
 
     }
 }

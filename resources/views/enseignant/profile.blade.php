@@ -29,6 +29,10 @@
         <div class="box-body">
             <table class="table">
                 <tr>
+                    <th>Matricule</th>
+                    <td class="text-bold">{{ $user->matricule }}</td>
+                </tr>
+                <tr>
                     <th>Nom complet</th>
                     <td>{{ $user->full_name }}</td>
                 </tr>
@@ -54,12 +58,48 @@
             @csrf
             @method('PUT')
             <div class="box-body">
-                <div class="form-group @error('full_name') has-error @enderror">
-                    <label for="fullname" class="col-sm-4 control-label">Nom Complet</label>
+                <div class="form-group @error('kind') has-error @enderror">
+                    <label class="col-sm-4 control-label">Genre</label>
+                    <div class="col-sm-8">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="kind" id="homme" value="1" {{ $user->kind ? 'checked' : '' }}>
+                            <label class="form-check-label" for="homme">Mr.</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="kind" id="femme" value="0" {{ !$user->kind ? 'checked' : '' }}>
+                            <label class="form-check-label" for="femme">Mme</label>
+                        </div>
+                        @error('kind')
+                            <span class="help-block">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group @error('matricule') has-error @enderror">
+                    <label for="matricule" class="col-sm-4 control-label">Matricule</label>
 
                     <div class="col-sm-8">
-                        <input type="text" class="form-control" name="full_name" id="fullname" placeholder="Votre nom" value="{{ old('full_name') ?? $user->full_name }}">
-                        @error('full_name')
+                        <input type="text" class="form-control" name="matricule" id="matricule" placeholder="Votre prénom" value="{{ old('matricule') ?? $user->matricule }}" required>
+                        @error('matricule')
+                            <span class="help-block">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group @error('first_name') has-error @enderror">
+                    <label for="first_name" class="col-sm-4 control-label">Prénom</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="first_name" id="first_name" placeholder="Votre prénom" value="{{ old('first_name') ?? $user->first_name }}" required>
+                        @error('first_name')
+                            <span class="help-block">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group @error('last_name') has-error @enderror">
+                    <label for="last_name" class="col-sm-4 control-label">Nom</label>
+
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="last_name" id="last_name" placeholder="Votre prénom" value="{{ old('last_name') ?? $user->last_name }}" required>
+                        @error('last_name')
                             <span class="help-block">{{ $message }}</span>
                         @enderror
                     </div>
@@ -68,7 +108,7 @@
                     <label for="email" class="col-sm-4 control-label">Adresse Email</label>
 
                     <div class="col-sm-8">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="adresse Email" value="{{ old('email') ?? $user->email }}">
+                        <input type="email" class="form-control" name="email" id="email" placeholder="adresse Email" value="{{ old('email') ?? $user->email }}" required>
                         @error('email')
                             <span class="help-block">{{ $message }}</span>
                         @enderror
@@ -78,7 +118,7 @@
                     <label for="phone" class="col-sm-4 control-label">Téléphone</label>
 
                     <div class="col-sm-8">
-                        <input type="text" name="phone" class="form-control" id="phone" placeholder="Téléphone" value="{{ old('phone') ?? $user->phone }}">
+                        <input type="text" name="phone" class="form-control" id="phone" placeholder="Téléphone" value="{{ old('phone') ?? $user->phone }}" required>
                         @error('phone')
                             <span class="help-block">{{ $message }}</span>
                         @enderror
@@ -107,7 +147,7 @@
                     <label for="current_password" class="col-sm-4 control-label">Mot de passe actuel</label>
 
                     <div class="col-sm-8">
-                        <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Mot de passe actuel">
+                        <input type="password" class="form-control" name="current_password" id="current_password" placeholder="Mot de passe actuel" required>
                         @error('current_password') 
                             <span class="help-block">{{ $message }}</span>
                         @enderror
@@ -117,7 +157,7 @@
                     <label for="password" class="col-sm-4 control-label">Nouveau mot de passe</label>
 
                     <div class="col-sm-8">
-                        <input type="password" class="form-control" name="password" id="password" placeholder="Nouveau mot de passe">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Nouveau mot de passe" required>
                         @error('password')
                             <span class="help-block">{{ $message }}</span>
                         @enderror

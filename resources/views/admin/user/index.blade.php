@@ -1,7 +1,7 @@
 @extends('layouts.app', ['titlePage' => 'Gestion des utilisateurs'])
 
 @section('plugin-css')
-<link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 @endsection
 
 @section('content')
@@ -26,7 +26,7 @@
                 <a href="{{ route('admin.users.create') }}" class="btn btn-primary">Ajouter un administrateur</a>
             </div>
 
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="admin-list-table" class="table table-bordered table-striped" data-page-length='20'>
                 <thead>
                     <tr>
                         <th>Nom Complet</th>
@@ -60,20 +60,20 @@
                             <td>
                                 {{-- Togle active account --}}
                                 @if ($admin->is_active)
-                                    <a href="{{ route('admin.users.toggleActive', $admin) }}" class="btn btn-xs btn-info" onclick="if(!confirm('Êtes vous sûr de vouloir désactiver ce compte ?')){event.preventDefault();}">
+                                    <a href="{{ route('admin.users.toggleActive', $admin) }}" title="Activer / Desactiver" class="btn btn-xs btn-primary" onclick="if(!confirm('Êtes vous sûr de vouloir désactiver ce compte ?')){event.preventDefault();}">
                                         <i class="fa fa-toggle-on"></i>
                                     </a>
                                 @else
-                                    <a href="{{ route('admin.users.toggleActive', $admin) }}" class="btn btn-xs btn-info" onclick="if(!confirm('Êtes vous sûr de vouloir activer ce compte ?')){event.preventDefault();}">
+                                    <a href="{{ route('admin.users.toggleActive', $admin) }}" title="Activer / Desactiver" class="btn btn-xs btn-primary" onclick="if(!confirm('Êtes vous sûr de vouloir activer ce compte ?')){event.preventDefault();}">
                                         <i class="fa fa-toggle-off"></i>
                                     </a>
                                 @endif
                                 {{-- Editing data for account --}}
-                                <a href="{{ route('admin.users.edit', $admin) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i></a>
+                                <a href="{{ route('admin.users.edit', $admin) }}" class="btn btn-xs btn-warning" aria-label="Modifier" title="Modifier"><i class="fa fa-edit"></i></a>
                                 
                                 {{-- Delete Admin --}}
                                 @if ($admin->id !== Auth::user()->id)
-                                    <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Êtes vous sûr de vouloir supprimer cette administrateur ?')){document.getElementById('form-delete-admin-{{$admin->id}}').submit();}">
+                                    <a href="#" class="btn btn-xs btn-danger" title="Supprimer" onclick="event.preventDefault();if(confirm('Êtes vous sûr de vouloir supprimer cette administrateur ?')){document.getElementById('form-delete-admin-{{$admin->id}}').submit();}">
                                         <i class="fa fa-trash"></i>
                                         <form action="{{ route('admin.users.destroy', $admin) }}" method="post" id="form-delete-admin-{{$admin->id}}" class="d-none">
                                             @csrf
@@ -103,16 +103,16 @@
 @endsection
 
 @section('plugin-js')
-<script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
-<script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
 @endsection
 
 @section('js')
-<script>
-    $(function () {
-        $('#example1').DataTable({
-            pageLegth: 50            
-        })
-    })
+<script defer>
+    $(document).ready(function () {
+        $('#admin-list-table').DataTable({
+            responsive: true,
+        });
+    });
 </script>
 @endsection

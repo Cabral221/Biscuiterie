@@ -25,21 +25,21 @@
                     <div class="col-md-6">
                         <div class="form-group @error('full_name') has-error @enderror">
                             <label for="full_name">Nom Complet</label>
-                            <input type="text" name="full_name" class="form-control" id="full_name" placeholder="Nom complet" value="{{ old('full_name') ?? $admin->full_name }}">
+                            <input type="text" name="full_name" class="form-control" id="full_name" placeholder="Nom complet" value="{{ old('full_name') ?? $admin->full_name }}" required>
                             @error('full_name')
                                 <span class="help-block">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group @error('email') has-error @enderror">
                             <label for="email">Adresse Email</label>
-                            <input type="email" name="email" class="form-control" id="email" placeholder="Adresse email" value="{{ old('email') ?? $admin->email }}">
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Adresse email" value="{{ old('email') ?? $admin->email }}" required>
                             @error('email')
                                 <span class="help-block">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group @error('phone') has-error @enderror">
                             <label for="phone">Numéro de Téléphone</label>
-                            <input type="number" name="phone" id="phone" class="form-control" placeholder="Numéro de téléphone" value="{{ old('phone') ?? $admin->phone }}">
+                            <input type="number" name="phone" id="phone" class="form-control" placeholder="Numéro de téléphone" value="{{ old('phone') ?? $admin->phone }}" required>
                             @error('phone')
                                 <span class="help-block">{{ $message }}</span>
                             @enderror

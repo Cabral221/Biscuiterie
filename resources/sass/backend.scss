@@ -44,15 +44,21 @@
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+
+
+// Page history,
+// Page Note,
 // Loader
-.note-td>.note-td-content {
+.note-td > .note-td-content,
+.histories_content {
     position: relative;
     width: 100%;
     height: 100%;
     margin: 0;
 }
 
-.note-td>.note-td-content .loader {
+.loader {
+    display: block;
     margin-left: auto;
     margin-right: auto;
     margin-top: auto;
@@ -86,4 +92,9 @@
     100% {
         transform: rotate(360deg);
     }
+}
+
+// table responsive
+#example_filter{
+    text-align: right;
 }

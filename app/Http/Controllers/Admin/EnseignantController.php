@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use App\Models\Qualification;
 use Illuminate\Http\RedirectResponse;
 
 class EnseignantController extends Controller
@@ -17,14 +18,57 @@ class EnseignantController extends Controller
      */
     public function index() : View
     {
-        $enseignants = User::all();
+        $enseignants = User::current_period();
         return view('admin.enseignant.index', compact('enseignants'));
+    }
+
+    /**
+     * render page creating master
+     *
+     * @return View
+     */
+    public function create() : View
+    {
+        $qualifications = Qualification::all();
+        return view('admin.enseignant.create',compact('qualifications'));
+    }
+
+    /**
+     * store record master on database
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request) : RedirectResponse
+    {
+        // dd($request->qualification);
+        $this->validate($request, [
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'kind' => ['required', 'boolean'],
+            'email' => ['required', 'string', 'email', 'unique:users', 'max:255'],
+            'phone' => ['required', 'numeric'],
+            'matricule' => ['required', 'string', 'min:3', 'max:10', 'unique:users'],
+        ]);
+
+        $user =  User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'kind' => (bool) $request->kind,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'matricule' => $request->matricule
+        ])->qualifications()->sync($request->qualification);
+
+        session()->flash('success', 'Les modifications ont bien été prises en compte.');
+        return redirect()->route('admin.enseignants.index');
     }
 
     public function edit(int $id) : View
     {
         $enseignant = User::find($id);
-        return view('admin.enseignant.edit', compact('enseignant'));
+        $qualifications = Qualification::all();
+        return view('admin.enseignant.edit', compact('enseignant','qualifications'));
     }
     
     /**
@@ -37,7 +81,9 @@ class EnseignantController extends Controller
     public function update(Request $request, int $id) : RedirectResponse
     {
         $this->validate($request, [
-            'full_name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'kind' => ['required', 'boolean'],
             'email' => ['required', 'string', 'email', 'max:255'],
             'phone' => ['required', 'numeric'],
         ]);
@@ -50,10 +96,14 @@ class EnseignantController extends Controller
         /** @var User */
         $enseignant = User::find($id);
         $enseignant->update([
-            'full_name' => $request->full_name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'kind' => (bool) $request->kind,
             'email' => $request->email,
             'phone' => $request->phone,
         ]);
+        $enseignant->qualifications()->sync($request->qualification);
+        
 
         session()->flash('success', 'Les modifications ont bien été prises en compte.');
         return redirect()->route('admin.enseignants.index');

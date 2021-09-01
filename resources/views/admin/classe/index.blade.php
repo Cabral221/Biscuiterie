@@ -1,7 +1,7 @@
 @extends('layouts.app', ['titlePage' => $classe->libele])
 
 @section('plugin-css')
-<link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 @endsection
 
 @section('content')
@@ -20,16 +20,23 @@
         <div class="box-header">
             <div class="d-flex justify-content-between">
                 <span>
-                    <h3 class="box-title"><span class="text-primary">{{ $classe->libele }} :  {{ $classe->total }}</span>  éléve(s)</h3>
+                    <h3 class="box-title py-2">Enseignant{{ !$classe->user->kind ? 'e' : '' }} : <span class="text-primary">{{ $classe->user->full_name }}</span></h3> <br>
+                    <h3 class="box-title py-2">Matricule : <span class="text-primary">{{ $classe->user->matricule }}</span></h3> <br>
+                    <h3 class="box-title py-2">Téléphone : <span class="text-primary"> (+221) {{ $classe->user->phone }}</span></h3>
+                    <hr>
+                    <h3 class="box-title py-2">Nb d'éléve(s) : <span class="text-primary">{{ $classe->total }}</span></h3> <br>
                 </span>
                 <span>
-                    <h3 class="box-title">Enseignant(e) : <span class="text-primary">{{ $classe->user->full_name }}</span></h3>
+                    <div>
+                        <div class="mb-1 text-right"><a href="{{ route('admin.print.classe', $classe->id) }}" target="_blank" class="btn btn-info">Imprimer</a></div>
+                        <div class="mb-1 text-right"><a href="{{ route('admin.classes.missings.index', $classe) }}" class="btn btn-info">Gestion d'absence</a></div>
+                    </div>
                 </span>
             </div>
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="student-list-table" class="table table-striped table-bordered table-sm" data-page-length='50'>
                 <thead>
                     <tr>
                         <th>Nom</th>
@@ -51,10 +58,10 @@
                             <span class="badge badge-pink">Féminin</span>
                             @endif
                         </td>
-                        <td>{{ $student->birthday->locale('fr')->format('d M Y')  . ' à ' . $student->where_birthday }}</td>
+                        <td>{{ $student->birthday  . ' à ' . $student->where_birthday }}</td>
                         <td>
                             {{-- show details in modal for student --}}
-                            <button type="button" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-student-show-{{$student->id}}"><i class="fa fa-eye"></i></button>
+                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" title="Details" data-target="#modal-student-show-{{$student->id}}"><i class="fa fa-eye"></i></button>
                             
                             <div class="modal modal-xl fade" id="modal-student-show-{{$student->id}}">
                                 <div class="modal-dialog">
@@ -83,7 +90,7 @@
                                                         </tr>
                                                         <tr>
                                                             <th>Date de naissance</th>
-                                                            <td><span class="text-bold text-primary">{{ $student->birthday->locale('fr')->format('d M Y') }}</span></td>
+                                                            <td><span class="text-bold text-primary">{{ $student->birthday }}</span></td>
                                                         </tr>
                                                         <tr>
                                                             <th>Lieu de naissance</th>
@@ -93,6 +100,10 @@
                                                             <th>Adresse</th>
                                                             <td><span class="text-bold text-primary">{!! $student->address !!}</span></td>
                                                         </tr>
+                                                        <tr>
+                                                            <th>Nationnalité</th>
+                                                            <td><span class="text-bold text-primary">{!! $student->country->name !!}</span></td>
+                                                        </tr>
                                                     </tbody>
                                                 </table>
                                                 <div class="row">
@@ -100,12 +111,14 @@
                                                         <h3>Filiation du père</h3>
                                                         <div>Prénom : <span class="text-bold text-primary">{{ $student->father_name }}</span></div>
                                                         <div>Téléphone : <span class="text-bold text-primary">{{ $student->father_phone }}</span></div>
+                                                        <div>NIN : <span class="text-bold text-primary">{{ $student->father_nin }}</span></div>
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <h3>Filiation de la mère</h3>
                                                         <div>Prénom : <span class="text-bold text-primary">{{ $student->mother_first_name }}</span></div>
                                                         <div>Nom : <span class="text-bold text-primary">{{ $student->mother_last_name }}</span></div>
                                                         <div>Téléphone : <span class="text-bold text-primary">{{ $student->mother_phone }}</span></div>
+                                                        <div>NIN : <span class="text-bold text-primary">{{ $student->mother_nin }}</span></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -116,48 +129,49 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                                 
-                                {{-- Editing data for student --}}
-                                <a href="{{ route('admin.students.edit', $student) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i></a>
-                                {{-- Delete student --}}
-                                <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Êtes vous sûr de vouloir supprimer cet (cette) éléve ?')){document.getElementById('form-delete-student-{{$student->id}}').submit();}">
-                                    <i class="fa fa-trash"></i>
-                                    <form action="{{ route('admin.students.destroy', $student) }}" method="post" id="form-delete-student-{{$student->id}}" class="d-none">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                </a>
-                            </td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Prénom</th>
-                            <th>Genre</th>
-                            <th>Date et lieu de naissance</th>
-                            <th>Actions</th>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            <!-- /.box-body -->
+                            {{-- Editing data for student --}}
+                            <a href="{{ route('admin.students.edit', $student) }}" class="btn btn-xs btn-warning" title="Modifier" aria-label="Modifier" ><i class="fa fa-edit"></i></a>
+                            {{-- Delete student --}}
+                            <a href="#" class="btn btn-xs btn-danger" title="Supprimer" onclick="event.preventDefault();if(confirm('Êtes vous sûr de vouloir supprimer cet (cette) éléve ?')){document.getElementById('form-delete-student-{{$student->id}}').submit();}">
+                                <i class="fa fa-trash"></i>
+                                <form action="{{ route('admin.students.destroy', $student) }}" method="post" id="form-delete-student-{{$student->id}}" class="d-none">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </a>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Prénom</th>
+                        <th>Genre</th>
+                        <th>Date et lieu de naissance</th>
+                        <th>Actions</th>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
-    </section>
-    @endsection
-    
-    @section('plugin-js')
+        <!-- /.box-body -->
+    </div>
+</section>
+@endsection
+
+@section('plugin-js')
     <script src="{{ asset('bower_components/datatables.net/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }}"></script>
-    @endsection
-    
-    @section('js')
-    <script>
-        $(function () {
-            $('#example1').DataTable({
-                pageLength: 50
-            })
-        })
-    </script>
-    @endsection
+@endsection
+
+@section('js')
+<script defer>
+    $(document).ready(function () {
+        $('#student-list-table').DataTable({
+            responsive: true,
+        });
+    });
+</script>
+@endsection

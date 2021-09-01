@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Note;
 use App\Models\Classe;
 use App\Models\Activity;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,16 +16,20 @@ class Student extends Model
     use HasFactory;
 
     public $fillable = [
-        'first_name', 'last_name', 'birthday', 'where_birthday', 'address', 'kind', 'father_name', 'father_phone', 'mother_first_name', 'mother_last_name', 'mother_phone', 'classe_id',
-        'total', 'boy_count', 'girl_count',
+        'first_name', 'last_name', 'birthday', 'where_birthday', 'address', 'kind', 
+        'father_name', 'father_phone', 'father_nin','father_type',
+        'mother_first_name', 'mother_last_name', 'mother_phone', 'mother_nin','mother_type',
+        'classe_id', 'country_id'
     ];
 
     public $casts = [
         'birthday' => 'date',
         'kind' => 'boolean',
+        'father_type' => 'boolean',
+        'mother_type' => 'boolean'
     ];
 
-    protected $with = ['notes'];
+    protected $with = ['notes', 'country'];
 
     public CONST DIVIDEUR = 10;
 
@@ -87,6 +92,25 @@ class Student extends Model
     }
 
     /**
+     * getter for birthday attribute
+     *
+     * @param string $birthday
+     * @return string
+     */
+    public function getBirthdayAttribute($birthday) : string
+    {
+        return Carbon::createFromDate($birthday)->locale('fr')->calendar();
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function country() : BelongsTo
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    /**
      * @return BelongsTo
      */
     public function classe() : BelongsTo
@@ -100,6 +124,11 @@ class Student extends Model
     public function notes() : HasMany
     {
         return $this->hasMany(Note::class);
+    }
+
+    public function misinglists() : HasMany
+    {
+        return $this->hasMany(Missinglist::class);
     }
 
     public function totalGen() : array

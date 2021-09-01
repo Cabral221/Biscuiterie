@@ -24,7 +24,7 @@
                         @csrf
                         <div class="form-group @error('program') has-error @enderror">
                             <label>Choisir un programme</label>
-                            <select name="program" class="form-control">
+                            <select name="program" class="form-control" required>
                                 <option value="">Selectionner un programme</option>
                                 @foreach ($programs as $program)
                                 <option value="{{ $program->id }}">{{ $program->libele }}</option>
@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group @error('libele') has-error @enderror">
                             <label>Nom du domaine</label>
-                            <input type="text" name="libele" class="form-control" value="{{ old('libele') }}">
+                            <input type="text" name="libele" class="form-control" value="{{ old('libele') }}" required>
                             @error('libele')
                             <span class="help-block">{{ $message }}</span>
                             @enderror
@@ -58,13 +58,13 @@
                         @csrf
                         <div class="form-group @error('sub_domain_domain') has-error @enderror">
                             <label>Choisir un domaine parent</label>
-                            <select name="sub_domain_domain" class="form-control">
+                            <select name="sub_domain_domain" class="form-control" required>
                                 <option value="">Selectionner un domaine parent</option>
                                 @foreach ($programs as $program)
-                                <option value="" disabled>{{ $program->libele }}</option>
-                                @foreach ($program->domains as $domain)
-                                <option value="{{ $domain->id }}"> - {{ $domain->libele }}</option>
-                                @endforeach
+                                    <option value="" disabled>{{ $program->libele }}</option>
+                                    @foreach ($program->domains as $domain)
+                                        <option value="{{ $domain->id }}"> - {{ $domain->libele }}</option>
+                                    @endforeach
                                 @endforeach
                             </select>
                             @error('sub_domain_domain')
@@ -73,7 +73,7 @@
                         </div>
                         <div class="form-group @error('sub_domain_libele') has-error @enderror">
                             <label>Sous domaine</label>
-                            <input type="text" name="sub_domain_libele" class="form-control">
+                            <input type="text" name="sub_domain_libele" class="form-control" required>
                             @error('sub_domain_libele')
                             <span class="help-block">{{ $message }}</span>
                             @enderror
@@ -124,7 +124,7 @@
 
                                     <span>
                                         @if (!$domain->haveSubDomain())
-                                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-domain-add-activity-{{$domain->id}}"><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-xs btn-primary" title="Ajouter" data-toggle="modal" data-target="#modal-domain-add-activity-{{$domain->id}}"><i class="fa fa-plus"></i></button>
                                             <div class="modal modal-xl fade" id="modal-domain-add-activity-{{$domain->id}}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -147,24 +147,24 @@
                                                                 
                                                                 @csrf
                                                                 @method('POST')
-                                                                <input type="text" name="activitable_type" value="{{ get_class($domain) }}" class="d-none">
-                                                                <input type="text" name="activitable_id" value="{{ $domain->id }}" class="d-none">
+                                                                <input type="text" name="activitable_type" value="{{ get_class($domain) }}" class="d-none" required>
+                                                                <input type="text" name="activitable_id" value="{{ $domain->id }}" class="d-none" required>
                                                                 <div class="form-group">
                                                                     <label>Domaine</label>
-                                                                    <select name="activitable_id" class="form-control" disabled="disabled">
+                                                                    <select name="activitable_id" class="form-control" disabled="disabled" required>
                                                                         <option selected>{{ $domain->libele }}</option>
                                                                     </select>
                                                                 </div>
                                                                 <div class="form-group @error('libele') has-error @enderror">
                                                                     <label>Libelé de la matière</label>
-                                                                    <input type="text" name="libele" class="form-control">
+                                                                    <input type="text" name="libele" class="form-control" required>
                                                                     @error('libele')
                                                                         <span class="help-block">{{$message}}</span>
                                                                     @enderror
                                                                 </div>
                                                                 <div class="form-group @error('dividente') has-error @enderror">
                                                                     <label>Dividente</label>
-                                                                    <input type="number" name="dividente" class="form-control">
+                                                                    <input type="number" name="dividente" class="form-control" required>
                                                                     @error('libele')
                                                                         <span class="help-block">{{$message}}</span>
                                                                     @enderror
@@ -181,7 +181,7 @@
                                             </div>
                                         @endif
     
-                                        <a href="#" class="btn btn-danger btn-xs" onclick="event.preventDefault();if(confirm('Etes vous sur de vouloir supprimer ce domaine ?')){document.getElementById('delete-domain-{{$domain->id}}').submit();}"><i class="fa fa-trash"></i></a>
+                                        <a href="#" class="btn btn-danger btn-xs" title="Supprimer" onclick="event.preventDefault();if(confirm('Etes vous sur de vouloir supprimer ce domaine ?')){document.getElementById('delete-domain-{{$domain->id}}').submit();}"><i class="fa fa-trash"></i></a>
                                         <form action="{{ route('admin.domains.destroy', $domain->id) }}" method="POST" id="delete-domain-{{$domain->id}}" class="d-none">
                                             @csrf
                                             @method('DELETE')
@@ -197,7 +197,7 @@
                                             @if ($subdomain->activities->count() > 0)
                                                 @foreach ($subdomain->activities as $activity)
                                                     <div class="ml-3 bg-white p-2">
-                                                    <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Étes vous sùr de vouloir supprimer cette matière ?')){document.getElementById('form-delete-activity-{{$activity->id}}').submit();}"><i class="fa fa-trash"></i></a> - ( / {{ $activity->dividente }} ) {{ $activity->libele }}
+                                                    <a href="#" class="btn btn-xs btn-danger" title="Supprimer" onclick="event.preventDefault();if(confirm('Étes vous sùr de vouloir supprimer cette matière ?')){document.getElementById('form-delete-activity-{{$activity->id}}').submit();}"><i class="fa fa-trash"></i></a> - ( / {{ $activity->dividente }} ) {{ $activity->libele }}
                                                     <form action="{{ route('admin.activities.destroy', $activity->id) }}" method="post" id="form-delete-activity-{{$activity->id}}" class="d-none">
                                                         @csrf
                                                         @method('DELETE')
@@ -208,7 +208,7 @@
                                         </div>
                                         
                                         <div>
-                                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-subdomain-add-activity-{{$subdomain->id}}"><i class="fa fa-plus"></i></button>
+                                            <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" title="Ajouter" data-target="#modal-subdomain-add-activity-{{$subdomain->id}}"><i class="fa fa-plus"></i></button>
                                             <div class="modal modal-xl fade" id="modal-subdomain-add-activity-{{$subdomain->id}}">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
@@ -247,14 +247,14 @@
                                                                 </div>
                                                                 <div class="form-group @error('libele') has-error @enderror">
                                                                     <label>Libelé de la matière</label>
-                                                                    <input type="text" name="libele" class="form-control">
+                                                                    <input type="text" name="libele" class="form-control" required>
                                                                     @error('libele')
                                                                         <span class="help-block">{{$message}}</span>
                                                                     @enderror
                                                                 </div>
                                                                 <div class="form-group @error('dividente') has-error @enderror">
                                                                     <label>Dividente</label>
-                                                                    <input type="number" name="dividente" class="form-control">
+                                                                    <input type="number" name="dividente" class="form-control" required>
                                                                     @error('libele')
                                                                         <span class="help-block">{{$message}}</span>
                                                                     @enderror
@@ -270,7 +270,7 @@
                                                 </div>
                                             </div>
     
-                                            <a href="#" class="btn btn-xs btn-danger" onclick="event.preventDefault();if(confirm('Étes vous sur de vouloir supprimer ce sous domaine ?')){document.getElementById('delete-subdomain-{{$subdomain->id}}').submit();}"><i class="fa fa-trash"></i></a>
+                                            <a href="#" class="btn btn-xs btn-danger" title="Supprimer" onclick="event.preventDefault();if(confirm('Étes vous sur de vouloir supprimer ce sous domaine ?')){document.getElementById('delete-subdomain-{{$subdomain->id}}').submit();}"><i class="fa fa-trash"></i></a>
                                             <form action="{{ route('admin.subdomains.destroy', $subdomain->id) }}" method="POST" id="delete-subdomain-{{$subdomain->id}}" class="d-none">
                                                 @csrf
                                                 @method('DELETE')

@@ -24,40 +24,25 @@ class ProfileController extends Controller
 
     public function update(Request $request) : RedirectResponse
     {
-        $this->validate($request, [
-            'full_name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255'],
-            'phone' => ['required', 'numeric']
-        ]);
-
-        $errorsMessages = [];
-
         /** @var User */
         $authUser = auth()->user();
-
-        // Validate unique email whitout self
-        $uniqueEmail = User::where('email', $request->email)
-            ->Where('id', '!=', $authUser->id)
-            ->first();
-        if ($uniqueEmail !== null) {
-            $errorsMessages = array_merge($errorsMessages, ['email' => 'Cette adresse email est déja utilisée']);
-        }
-        // Validate unique phone whitout self
-        $uniquePhone = User::where('phone', $request->phone)
-            ->Where('id', '!=', $authUser->id)
-            ->first();
-        if ($uniquePhone !== null) {
-            $errorsMessages = array_merge($errorsMessages, ['phone' => 'Ce numéro de téléphone est déja utilisé']);
-        }
-
-        if (!empty($errorsMessages)) {
-            return redirect()->back()->withErrors($errorsMessages);
-        }
+        // dd($authUser->getAttributes());
+        $this->validate($request, [
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'kind' => ['required', 'boolean'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,id,'.$authUser->id],
+            'phone' => ['required', 'numeric', 'unique:users,id,'.$authUser->id],
+            'matricule' => ['required', 'string', 'min:3', 'max:10', 'unique:users,id,'.$authUser->id],
+        ]);
 
         $authUser->update([
-            'full_name' => $request->full_name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'kind' => (bool) $request->kind,
             'email' => $request->email,
             'phone' => $request->phone,
+            'matricule' => $request->matricule,
         ]);
 
         session()->flash('success', __('Profile successfully updated.'));

@@ -25,6 +25,7 @@ class StudentRequest extends FormRequest
     {
         return [
             'classe_id' => ['required','numeric'],
+            'country_id' => ['required','numeric'],
             'first_name' => ['required','string','min:2'],
             'last_name' => ['required','string','min:2'],
             'birthday' => ['required','date'],
@@ -32,10 +33,12 @@ class StudentRequest extends FormRequest
             'kind' => ['required', 'boolean'],
             'address' => ['required','string','min:2'],
             'father_name' => ['string','min:2'],
-            'father_phone' => ['numeric'],
+            'father_phone' => ['numeric','unique:students'],
+            'father_nin' => ['required', 'unique:students'],
             'mother_first_name' => ['string','min:2'],
             'mother_last_name' => ['string','min:2'],
-            'mother_phone' => ['numeric'],
+            'mother_phone' => ['numeric','unique:students'],
+            'mother_nin' => ['required', 'unique:students']
         ];
     }
 }

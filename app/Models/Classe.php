@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Niveau;
+use App\Models\Missing;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -14,7 +15,14 @@ class Classe extends Model
 {
     use HasFactory;
 
-    public $fillable = ['libele'];
+    public $fillable = ['libele', 'niveau_id', 'user_id'];
+
+    public static function booted() {
+        static::created(function($classe){
+            $userHistory = History_user::where('original_id', $classe->user->id)->first();
+            $userHistory->update(['classe' => $classe->libele]);
+        });
+    }
 
     public function niveau() : BelongsTo
     {
@@ -29,6 +37,11 @@ class Classe extends Model
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function missings() : HasMany
+    {
+        return $this->hasMany(Missing::class);
     }
 
     public function getAllMoy() : array 

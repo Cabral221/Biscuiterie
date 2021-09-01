@@ -2,7 +2,7 @@
 @extends('layouts.app', ['titlePage' => 'Notes des éléves'])
 
 @section('plugin-css')
-<link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 @endsection
 
 @section('content')
@@ -52,7 +52,7 @@
             </div>
         </div>
         <div class="box-body">
-            <table id="example1" class="table table-hover">
+            <table id="note-list-table" class="table table-hover" data-page-length='100'>
                 <thead>
                     <tr>
                         <th>Nom</th>
@@ -81,7 +81,7 @@
                         @endforeach
                         <td>
                             {{-- Gérer --}}
-                            <a href="{{ route('master.notes.show', $student) }}" class="btn btn-xs btn-warning" aria-label="Modifier"><i class="fa fa-edit"></i> Gérer</a>
+                            <a href="{{ route('master.notes.show', $student) }}" class="btn btn-xs btn-warning" title="Modifier" aria-label="Modifier"><i class="fa fa-edit"></i> Gérer</a>
                         </td>
                     </tr>
                     @endforeach
@@ -112,11 +112,11 @@
 @endsection
 
 @section('js')
-<script>
-    $(function () {
-        $('#example1').DataTable({
-            pageLength: 50
-        })
-    })
+<script defer>
+    $(document).ready(function () {
+        $('#note-list-table').DataTable({
+            responsive: true, 
+        });
+    });
 </script>
 @endsection
