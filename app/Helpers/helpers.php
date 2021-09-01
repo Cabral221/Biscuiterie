@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\User;
 use App\Models\Niveau;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Route as Router;
 use Illuminate\Database\Eloquent\Collection;
 
 if (!function_exists('all_niveaux')) {
@@ -62,7 +65,7 @@ if (! function_exists('activeMenuOpen')) {
     /**
      * Get the active menu class.
      *
-     * @param int    $niveau_id
+     * @param string $prefix
      * @param string $activeClass
      * @param string $inactiveClass
      *
@@ -70,7 +73,10 @@ if (! function_exists('activeMenuOpen')) {
      */
     function activeMenuOpen(string $prefix, $activeClass = 'active', $inactiveClass = '') : String
     {
-        if (Route::current()->action['prefix'] == $prefix) {
+        /** @var Router */
+        $current = Route::current();
+
+        if ($current->action['prefix'] == $prefix) {
             return $activeClass;
         }
         return $inactiveClass;
@@ -82,11 +88,14 @@ if (! function_exists('myClasse')) {
     /**
      * Get classe of the current master logging
      *
-     * @return String
+     * @return String|null
      */
-    function myClasse() : String
+    function myClasse()
     {
-        $classe = auth()->user()->classe;
+        /** @var User */
+        $user = auth()->user();
+        $classe = $user->classe;
+
         return $classe->libele ?? null;
     }
 }

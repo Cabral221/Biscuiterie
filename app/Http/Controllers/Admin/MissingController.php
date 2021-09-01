@@ -7,17 +7,21 @@ use App\Models\Missing;
 use App\Models\Missinglist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 class MissingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * getDataForApi
      *
-     * @return \Illuminate\Http\Response
+     * @param Classe $classe
+     * @return View
      */
-    public function index(Classe $classe)
+    public function index(Classe $classe) : View
     {
         $missings = $classe->missings()->orderBy('created_at', 'DESC')->get();
         
@@ -27,16 +31,25 @@ class MissingController extends Controller
     /**
      * Show the list of one daye missing record.
      *
-     * @return \Illuminate\Http\Response
+     * @param Classe $classe
+     * @param Missing $missing
+     * @return View
      */
-    public function list(Classe $classe, Missing $missing)
+    public function list(Classe $classe, Missing $missing) : View
     {
         $missings = $classe->missings()->orderBy('created_at', 'DESC')->get();
         
         return view('admin.classe.missing.show', compact('classe', 'missing', 'missings'));
     }
 
-    public function mark(Classe $classe, Request $request)
+    /**
+     * Mark one student has missing or not
+     *
+     * @param Classe $classe
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function mark(Classe $classe, Request $request) : JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'missing_list_item' => ['required', 'numeric'],
@@ -58,7 +71,7 @@ class MissingController extends Controller
         ], 200);
     }
 
-    public function delete(Classe $classe, Request $request)
+    public function delete(Classe $classe, Request $request) : RedirectResponse
     {
         $this->validate($request, [
             'list_id' => ['required', 'numeric'],
