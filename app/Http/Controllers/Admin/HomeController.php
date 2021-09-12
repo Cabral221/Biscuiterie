@@ -32,10 +32,17 @@ class HomeController extends Controller
         $niveaux = Niveau::with('classes.students')->get();
 
         $totalStudents = $this->getTotalStudents($niveaux);
-        $totalBoys = $this->getTotalBoys($niveaux);
-        $totalBoysPercent = round($totalBoys * 100 / $totalStudents);
-        $totalGirls = $this->getTotalGirls($niveaux);
-        $totalGirlsPercent = round($totalGirls * 100 / $totalStudents);
+        if ($totalStudents > 0){
+            $totalBoys = $this->getTotalBoys($niveaux);
+            $totalBoysPercent = round($totalBoys * 100 / $totalStudents);
+            $totalGirls = $this->getTotalGirls($niveaux);
+            $totalGirlsPercent = round($totalGirls * 100 / $totalStudents);
+        } else {
+            $totalBoys = 0;
+            $totalBoysPercent = 0;
+            $totalGirls = 0;
+            $totalGirlsPercent = 0;
+        }
 
         return view('admin.home', compact(
             'niveaux', 'bgColors', 
