@@ -58,7 +58,7 @@
                                 <input type="hidden" name="program_id" value="{{ $program->id }}" required>
                                 <div class="form-group">
                                     <label for="niveau_libele_{{$program->id}}">Ajouter un niveau</label>
-                                    <input type="text" class="form-control" name="libele" id="niveau_libele_{{$program->id}}" placeholder="Libellé du niveau" required autofocus>
+                                    <input type="text" class="form-control" name="libele" id="niveau_libele_{{$program->id}}" placeholder="Libelé du niveau" required autofocus>
                                 </div>
                                 <div class="position-relative text-center niveau_info"></div>
                             </form>
@@ -126,8 +126,8 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="classe_libele_{{$program->id}}">Libellé de la classe</label>
-                                    <input type="text" class="form-control" name="libele" id="classe_libele_{{$program->id}}" placeholder="Libellé du niveau" required autofocus>
+                                    <label for="classe_libele_{{$program->id}}">Libelé de la classe</label>
+                                    <input type="text" class="form-control" name="libele" id="classe_libele_{{$program->id}}" placeholder="Libelé du niveau" required autofocus>
                                 </div>
                                 <div class="form-group">
                                     <button type="submit" class="btn btn-xs btn-success">Créer la classe</button>
