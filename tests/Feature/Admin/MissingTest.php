@@ -11,7 +11,10 @@ class MissingTest extends TestCase
 {
     public function getClasse() : Classe 
     {
-        return Classe::orderBy('created_at', 'DESC')->first();
+        $user = User::factory()->create();
+        return Classe::factory()->create([
+            'user_id' => $user->id
+        ]);
     }
 
     public function testBlockedMissingPageIfNotAuthenticated() {
@@ -39,8 +42,9 @@ class MissingTest extends TestCase
 
     public function testMarkMissing() {
         // Etant donné que j'un list du jour
-        $master = User::first();
-            $this->loginAsMaster($master);
+            $master = $this->getMasterInitialData();
+
+            $this->loginAsMaster($master->fresh());
             $this->get('/master/missing/create');
             // Quand je marque un eleve abscent
             $ListDay = $master->fresh()->classe->missings()->first();
@@ -73,7 +77,8 @@ class MissingTest extends TestCase
 
     public function testDeleteMissingListOnAdmin() {
         // Etant donné que
-        $master = User::first();
+        $master = $this->getMasterInitialData();
+        
         $classe = $master->fresh()->classe;
             $this->loginAsMaster($master);
             $this->get('/master/missing/create');

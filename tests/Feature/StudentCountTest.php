@@ -25,7 +25,9 @@ class StudentCountTest extends TestCase
         $this->loginAsAdmin(Admin::factory()->create());
 
         // Quand il enregistre un eleve
-        $student = Student::factory()->make();
+        $master = $this->getMasterInitialData();
+
+        $student = Student::factory()->make(['classe_id' => $master->classe->id]);
         $nbStudent = $student->classe->students->count();
         $response = $this->post("/admin/students", $student->getAttributes());
 
@@ -47,8 +49,9 @@ class StudentCountTest extends TestCase
         $this->loginAsAdmin(Admin::factory()->create());
 
         // Quand il supprime un eleve
+        $master = $this->getMasterInitialData();
         /** @var Student     */
-        $student = Student::first();
+        $student = $master->classe->students()->first();
         /** @var Classe */
         $classe = $student->classe;
         $nbStudent = $classe->students->count();
@@ -73,9 +76,10 @@ class StudentCountTest extends TestCase
     {
         // Etant donné qu'un admin est connecté
         $this->loginAsAdmin(Admin::factory()->create());
+        $master = $this->getMasterInitialData();
 
         // Quand il enregistre un eleve garçon
-        $student = Student::factory()->make(['kind' => true]);
+        $student = Student::factory()->make(['kind' => true, 'classe_id' => $master->classe->id]);
         $nbStudent = $student->classe->students->count();
         $boyCount = $student->classe->boy_count;
         $response = $this->post("/admin/students", $student->getAttributes());
@@ -99,6 +103,8 @@ class StudentCountTest extends TestCase
         $this->loginAsAdmin(Admin::factory()->create());
 
         // Quand il supprime un eleve garçon
+        $master = $this->getMasterInitialData();
+        $master->classe->students()->create(Student::factory()->make(['kind' => true])->toArray());
         /** @var Student */
         $student = Student::where('kind', true)->first();
         /** @var Classe */
@@ -131,7 +137,8 @@ class StudentCountTest extends TestCase
         $this->loginAsAdmin(Admin::factory()->create());
 
         // Quand il enregistre un eleve garçon
-        $student = Student::factory()->make(['kind' => false]);
+        $master = $this->getMasterInitialData();
+        $student = Student::factory()->make(['kind' => false, 'classe_id' => $master->classe->id]);
         $nbStudent = $student->classe->students->count();
         $girlCount = $student->classe->girl_count;
         $response = $this->post("/admin/students", $student->getAttributes());
@@ -155,6 +162,8 @@ class StudentCountTest extends TestCase
         $this->loginAsAdmin(Admin::factory()->create());
 
         // Quand il supprime un eleve fille
+        $master = $this->getMasterInitialData();
+        $master->classe->students()->create(Student::factory()->make(['kind' => false])->toArray());
         /** @var Student */
         $student = Student::where('kind', false)->first();
         /** @var Classe */

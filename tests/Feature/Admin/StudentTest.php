@@ -5,8 +5,10 @@ namespace Tests\Feature\Admin;
 use Carbon\Carbon;
 use Tests\TestCase;
 use App\Models\Admin;
+use App\Models\Classe;
 use App\Models\Country;
 use App\Models\Student;
+use App\Models\User;
 
 class StudentTest extends TestCase
 {
@@ -22,6 +24,8 @@ class StudentTest extends TestCase
             'name' => 'X Country',
         ]);
 
+        $master = User::factory()->create();
+        $classe = Classe::factory()->create(['niveau_id' => 1, 'user_id' => $master->id]);
         $student = Student::factory()->make();
         $response = $this->post('/admin/students', [
             'first_name' => $student->first_name,
@@ -37,7 +41,7 @@ class StudentTest extends TestCase
             'mother_last_name' => $student->mother_last_name,
             'mother_nin' => 2251199700766,
             'mother_phone' => $student->mother_phone,
-            'classe_id' => $student->classe_id,
+            'classe_id' => $classe->id,
             'country_id' => $country->id,
         ]);
         $student = Student::orderBy('created_at', 'DESC')->first();
@@ -56,10 +60,14 @@ class StudentTest extends TestCase
 
         // Quand
         $country = Country::factory()->create(['code' => 'XX', 'name' => 'X contry']);
+        $master = User::factory()->create();
+        $classe = Classe::factory()->create(['niveau_id' => 1, 'user_id' => $master->id]);
+
         $student = Student::factory()->create([
             'last_name' => 'Diop',
             'where_birthday' => 'Saint Louis',
             'kind' => true,
+            'classe_id' => $classe->id
         ]);
         $response = $this->put("/admin/students/$student->id", [
             'last_name' => 'Ndiaye',
