@@ -13,7 +13,7 @@ class NoteTest extends TestCase
     {
         // Etant donne que l'utilisateur est connecte
         /** @var User */
-        $user = User::first();
+        $user = $this->getMasterInitialData();
         $this->loginAsMaster($user);
 
         // si on soumet le formulaire

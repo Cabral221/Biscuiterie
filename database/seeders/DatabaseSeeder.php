@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Admin;
+use App\Models\Niveau;
 use App\Models\Program;
 use Illuminate\Database\Seeder;
 
@@ -164,7 +165,7 @@ class DatabaseSeeder extends Seeder
         // $profs[] = User::factory(1)->create([
         //     'email' => 'user@user.com',
         // ]);
-        // $x = 0;
+        $x = 0;
 
         foreach($programs as $p => $niveaux){
             $program = Program::create([
@@ -189,25 +190,25 @@ class DatabaseSeeder extends Seeder
                 }
             }
 
-            // foreach($niveaux as $k => $niveau){
-            //     $n = Niveau::create([
-            //         'libele' => $niveau,
-            //         'program_id' => $program->id,
-            //     ]);
+            foreach($niveaux as $k => $niveau){
+                $n = Niveau::create([
+                    'libele' => $niveau,
+                    'program_id' => $program->id,
+                ]);
 
-            //     $cls = $n->classes()->createMany([
-            //         ['libele' => $n->libele . ' A', 'user_id' => ++$x],
-            //         ['libele' => $n->libele . ' B', 'user_id' => ++$x],
-            //     ]);
-            //     foreach ($cls as  $cl) {
-            //         $students = Student::factory(20)->make();
-            //         foreach ($students as $student) {   
-            //             // $cl->students()->create($student);
-            //             $student->classe_id = $cl->id;
-            //             Student::create($student->getAttributes());
-            //         }
-            //     }
-            // }
+                // $cls = $n->classes()->createMany([
+                //     ['libele' => $n->libele . ' A', 'user_id' => ++$x],
+                //     ['libele' => $n->libele . ' B', 'user_id' => ++$x],
+                // ]);
+                // foreach ($cls as  $cl) {
+                //     $students = Student::factory(20)->make();
+                //     foreach ($students as $student) {   
+                //         // $cl->students()->create($student);
+                //         $student->classe_id = $cl->id;
+                //         Student::create($student->getAttributes());
+                //     }
+                // }
+            }
         }
 
         // Seed des notes fictives

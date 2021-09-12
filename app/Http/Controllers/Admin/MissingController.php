@@ -7,27 +7,23 @@ use App\Models\Missing;
 use App\Models\Missinglist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Route;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 class MissingController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * getDataForApi
      *
-     * @return \Illuminate\Http\Response
+     * @param Classe $classe
+     * @return View
      */
-    public function index(Classe $classe)
+    public function index(Classe $classe) : View
     {
-        // $url = url()->current();
-        // dd(strpos($url, "admin/classes/12") !== false, Route::current()->action['prefix'], url()->current());
-        // dd(Route::current()->action['prefix'], url()->current());
-
         $missings = $classe->missings()->orderBy('created_at', 'DESC')->get();
-        foreach ($missings as $missing) {
-            $missing->missingCount = $missing->missinglists()->where('missing', true)->count();
-        }
         
         return view('admin.classe.missing.index', compact('classe', 'missings'));
     }
@@ -35,22 +31,25 @@ class MissingController extends Controller
     /**
      * Show the list of one daye missing record.
      *
-     * @return \Illuminate\Http\Response
+     * @param Classe $classe
+     * @param Missing $missing
+     * @return View
      */
-    public function list(Classe $classe, Missing $missing)
+    public function list(Classe $classe, Missing $missing) : View
     {
-        // dd($classe, $missing);
-
         $missings = $classe->missings()->orderBy('created_at', 'DESC')->get();
-        foreach ($missings as $missingrec) {
-            $missingrec->missingCount = $missingrec->missinglists()->where('missing', true)->count();
-        }
-
-        // return view('enseignant.missing.show', compact('missing', 'missings'));
+        
         return view('admin.classe.missing.show', compact('classe', 'missing', 'missings'));
     }
 
-    public function mark(Classe $classe, Request $request)
+    /**
+     * Mark one student has missing or not
+     *
+     * @param Classe $classe
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function mark(Classe $classe, Request $request) : JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'missing_list_item' => ['required', 'numeric'],
@@ -70,6 +69,19 @@ class MissingController extends Controller
             'missingState' => $missingItem->missing,
             // 'missingStudent' => $missingItem->student_id
         ], 200);
+    }
+
+    public function delete(Classe $classe, Request $request) : RedirectResponse
+    {
+        $this->validate($request, [
+            'list_id' => ['required', 'numeric'],
+        ]);
+
+        $missing = Missing::find($request->list_id);
+        $missing->delete();
+
+        session()->flash('success', "La liste d'absence n°: $missing->id à bien été supprimée");
+        return redirect()->route('admin.classes.missings.index', [$classe]);
     }
 
 }

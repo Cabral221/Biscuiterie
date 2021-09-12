@@ -21,7 +21,9 @@
         @foreach ($niveau->classes as $classe)
         <li class="itemMenuList  
             @if(url()->current() == route('admin.classes.show', $classe->id) 
-            || strpos(url()->current(), "admin/classes/$classe->id/missing")) 
+            || strpos(url()->current(), "admin/classes/$classe->id/missing")
+            || strpos(url()->current(), "admin/classes/$classe->id/notes")
+            ) 
                 active 
             @endif">
             <a href="{{ route('admin.classes.show', $classe) }}"><i class="fa fa-circle-o"></i> {{ $classe->libele }}</a>

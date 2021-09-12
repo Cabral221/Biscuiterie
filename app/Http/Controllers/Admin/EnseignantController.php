@@ -41,7 +41,6 @@ class EnseignantController extends Controller
      */
     public function store(Request $request) : RedirectResponse
     {
-        // dd($request->qualification);
         $this->validate($request, [
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
@@ -60,7 +59,7 @@ class EnseignantController extends Controller
             'matricule' => $request->matricule
         ])->qualifications()->sync($request->qualification);
 
-        session()->flash('success', 'Les modifications ont bien été prises en compte.');
+        session()->flash('success', 'L\'enseignent a bien été ajouté.');
         return redirect()->route('admin.enseignants.index');
     }
 

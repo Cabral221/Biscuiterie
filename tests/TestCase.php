@@ -4,6 +4,8 @@ namespace Tests;
 
 use App\Models\User;
 use App\Models\Admin;
+use App\Models\Niveau;
+use App\Models\Student;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -55,5 +57,17 @@ abstract class TestCase extends BaseTestCase
     protected function logout() : void
     {
         auth()->logout();
+    }
+
+    public function getMasterInitialData()
+    {
+        $master = User::factory()->create();
+        $niveau = Niveau::factory()->create();
+        $classe = $master->classe()->create([
+            'libele' => 'classe test',
+            'niveau_id' => $niveau->id
+        ]);
+       $classe->students()->create(Student::factory()->make()->toArray());
+       return $master->fresh();
     }
 }

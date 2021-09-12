@@ -11,7 +11,10 @@ class MissingTest extends TestCase
 {
     public function getClasse() : Classe 
     {
-        return Classe::orderBy('created_at', 'DESC')->first();
+        $user = User::factory()->create();
+        return Classe::factory()->create([
+            'user_id' => $user->id
+        ]);
     }
 
     public function testBlockedMissingPageIfNotAuthenticated() {
@@ -39,8 +42,9 @@ class MissingTest extends TestCase
 
     public function testMarkMissing() {
         // Etant donné que j'un list du jour
-        $master = User::first();
-            $this->loginAsMaster($master);
+            $master = $this->getMasterInitialData();
+
+            $this->loginAsMaster($master->fresh());
             $this->get('/master/missing/create');
             // Quand je marque un eleve abscent
             $ListDay = $master->fresh()->classe->missings()->first();
@@ -49,7 +53,6 @@ class MissingTest extends TestCase
                 'missing_list_item' => $studentMark->id,
             ]);
             // Alors il doit etre marqué en base de données
-            // dd($response->getContent());
             $response->assertSuccessful();
 
             $this->assertDatabaseHas('missinglists', [
@@ -70,6 +73,32 @@ class MissingTest extends TestCase
             'id' => $missingStudentItem->id,
             'missing' => false,
         ]);
+    }
+
+    public function testDeleteMissingListOnAdmin() {
+        // Etant donné que
+        $master = $this->getMasterInitialData();
+        
+        $classe = $master->fresh()->classe;
+            $this->loginAsMaster($master);
+            $this->get('/master/missing/create');
+            // Quand je marque un eleve abscent
+            $ListDay = $master->fresh()->classe->missings()->first();
+            
+
+        // Quand je mark un eleve en tant que admin
+        $this->loginAsAdmin(Admin::first());
+        $response = $this->delete("admin/classes/$classe->id/missing/delete", [
+            'list_id' => $ListDay->id,
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect("/admin/classes/$classe->id/missing");
+        $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('missings',[
+            'id' => $ListDay->id,
+        ]);
+
     }
 
 }

@@ -62,4 +62,6 @@ class ClasseCrudTest extends TestCase
         ]);
     }
 
+    // Tester que l'admin puis modifier une classe
+
 }

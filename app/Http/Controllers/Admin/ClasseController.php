@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\RedirectResponse;
 
 class ClasseController extends Controller
 {
@@ -44,6 +44,7 @@ class ClasseController extends Controller
             return Response::json($validator->messages(), 400);
         }
 
+        /** @var User */
         $user = User::find($request->user_id);
         if($user->classe != null){
             return Response::json(['user_id' => 'L\'enseignant(e) posséde déjà une classe'], 400);
@@ -58,17 +59,39 @@ class ClasseController extends Controller
         return Response::json($classe->getAttributes(), 200);
     }
 
-    public function update(Request $request , $id){
-        // $validator = Validator::make($request->all(), [
-        //     'libele' => ['required', 'string', 'min:2', 'max:10'],
-        // ]);
+    /**
+     * update Classe model
+     *
+     * @param Request $request
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function update(Request $request , $id) : RedirectResponse
+    {
+        $validator = Validator::make($request->all(), [
+            'libele' => ['required', 'string', 'min:2', 'max:10'],
+        ]);
+
+        if($validator->fails()) {
+            session()->flash('danger', $validator->messages()->first());
+            return back();
+        }
+
         $update_class = Classe::where('id',$id)->first();
         $update_class->libele = $request->libele;
         $update_class->save();
+
         return back()->with('success','Classe modifier avec success');
     }
 
-    public function destroy($id){
+    /**
+     * delete classe 
+     *
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function destroy($id) : RedirectResponse
+    {
         Classe::find($id)->delete();
         return back()->with('success','Classe supprimer avec success');
     }

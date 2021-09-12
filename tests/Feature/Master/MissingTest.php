@@ -2,11 +2,12 @@
 
 namespace Test\Feature\Master;
 
-use App\Models\User;
 use Tests\TestCase;
+use App\Models\User;
 
 class MissingTest extends TestCase
 {
+
     public function testBlockedMissingPage() {
         // Etant donné que
         // Je ne suis pas connecté en tant que enseignant
@@ -21,7 +22,8 @@ class MissingTest extends TestCase
     public function testAccessMissingPage() {
         // Etant donné que
         // Je suis connecté en tant que enseignant
-        $this->loginAsMaster(User::first());
+        $master = $this->getMasterInitialData();
+        $this->loginAsMaster($master);
         // quand je vais sur /master/missing
         $response = $this->get('/master/missing');
         // Alors je dois recevoir un 200
@@ -42,7 +44,8 @@ class MissingTest extends TestCase
 
     public function testGenerateMissingListOfDay() {
         // Etant donné que je sui connéte en tant que enseigant
-        $this->loginAsMaster(User::first());
+        $master = $this->getMasterInitialData();
+        $this->loginAsMaster($master);
         // quand je vais sur /master/missing/create
         $response = $this->get('/master/missing/create');
         // Alors je creer un liste journaler dans la base de données
@@ -52,21 +55,22 @@ class MissingTest extends TestCase
 
     public function testGenerateMissingListWillGenerateAllStudentOfThisList() {
         // Etant donné que je sui connéte en tant que enseigant
-        $user = User::first();
-        $this->loginAsMaster($user);
+        $master = $this->getMasterInitialData();
+        $this->loginAsMaster($master);
         // quand je cree la liste du jour
         $response = $this->get('/master/missing/create');
         $this->assertDatabaseCount('missings', 1);
         $response->assertSessionHas('success');
         // Alors je veux avoir la liste de ma classe
-        $studentCount = $user->classe->students->count();
+        $studentCount = $master->classe->students->count();
         $this->assertDatabaseCount('missinglists', $studentCount);
     }
 
     public function testNeverHaveTwoListOnOneDay() : void
     {
         // Etant donné que je sui connéte en tant que enseigant
-        $this->loginAsMaster(User::first());
+        $master = $this->getMasterInitialData();
+        $this->loginAsMaster($master);
         // quand je vais sur /master/missing/create
         $response1 = $this->get('/master/missing/create');
         $response1->assertSessionHas('success');
@@ -79,7 +83,7 @@ class MissingTest extends TestCase
 
     public function testMarkMissing() {
         // Etant donné que j'un list du jour
-        $master = User::first();
+        $master = $this->getMasterInitialData();
         $this->loginAsMaster($master);
         $this->get('/master/missing/create');
 
@@ -91,7 +95,6 @@ class MissingTest extends TestCase
         ]);
 
         // Alors il doit etre marqué en base de données
-        // dd($response->getContent());
         $response->assertSuccessful();
 
         $this->assertDatabaseHas('missinglists', [
@@ -100,4 +103,59 @@ class MissingTest extends TestCase
         ]);
     }
 
+    /** @test */
+    public function incrementMissingCount() : void
+    {
+        // Etant donné que j'un list du jour
+        $master = $this->getMasterInitialData();
+        $this->loginAsMaster($master);
+        $this->get('/master/missing/create');
+
+        // Quand je marque un eleve abscent
+        $ListDay = $master->fresh()->classe->missings()->first();
+        $studentMark = $ListDay->missinglists()->first();
+        $response = $this->json('POST','/master/missing/mark',[
+            'missing_list_item' => $studentMark->id,
+        ]);
+
+        // Alors il doit etre marqué en base de données
+        $response->assertSuccessful();
+        $this->assertEquals(1, $ListDay->fresh()->missing_count);
+        $this->assertDatabaseHas('missinglists', [
+            'id' => $studentMark->id,
+            'missing' => true,
+        ]);
+    }
+
+    /** @test */
+    public function uncrementMissingCount() : void
+    {
+        // Etant donné que j'un list du jour
+        $master = $this->getMasterInitialData();
+        $this->loginAsMaster($master);
+        $this->get('/master/missing/create');
+
+        // Quand je marque un eleve abscent
+        $ListDay = $master->fresh()->classe->missings()->first();
+        $studentMark = $ListDay->missinglists()->first();
+    
+        $response = $this->json('POST','/master/missing/mark',[
+            'missing_list_item' => $studentMark->id,
+        ]);
+
+        $response->assertSuccessful();
+        $this->assertEquals(1, $ListDay->fresh()->missing_count);
+
+        $response2 = $this->json('POST','/master/missing/mark',[
+            'missing_list_item' => $studentMark->id,
+        ]);
+
+        // Alors il doit etre marqué en base de données
+        $response2->assertSuccessful();
+        $this->assertEquals(0, $ListDay->fresh()->missing_count);
+        $this->assertDatabaseHas('missinglists', [
+            'id' => $studentMark->id,
+            'missing' => false,
+        ]);
+    }
 }

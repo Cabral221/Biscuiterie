@@ -6,7 +6,7 @@ use App\Models\Classe;
 use Tests\TestCase;
 use App\Models\User;
 
-class AuthenticateMasterTest extends TestCase
+class AuthenticateMasterAccessTest extends TestCase
 {
     
     /**

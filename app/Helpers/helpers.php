@@ -1,6 +1,9 @@
 <?php
 
+use App\Models\User;
 use App\Models\Niveau;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Routing\Route as Router;
 use Illuminate\Database\Eloquent\Collection;
 
 if (!function_exists('all_niveaux')) {
@@ -47,7 +50,10 @@ if (! function_exists('activeMenuClasseOpen')) {
         $currentUrl = url()->current();
         $classes =  Niveau::findOrFail($niveau_id)->classes;
         foreach ($classes as  $classe) {
-            if (route('admin.classes.show',$classe->id) === $currentUrl || strpos($currentUrl, "admin/classes/" . $classe->id. "/missing") !== false) {
+            if (route('admin.classes.show',$classe->id) === $currentUrl 
+                || strpos($currentUrl, "admin/classes/" . $classe->id. "/missing") !== false
+                || strpos($currentUrl, "admin/classes/" . $classe->id. "/notes") !== false) 
+            {
                 return $activeClass;
             }
         }
@@ -59,7 +65,7 @@ if (! function_exists('activeMenuOpen')) {
     /**
      * Get the active menu class.
      *
-     * @param int    $niveau_id
+     * @param string $prefix
      * @param string $activeClass
      * @param string $inactiveClass
      *
@@ -67,11 +73,30 @@ if (! function_exists('activeMenuOpen')) {
      */
     function activeMenuOpen(string $prefix, $activeClass = 'active', $inactiveClass = '') : String
     {
-        // dd(Route::current()->action['prefix']);
-        if (Route::current()->action['prefix'] == $prefix) {
+        /** @var Router */
+        $current = Route::current();
+
+        if ($current->action['prefix'] == $prefix) {
             return $activeClass;
         }
         return $inactiveClass;
+    }
+}
+
+if (! function_exists('myClasse')) {
+    
+    /**
+     * Get classe of the current master logging
+     *
+     * @return String|null
+     */
+    function myClasse()
+    {
+        /** @var User */
+        $user = auth()->user();
+        $classe = $user->classe;
+
+        return $classe->libele ?? null;
     }
 }
 
