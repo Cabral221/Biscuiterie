@@ -49,14 +49,16 @@ class DatabaseSeeder extends Seeder
         $matieres = [
             'CI-CP' => [
                 'Langues et communication' => [
-                    'Principe Alphabétique'         => 10,
-                    'Conscience phonétique'         => 10,
-                    'Dichiffache mots / non mots'   => 10,
-                    'Fluidité'                      => 10,
+                    'Écrituree'                     => 10,
+                    'Copie'                         => 5,
+                    'Auto Dictée'                   => 10,
                     'Production d\'Ecrits'          => 10,
-                    'T.S.Q'                         => 10,
-                    'Dictée'                        => 10,
-                    'Lecture Compréhension'         => 10,
+                    'Principe Alphabétique'         => 10,
+                    'Correspondance Grapho'         => 10,
+                    'Déchiffrage de mots'           => 10,
+                    'Vocabulaire'                   => 10,
+                    'Compréhension en Lecture'      => 10,
+                    'Fluidité'                      => 10,
                 ],
                 'Maths' => [
                     'Act. numériques'               => 10,
@@ -77,10 +79,10 @@ class DatabaseSeeder extends Seeder
                 ],
                 'EPSA' => [
                     'Arts Plastiques'               => 10,
-                    'Recit / Chant'                 => 10,
+                    'Education Religieuse'          => 10,
                 ],
                 'default' => [
-                    'Education Religieuse'          => 10,
+                    'Recit / Chant'                 => 10, 
                     'Arabe'                         => 10,
                 ],
             ],
@@ -92,7 +94,7 @@ class DatabaseSeeder extends Seeder
                     'Fluidité'                      => 10,
                     'Production d\'Ecrits'          => 10,
                     'T.S.Q'                         => 10,
-                    'Dictée'                        => 10,
+                    'Dictée'                        => 0,
                     'Lecture Compréhension'         => 10,
                 ],
                 'Maths' => [
@@ -114,47 +116,34 @@ class DatabaseSeeder extends Seeder
                 ],
                 'EPSA' => [
                     'Arts Plastiques'               => 10,
-                    'Recit / Chant'                 => 10, 
+                    'Education Religieuse'          => 10,
                 ],
                 'default' => [
-                    'Education Religieuse'          => 10,
+                    'Recit / Chant'                 => 10, 
                     'Arabe'                         => 10,
                 ],
             ],
             'CM1-CM2' => [
                 'Langues et communication' => [
-                    'Principe Alphabétique'         => 10,
-                    'Conscience phonétique'         => 10,
-                    'Dichiffache mots / non mots'   => 10,
-                    'Fluidité'                      => 10,
-                    'Production d\'Ecrits'          => 10,
-                    'T.S.Q'                         => 10,
-                    'Dictée'                        => 10,
-                    'Lecture Compréhension'         => 10,
+                    'Ressources'                    => 40,
+                    'Compétence'                    => 60,
                 ],
                 'Maths' => [
-                    'Act. numériques'               => 10,
-                    'Act. Géométriques'             => 10,
-                    'Act. de mesures'               => 10,
-                    'Résolution de Probléme'        => 10,
+                    'Ressources'                    => 40,
+                    'Compétence'                    => 60,
                 ],
-                'ESVS' => [
-                    'EDD' => [
-                        'IST'                       => 10,
-                        'Histoire'                  => 10,
-                        'Géographie'                => 10,
-                    ],
-                    'DD' => [
-                        'Vivre Ensemble'            => 10,
-                        'Vivre ds son milieu'       => 10,
-                    ],
+                'Découverte du monde' => [
+                   'Ressources'                     => 24,
+                    'Compétence'                    => 16,
                 ],
-                'EPSA' => [
+                'Education au developpelment durable' => [
+                    'Ressources'                     => 24,
+                    'Compétence'                    => 16,
+                ],
+                'Education artistique' => [
                     'Arts Plastiques'               => 10,
-                    'Recit / Chant'                 => 10,
                 ],
                 'default' => [
-                    'Education Religieuse'          => 10,
                     'Arabe'                         => 10,
                 ],
             ]
