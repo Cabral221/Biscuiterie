@@ -50,7 +50,8 @@
                         @foreach ($program->niveaux as $niveau)
                             <span class="badge badge-primary">{{ $niveau->libele }}</span>
                         @endforeach
-                        <button class="badge badge-success float-right niveau_toggle_form"><i class="fa fa-plus"></i></button>
+                        {{-- Button d'ajout d'un niveau d'etude --}}
+                        <button class="badge badge-success float-right niveau_toggle_form" title="Créer un niveau d'etude"><i class="fa fa-plus"></i></button>
                         <div class="mt-2 d-none form_add_niveau">
                             <form action="{{ route('admin.programs.niveaux.store') }}" method="post" class="form form_niveaux" style="width: 100%">
                                 @csrf
@@ -69,7 +70,7 @@
                         @foreach ($program->niveaux as $niveau)
                             @foreach ($niveau->classes as $classe)
                                 <div class="btn-group dropright" role="group">
-                                   
+
                                     <span type="button" class="badge badge-primary dropdown-toggle" data-toggle="dropdown">
                                     <a tabindex="0" class="text-white" role="button" data-toggle="popover" data-trigger="focus" title="" data-content="">{{ $classe->libele }}</a>
                                         <span class="caret"></span>
@@ -80,7 +81,7 @@
                                                 @csrf
                                                 {{ method_field('PUT') }}
                                                 <label for="edit_classe_label" class="text-black label">Modifier</label>
-                                                <input type="text" value="{{ $classe->libele }}" name="libele" id="edit_classe_label" class="form-control text-center" style="outline:none;" required> 
+                                                <input type="text" value="{{ $classe->libele }}" name="libele" id="edit_classe_label" class="form-control text-center" style="outline:none;" required>
                                             </form>
                                         </li>
                                         <li class="divider"></li>
@@ -93,14 +94,15 @@
                                                         @method('DELETE')
                                                     </form>
                                                 </a>
-                                        
+
                                         </li>
-                                       
+
                                     </ul>
                                 </div>
                             @endforeach
                         @endforeach
-                        <button class="badge badge-success float-right classe_toggle_form"><i class="fa fa-plus"></i></button>
+                        {{-- Button d'ajout d'une classe --}}
+                        <button class="badge badge-success float-right classe_toggle_form" title="Créer une classe"><i class="fa fa-plus"></i></button>
                         <div class="mt-2 d-none form_add_classe">
                             <form action="{{ route('admin.programs.classes.store') }}" method="post" class="form form_classe" style="width: 100%">
                                 @csrf
@@ -160,7 +162,7 @@
         </div>
         @endforeach
     </div>
-    
+
 
 </section>
 @endsection
