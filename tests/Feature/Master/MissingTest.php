@@ -8,7 +8,8 @@ use App\Models\User;
 class MissingTest extends TestCase
 {
 
-    public function testBlockedMissingPage() {
+    public function testBlockedMissingPage() : void
+    {
         // Etant donné que
         // Je ne suis pas connecté en tant que enseignant
         // quand je vais sur /master/missing
@@ -19,7 +20,8 @@ class MissingTest extends TestCase
         $response->assertRedirect('/master/login');
     }
 
-    public function testAccessMissingPage() {
+    public function testAccessMissingPage() : void
+    {
         // Etant donné que
         // Je suis connecté en tant que enseignant
         $master = $this->getMasterInitialData();
@@ -30,7 +32,8 @@ class MissingTest extends TestCase
         $response->assertOk();
     }
 
-    public function testAccessIfMasterHaventClasse() {
+    public function testAccessIfMasterHaventClasse() : void
+    {
         // Etant donné que
         // Je suis connecté en tant que enseignant qui n'a pas de classe
         $master = User::factory()->create();
@@ -42,7 +45,8 @@ class MissingTest extends TestCase
         $response->assertSessionHas('danger', 'Vous ne disposez pas de classe pour générer une liste d\'absence');
     }
 
-    public function testGenerateMissingListOfDay() {
+    public function testGenerateMissingListOfDay() : void 
+    {
         // Etant donné que je sui connéte en tant que enseigant
         $master = $this->getMasterInitialData();
         $this->loginAsMaster($master);
@@ -53,7 +57,8 @@ class MissingTest extends TestCase
         $response->assertSessionHas('success');
     }
 
-    public function testGenerateMissingListWillGenerateAllStudentOfThisList() {
+    public function testGenerateMissingListWillGenerateAllStudentOfThisList() : void 
+    {
         // Etant donné que je sui connéte en tant que enseigant
         $master = $this->getMasterInitialData();
         $this->loginAsMaster($master);
@@ -81,7 +86,8 @@ class MissingTest extends TestCase
         $this->assertDatabaseCount('missings', 1);
     }
 
-    public function testMarkMissing() {
+    public function testMarkMissing() : void 
+    {
         // Etant donné que j'un list du jour
         $master = $this->getMasterInitialData();
         $this->loginAsMaster($master);

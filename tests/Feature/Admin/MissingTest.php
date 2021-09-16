@@ -17,7 +17,8 @@ class MissingTest extends TestCase
         ]);
     }
 
-    public function testBlockedMissingPageIfNotAuthenticated() {
+    public function testBlockedMissingPageIfNotAuthenticated() : void 
+    {
         // Etant donné que
         // Je ne suis pas connecté en tant que Admin
         // quand je vais sur /admin/classes/{id}/missing
@@ -29,7 +30,8 @@ class MissingTest extends TestCase
         $response->assertRedirect('/admin/login');
     }
 
-    public function testAccessMissingPageIfAuthenticated() {
+    public function testAccessMissingPageIfAuthenticated() : void 
+    {
         // Etant donné que
         // Je suis connecté en tant que admin
         $classe = $this->getClasse();
@@ -40,7 +42,8 @@ class MissingTest extends TestCase
         $response->assertOk();
     }
 
-    public function testMarkMissing() {
+    public function testMarkMissing() : void 
+    {
         // Etant donné que j'un list du jour
             $master = $this->getMasterInitialData();
 
@@ -75,7 +78,8 @@ class MissingTest extends TestCase
         ]);
     }
 
-    public function testDeleteMissingListOnAdmin() {
+    public function testDeleteMissingListOnAdmin() : void 
+    {
         // Etant donné que
         $master = $this->getMasterInitialData();
         

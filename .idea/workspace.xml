@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ce6cb84-a453-4c60-a20f-ffc3c1288a1f" name="Default Changelist" comment="Feat: (Install phpStan from package larastan) buil first refactoring for level 5">
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/Laravel_15_09_2021_17_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/commandlinetools/schemas/frameworkDescriptionVersion1.1.4.xsd" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/programs/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/programs/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/NiveauController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/NiveauController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/NoteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/NoteController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,13 +175,15 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/.env" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -227,7 +231,8 @@
       <workItem from="1609170463226" duration="14473000" />
       <workItem from="1609781306104" duration="8944000" />
       <workItem from="1631718877534" duration="1669000" />
-      <workItem from="1631721710620" duration="2485000" />
+      <workItem from="1631721710620" duration="3637000" />
+      <workItem from="1631725947532" duration="799000" />
     </task>
     <task id="LOCAL-00001" summary="Feat: (Install phpStan from package larastan) buil first refactoring for level 5">
       <created>1609790396545</created>

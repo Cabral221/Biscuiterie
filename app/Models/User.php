@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Qualification;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -91,13 +92,13 @@ class User extends Authenticatable
 
     } 
 
-    public function getFullNameAttribute() 
+    public function getFullNameAttribute() : string
     {
         $kind = $this->kind ? 'Mr.' : 'Mme.';
         return "{$kind} {$this->first_name} {$this->last_name}";    
     }
 
-    public static function getPeriodForHistory(Carbon $created_at)
+    public static function getPeriodForHistory(Carbon $created_at) : string
     {
         if($created_at->month >= 10){
             return $created_at->year . '-' . ($created_at->year + 1);
@@ -106,7 +107,7 @@ class User extends Authenticatable
         }
     }
 
-    public static function current_period()
+    public static function current_period() : iterable
     {
         $period = '';
         $now = Carbon::now();
@@ -140,7 +141,8 @@ class User extends Authenticatable
     }
 
 
-    public function qualifications(){
+    public function qualifications() : BelongsToMany 
+    {
         return $this->belongsToMany(Qualification::class,'user_qualifications');
     }
 }

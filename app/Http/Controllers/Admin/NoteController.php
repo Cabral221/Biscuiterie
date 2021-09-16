@@ -2,30 +2,41 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Classe;
 use App\Models\Domain;
 use App\Models\Student;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 
 class NoteController extends Controller
 {
-    public function index(Classe $classe)
+    /**
+     * @param Classe $classe
+     * @return View
+     */
+    public function index(Classe $classe) : View
     {
         /** @var User */
         $user = $classe->user;
-        
+
         return view('admin.classe.note.index', compact('user', 'classe'));
     }
 
-    public function show(Classe $classe, Student $student)
+    public function show(Classe $classe, Student $student) : View
     {
         $notes = $this->getNotesForBulletin($student->notes);
-        
+
         return view('admin.classe.note.show', compact('student', 'notes'));
     }
 
-    public function getNotesForBulletin($notes)
+    /**
+     * Get Note for Bulletin
+     *
+     * @param Iterable $notes
+     * @return Iterable
+     */    
+    public function getNotesForBulletin(Iterable $notes) : Iterable
     {
         //  A refactoring: faire ma refont du boucle
         $lastDomain = '';

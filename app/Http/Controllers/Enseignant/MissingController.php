@@ -8,12 +8,15 @@ use App\Models\Missing;
 use App\Models\Missinglist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 class MissingController extends Controller
 {
-    public function index()
+    public function index() : View
     {
         $master = auth()->user();
 
@@ -33,7 +36,7 @@ class MissingController extends Controller
         return view('enseignant.missing.index', compact('master', 'missing', 'missings'));
     }
 
-    public function list() 
+    public function list() : View
     {
         /** @var User */
         $master = auth()->user();
@@ -42,7 +45,7 @@ class MissingController extends Controller
         return view('enseignant.missing.list', compact('master', 'missings'));
     }
 
-    public function show(Missing $missing)
+    public function show(Missing $missing) : View
     {
         $master = auth()->user();
         $missings = $master->classe->missings()->orderBy('created_at', 'DESC')->get();
@@ -50,7 +53,7 @@ class MissingController extends Controller
         return view('enseignant.missing.show', compact('missing', 'missings'));
     }
 
-    public function create()
+    public function create() : RedirectResponse
     {
         /** @var User */
         $master = auth()->user();
@@ -68,7 +71,7 @@ class MissingController extends Controller
         return redirect()->back();
     }
 
-    public function mark(Request $request) 
+    public function mark(Request $request) : JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'missing_list_item' => ['required', 'numeric'],

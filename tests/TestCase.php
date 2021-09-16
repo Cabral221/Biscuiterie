@@ -9,6 +9,7 @@ use App\Models\Student;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Auth\Middleware\RequirePassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
 /**
@@ -56,10 +57,12 @@ abstract class TestCase extends BaseTestCase
 
     protected function logout() : void
     {
-        auth()->logout();
+        /** @var Authenticable */
+        $authUser = auth();
+        $authUser->logout();
     }
 
-    public function getMasterInitialData()
+    public function getMasterInitialData() : User
     {
         $master = User::factory()->create();
         $niveau = Niveau::factory()->create();

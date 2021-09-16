@@ -89,7 +89,7 @@ class NoteController extends Controller
         ], 200);
     }
 
-    public function getNotesForBulletin($notes)
+    public function getNotesForBulletin($notes) : iterable
     {
         //  A refactoring: faire ma refont du boucle
         $lastDomain = '';
