@@ -8,6 +8,7 @@ use App\Models\Domain;
 use App\Models\Student;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Collection;
 
 class NoteController extends Controller
 {
@@ -33,10 +34,10 @@ class NoteController extends Controller
     /**
      * Get Note for Bulletin
      *
-     * @param Iterable $notes
-     * @return Iterable
+     * @param Collection $notes
+     * @return Collection
      */    
-    public function getNotesForBulletin(Iterable $notes) : Iterable
+    public function getNotesForBulletin(Collection $notes) : Collection
     {
         //  A refactoring: faire ma refont du boucle
         $lastDomain = '';

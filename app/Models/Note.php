@@ -12,8 +12,10 @@ class Note extends Model
 {
     use HasFactory;
 
+    /** @var array<int, string> $fillable */
     protected $fillable = ['student_id', 'activity_id', 'note1', 'note2', 'note3'];
 
+    /** @var array<int, string> $with */
     protected $with = ['activity'];
 
     public function student() : BelongsTo

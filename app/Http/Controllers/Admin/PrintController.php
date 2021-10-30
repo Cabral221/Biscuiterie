@@ -10,8 +10,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PrintController extends Controller
 {
-    public function classe(int $id) : View
+    /**
+     * Classe function
+     *
+     * @param int $id
+     * @return View
+     */
+    public function classe($id) : View
     {        
+        $id = (int) $id;
         if(!is_int($id)) {
             throw new NotFoundHttpException('Impossible de trouvez la classe');
         } 

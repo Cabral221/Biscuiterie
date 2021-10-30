@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Validator;
 
 class MissingController extends Controller
 {
-    public function index() : View
+    public function index() : object
     {
         $master = auth()->user();
 
@@ -25,6 +25,7 @@ class MissingController extends Controller
             return redirect()->back();
         }
 
+        /** @var Missing $missing */
         $missing = Missing::where('classe_id', $master->classe->id)
         ->whereDate('created_at', Carbon::now())
         ->first();

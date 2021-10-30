@@ -8,10 +8,16 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
+/**
+ * Missing Model class
+ * 
+ * @method HasMany missinglists()
+ */
 class Missing extends Model
 {
     use HasFactory;
 
+    /** @var array<string, string> $casts */
     public $casts = [
         'created_at' => 'datetime',
     ];
@@ -26,9 +32,9 @@ class Missing extends Model
         });
     }
 
-    public function getCreatedAtAttribute($created_at)
+    public function getCreatedAtAttribute(string $created_at) : string
     {
-        return Carbon::createFromDate($created_at)->calendar();
+        return Carbon::parse($created_at)->locale('fr')->calendar();
     }
 
     public function classe() : BelongsTo

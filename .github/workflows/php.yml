@@ -25,15 +25,21 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.3'
+      
       - name: Copy ENV Laravel Configuration for CI
         run: php -r "file_exists('.env') || copy('.env.example', '.env');"
+      
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      
       - name: Install NPM Dependencies
         run: npm install
+      
       - name: Compile Assets
         run: npm run production
+      
       - name: Generate Key
         run: php artisan key:generate
+      
       - name: Execute Tests
-        run: vendor/bin/phpunit
+        run: vendor/bin/phpunit --coverage-text

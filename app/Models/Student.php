@@ -15,6 +15,7 @@ class Student extends Model
 {
     use HasFactory;
 
+    /** @var array<int, string> $fillable */
     public $fillable = [
         'first_name', 'last_name', 'birthday', 'where_birthday', 'address', 'kind', 
         'father_name', 'father_phone', 'father_nin','father_type',
@@ -22,6 +23,7 @@ class Student extends Model
         'classe_id', 'country_id'
     ];
 
+    /** @var array<string, string> $casts */
     public $casts = [
         'birthday' => 'date',
         'kind' => 'boolean',
@@ -29,6 +31,7 @@ class Student extends Model
         'mother_type' => 'boolean'
     ];
 
+    /** @var array<int, string> $with */
     protected $with = ['notes', 'country'];
 
     public CONST DIVIDEUR = 10;
@@ -97,9 +100,9 @@ class Student extends Model
      * @param string $birthday
      * @return string
      */
-    public function getBirthdayAttribute($birthday) : string
+    public function getBirthdayAttribute(string $birthday) : string
     {
-        return Carbon::createFromDate($birthday)->locale('fr')->calendar();
+        return Carbon::parse($birthday)->locale('fr')->calendar();
     }
 
     /**
@@ -131,6 +134,9 @@ class Student extends Model
         return $this->hasMany(Missinglist::class);
     }
 
+    /**
+     * @return array<int, float>
+     */
     public function totalGen() : array
     {
         $sommeNotes1 = null;
@@ -156,6 +162,9 @@ class Student extends Model
         return $sommeDividentes;
     }
 
+    /**
+     * @return array<int, float>
+     */
     public function moy() : array
     {
         $tot = $this->totalGen();

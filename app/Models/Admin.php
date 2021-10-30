@@ -15,7 +15,7 @@ class Admin extends Authenticatable
     /**
      * The attributes that are mass assignable.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $fillable = [
         'full_name',
@@ -29,7 +29,7 @@ class Admin extends Authenticatable
     /**
      * The attributes that should be hidden for arrays.
      *
-     * @var array
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -39,7 +39,7 @@ class Admin extends Authenticatable
     /**
      * The attributes that should be cast to native types.
      *
-     * @var array
+     * @var array<string, string>
      */
     protected $casts = [
         'is_active' => 'bool',
@@ -52,7 +52,7 @@ class Admin extends Authenticatable
      * @param string $token
      * @return void
      */
-    public function sendPasswordResetNotification($token)
+    public function sendPasswordResetNotification($token) : void
     {
         $this->notify(new AdminResetPasswordNotification($token));
     }

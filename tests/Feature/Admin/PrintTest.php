@@ -27,6 +27,8 @@ class PrintTest extends TestCase
         $response = $this->get("/admin/print/classe/" . $classe->id);
         // Alors
         // Ca doit etre disponible
+
+        // dd($response->getContent());
         $response->assertSuccessful();
     }
 
@@ -64,6 +66,7 @@ class PrintTest extends TestCase
         $response = $this->get("/admin/print/classe/" . 'azeazeaze');
         // Alors
         // Ca doit etre indisponible
+        // dd($response->getContent());
         $response->assertStatus(404);
     }
 

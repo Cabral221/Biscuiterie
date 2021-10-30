@@ -4,6 +4,8 @@ namespace Test\Feature\Master;
 
 use Tests\TestCase;
 use App\Models\User;
+use App\Models\Missing;
+use App\Models\Missinglist;
 
 class MissingTest extends TestCase
 {
@@ -94,8 +96,10 @@ class MissingTest extends TestCase
         $this->get('/master/missing/create');
 
         // Quand je marque un eleve abscent
-        $ListDay = $master->fresh()->classe->missings()->first();
-        $studentMark = $ListDay->missinglists()->first();
+        /** @var Missing $listDay */
+        $listDay = $master->fresh()->classe->missings()->first();
+        /** @var Missinglist $studentMark */
+        $studentMark = $listDay->missinglists()->first();
         $response = $this->json('POST','/master/missing/mark',[
             'missing_list_item' => $studentMark->id,
         ]);
@@ -118,15 +122,17 @@ class MissingTest extends TestCase
         $this->get('/master/missing/create');
 
         // Quand je marque un eleve abscent
-        $ListDay = $master->fresh()->classe->missings()->first();
-        $studentMark = $ListDay->missinglists()->first();
+        /** @var Missing $listDay */
+        $listDay = $master->fresh()->classe->missings()->first();
+        /** @var Missinglist $studentMark */
+        $studentMark = $listDay->missinglists()->first();
         $response = $this->json('POST','/master/missing/mark',[
             'missing_list_item' => $studentMark->id,
         ]);
 
         // Alors il doit etre marqué en base de données
         $response->assertSuccessful();
-        $this->assertEquals(1, $ListDay->fresh()->missing_count);
+        $this->assertEquals(1, $listDay->fresh()->missing_count);
         $this->assertDatabaseHas('missinglists', [
             'id' => $studentMark->id,
             'missing' => true,
@@ -142,15 +148,17 @@ class MissingTest extends TestCase
         $this->get('/master/missing/create');
 
         // Quand je marque un eleve abscent
-        $ListDay = $master->fresh()->classe->missings()->first();
-        $studentMark = $ListDay->missinglists()->first();
+        /** @var Missing $listDay */
+        $listDay = $master->fresh()->classe->missings()->first();
+        /** @var Missinglist $studentMark */
+        $studentMark = $listDay->missinglists()->first();
     
         $response = $this->json('POST','/master/missing/mark',[
             'missing_list_item' => $studentMark->id,
         ]);
 
         $response->assertSuccessful();
-        $this->assertEquals(1, $ListDay->fresh()->missing_count);
+        $this->assertEquals(1, $listDay->fresh()->missing_count);
 
         $response2 = $this->json('POST','/master/missing/mark',[
             'missing_list_item' => $studentMark->id,
@@ -158,7 +166,7 @@ class MissingTest extends TestCase
 
         // Alors il doit etre marqué en base de données
         $response2->assertSuccessful();
-        $this->assertEquals(0, $ListDay->fresh()->missing_count);
+        $this->assertEquals(0, $listDay->fresh()->missing_count);
         $this->assertDatabaseHas('missinglists', [
             'id' => $studentMark->id,
             'missing' => false,
