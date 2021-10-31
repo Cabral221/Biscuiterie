@@ -6,12 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Missing List Class
+ * 
+ * @property int $id
+ */
 class Missinglist extends Model
 {
     use HasFactory;
 
+    /** @var array<int, string> $fillable */
     protected $fillable = ['student_id', 'missing'];
 
+    /** @var array<string, string> $casts */
     public $casts = [
         'missing' => 'boolean',
     ];

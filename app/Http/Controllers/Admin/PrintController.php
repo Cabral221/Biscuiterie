@@ -5,14 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Classe;
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PrintController extends Controller
 {
-    public function classe($id)
-    {
+    /**
+     * Classe function
+     *
+     * @param int $id
+     * @return View
+     */
+    public function classe($id) : View
+    {        
         $id = (int) $id;
-        
         if(!is_int($id)) {
             throw new NotFoundHttpException('Impossible de trouvez la classe');
         } 
@@ -28,7 +34,7 @@ class PrintController extends Controller
         return view('print.classe', compact('classe', 'students'));
     }
 
-    public function master()
+    public function master() : View
     {
         $masters = User::current_period();
 

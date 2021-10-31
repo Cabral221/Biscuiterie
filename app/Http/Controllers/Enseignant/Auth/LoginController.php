@@ -55,12 +55,12 @@ class LoginController extends Controller
      * Attempt to log the user into the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return bool
+     * @return bool|null
      */
-    public function attemptLogin(Request $request)
+    public function attemptLogin(Request $request) : ?bool
     {
         $user = User::where($this->username(), $request->email)->first();
-        if($user == null) return ;
+        if($user == null) return null;
 
         if($user->classe === null){
             $this->sendFailedLoginResponseByActivate();
@@ -74,12 +74,10 @@ class LoginController extends Controller
     /**
      * Get the failed login response instance.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
+     * @return  void
      * @throws \Illuminate\Validation\ValidationException
      */
-    protected function sendFailedLoginResponseByActivate()
+    protected function sendFailedLoginResponseByActivate() : void
     {
         throw ValidationException::withMessages([
             $this->username() => 'Vous ne disposez pas de classe pour vous connecter !',

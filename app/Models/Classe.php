@@ -44,6 +44,9 @@ class Classe extends Model
         return $this->hasMany(Missing::class);
     }
 
+    /**
+     * @return array<mixed, mixed>
+     */
     public function getAllMoy() : array 
     {
         $students = $this->students;

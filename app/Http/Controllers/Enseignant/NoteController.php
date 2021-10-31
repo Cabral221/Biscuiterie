@@ -12,6 +12,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Domain;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
@@ -71,6 +72,7 @@ class NoteController extends Controller
         $classe = $student->classe;
         /** @var Student */
         $user = $classe->user;
+
         /** @var User */
         $auth = auth()->user();
         
@@ -89,7 +91,7 @@ class NoteController extends Controller
         ], 200);
     }
 
-    public function getNotesForBulletin($notes)
+    public function getNotesForBulletin(Collection $notes) : Collection
     {
         //  A refactoring: faire ma refont du boucle
         $lastDomain = '';

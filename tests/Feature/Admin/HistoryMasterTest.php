@@ -28,7 +28,7 @@ class HistoryMasterTest extends TestCase
     {
         // Etant donnée qu'on crée un enseignant
         $master = User::factory()->create(['email' => 'test@history.com']);
-        $count_history = History_user::all()->count();
+        $count_history = History_user::count();
         // Quand on modifie les données de l'enseignant
         $master->update([
             'email' => 'testedit@history.com',
@@ -40,12 +40,12 @@ class HistoryMasterTest extends TestCase
         $h_master = History_user::where('original_id', $master->id)->latest()->first();
         // dd($h_master->getAttributes());
         $this->assertEquals('testedit@history.com', $h_master->email);
-        $this->assertEquals($count_history, History_user::all()->count());
+        $this->assertEquals($count_history, History_user::count());
     }
 
     // Tester l'attribution des period (annee scolaire)
     /** @test */
-    public function attribute_right_period_with_first_three_month()
+    public function attribute_right_period_with_first_three_month() : void
     {
         // Etant donner que je suis connecter en tant que admin
         $user = User::factory()->create([
@@ -59,7 +59,7 @@ class HistoryMasterTest extends TestCase
     }
 
     /** @test */
-    public function attribute_right_period()
+    public function attribute_right_period() : void
     {
         // Etant donner que je suis connecter en tant que admin
         $user = User::factory()->create([

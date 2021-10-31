@@ -4,11 +4,18 @@ namespace App\Http\Controllers\Enseignant;
 
 use App\Models\Classe;
 use App\Http\Controllers\Controller;
+use Illuminate\View\View;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class PrintController extends Controller
 {
-    public function classe($id)
+    /**
+     * classe fonction
+     *
+     * @param int $id
+     * @return View
+     */
+    public function classe($id) : View
     {
         $id = (int) $id;
         

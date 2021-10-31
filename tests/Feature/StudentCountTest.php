@@ -104,7 +104,7 @@ class StudentCountTest extends TestCase
 
         // Quand il supprime un eleve garçon
         $master = $this->getMasterInitialData();
-        $master->classe->students()->create(Student::factory()->make(['kind' => true])->toArray());
+        $master->classe->students()->save(Student::factory()->make(['kind' => true]));
         /** @var Student */
         $student = Student::where('kind', true)->first();
         /** @var Classe */
@@ -163,7 +163,7 @@ class StudentCountTest extends TestCase
 
         // Quand il supprime un eleve fille
         $master = $this->getMasterInitialData();
-        $master->classe->students()->create(Student::factory()->make(['kind' => false])->toArray());
+        $master->classe->students()->save(Student::factory()->make(['kind' => false]));
         /** @var Student */
         $student = Student::where('kind', false)->first();
         /** @var Classe */

@@ -24,7 +24,14 @@ class Authenticate extends Middleware
         return null;
     }
 
-    protected function unauthenticated($request, array $guards)
+    /**
+     * @param Request $request
+     * @param array<int, string> $guards
+     *
+     * @throws AuthenticationException
+     * @return void
+     */
+    protected function unauthenticated($request, array $guards) : void
     {
         if ($guards[0] == 'admin') {
             $route = route('admin.login');

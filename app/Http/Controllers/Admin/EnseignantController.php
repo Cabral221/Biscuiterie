@@ -113,9 +113,9 @@ class EnseignantController extends Controller
      *
      * @param Request $request
      * @param integer $id
-     * @return Array[string]
+     * @return array<string, string>
      */
-    private function validateAllUniques(Request $request, int $id) : Array
+    private function validateAllUniques(Request $request, int $id) : array
     {
         $errorsMessages = [];
         // Validate unique email whitout self

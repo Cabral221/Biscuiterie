@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'diattadaoudasane@gmail.com',
             'is_admin' => true
         ]);
-            
+
         $programs = [
             'CI-CP'     => ['CI', 'CP'],
             'CE1-CE2'   => ['CE1', 'CE2'],
@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
                     'Education Religieuse'          => 10,
                 ],
                 'default' => [
-                    'Recit / Chant'                 => 10, 
+                    'Recit / Chant'                 => 10,
                     'Arabe'                         => 10,
                 ],
             ],
@@ -119,7 +119,7 @@ class DatabaseSeeder extends Seeder
                     'Education Religieuse'          => 10,
                 ],
                 'default' => [
-                    'Recit / Chant'                 => 10, 
+                    'Recit / Chant'                 => 10,
                     'Arabe'                         => 10,
                 ],
             ],
@@ -148,7 +148,7 @@ class DatabaseSeeder extends Seeder
                 ],
             ]
         ];
-        
+
         // $profs = [];
         // $profs = User::factory(11)->create();
         // $profs[] = User::factory(1)->create([
@@ -191,7 +191,7 @@ class DatabaseSeeder extends Seeder
                 // ]);
                 // foreach ($cls as  $cl) {
                 //     $students = Student::factory(20)->make();
-                //     foreach ($students as $student) {   
+                //     foreach ($students as $student) {
                 //         // $cl->students()->create($student);
                 //         $student->classe_id = $cl->id;
                 //         Student::create($student->getAttributes());

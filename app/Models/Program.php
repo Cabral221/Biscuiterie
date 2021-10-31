@@ -24,6 +24,9 @@ class Program extends Model
         return $this->hasMany(Domain::class);
     }
 
+    /**
+     * @return array<int, array>
+     */
     public function getActivities() : array
     {
         $activities = [];

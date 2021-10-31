@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Niveau;
 use Illuminate\Support\Facades\Response;
@@ -10,7 +11,11 @@ use Illuminate\Support\Facades\Validator;
 
 class NiveauController extends Controller
 {
-    public function store(Request $request)
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function store(Request $request) : JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'libele' => ['required', 'string', 'min:2', 'max:10','unique:niveaux,libele'],
@@ -23,10 +28,9 @@ class NiveauController extends Controller
 
         $niveau = Niveau::create([
             'libele' => $request->libele,
-            'program_id' => $request->program_id,   
+            'program_id' => $request->program_id,
         ]);
 
         return Response::json($niveau->getAttributes(), 200);
-        
     }
 }
